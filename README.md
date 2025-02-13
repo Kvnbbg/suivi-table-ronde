@@ -1,5 +1,8 @@
 # suivi-table-ronde
 
+[![Description de l'image](https://raw.githubusercontent.com/Kvnbbg/suivi-table-ronde/main/image.png)](https://raw.githubusercontent.com/Kvnbbg/suivi-table-ronde/main/image.png)
+
+
 **Outil de gestion des tâches pour préparer et suivre la table ronde**
 
 Ce projet interactif est une application web avancée conçue pour offrir une expérience utilisateur immersive et ludique. Inspiré par une esthétique moderne et chaleureuse, cet outil combine la gestion des tâches, une calculatrice mathématique, un bureau virtuel interactif et une gamification intelligente pour vous aider à organiser vos projets et à explorer des fonctionnalités innovantes.
