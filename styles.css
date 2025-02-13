@@ -1,0 +1,109 @@
+/* General Styles */
+body {
+    font-family: 'San Francisco', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #121212;
+    color: #ffffff;
+    text-align: center;
+}
+
+/* Header */
+header {
+    background: #007aff;
+    color: white;
+    padding: 20px;
+    font-size: 2rem;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Toggle Button */
+.toggle-btn {
+    padding: 10px 15px;
+    font-size: 1rem;
+    border: none;
+    background: #ffaa00;
+    color: black;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.toggle-btn:hover {
+    background: #ff8800;
+}
+
+/* Coffee Button */
+.coffee-btn {
+    display: block;
+    width: 80%;
+    max-width: 400px;
+    padding: 15px;
+    margin: 20px auto;
+    font-size: 1.2rem;
+    border: none;
+    background: #654321;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.coffee-btn:hover {
+    background: #543210;
+}
+
+/* Feedback Form */
+.feedback-container {
+    background: white;
+    margin: 20px auto;
+    padding: 30px;
+    border-radius: 12px;
+    width: 95%;
+    max-width: 800px;
+    color: #000;
+    text-align: center;
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.3);
+}
+
+input, textarea {
+    width: 90%;
+    max-width: 600px;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.submit-btn, .save-btn {
+    padding: 12px 15px;
+    font-size: 1.2rem;
+    border: none;
+    background: #28a745;
+    color: white;
+    cursor: pointer;
+}
+
+.submit-btn:hover {
+    background: #218838;
+}
+
+.save-btn {
+    background: #0073e6;
+}
+
+.save-btn:hover {
+    background: #005bb5;
+}
+
+/* Confirmation Animation */
+.hidden {
+    display: none;
+}
+
+#confirmation-animation {
+    margin-top: 20px;
+    font-size: 1.5rem;
+    color: green;
+}
