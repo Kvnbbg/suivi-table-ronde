@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Application interactive Bubble Room avec traduction et formulaire de feedback.">
+    <title>Bubble Room - Espace Interactif</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+    <header>
+        <h1 id="main-title">Bubble Room - Espace Interactif</h1>
+        <button id="toggle-lang" class="toggle-btn" onclick="toggleLanguage()">🌍 Switch Language</button>
+    </header>
+
+    <main>
+        <section class="recipe-container">
+            <h2 id="instructions-title">Suivez votre parcours étape par étape</h2>
+            <p>Découvrez chaque action symbolisée par une interaction. Accessible pour tous les utilisateurs.</p>
+
+            <button class="recipe-btn" onclick="openMasterModal()">🎛️ Ouvrir le Panneau de Contrôle</button>
+            <button class="recipe-btn" onclick="window.open('https://bsky.app/profile/kvnbbg.bsky.social', '_blank')">🔗 Suivez-moi sur Bluesky</button>
+            <button class="coffee-btn" onclick="openIndex()">☕ Retour à l'accueil</button>
+        </section>
+
+        <!-- Feedback Form -->
+        <section class="feedback-container">
+            <h2>Envoyez-nous vos retours</h2>
+            <form id="feedbackForm">
+                <label for="name">Nom :</label>
+                <input type="text" id="name" required autofocus>
+
+                <label for="email">Email :</label>
+                <input type="email" id="email" required>
+
+                <label for="message">Message :</label>
+                <textarea id="message" required></textarea>
+
+                <button type="submit" class="submit-btn">📨 Envoyer Feedback</button>
+                <button type="button" class="save-btn" onclick="saveFeedback()">💾 Sauvegarder</button>
+            </form>
+
+            <div id="confirmation-animation" class="hidden">✅ Message envoyé avec succès !</div>
+        </section>
+    </main>
+
+    <!-- Master Control Modal -->
+    <div id="masterModal" class="modal" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <h2>Panneau de Contrôle</h2>
+            <p>Bienvenue dans votre espace interactif. Faites votre choix :</p>
+            
+            <button class="option-btn" onclick="window.open('https://kvnbbg.my.canva.site/eager-ester', '_blank')">🔍 Indice Eager Ester</button>
+            <button class="option-btn" onclick="focusNotepad()">💳 Simuler un Paiement Stripe</button>
+            <button class="option-btn" onclick="window.open('https://ko-fi.com/kevinmarville', '_blank')">☕ Soutenez-moi sur Ko‑fi</button>
+            
+            <br><br>
+            <button class="option-btn close-btn" onclick="closeMasterModal()">❌ Fermer</button>
+        </div>
+    </div>
+
+</body>
+</html>
