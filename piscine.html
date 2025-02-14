@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Magie des Piscines - Histoire & Expérience Interactive</title>
+
+    <!-- External Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <style>
+        /* GENERAL STYLES */
+        body {
+            font-family: 'Georgia', serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e3f2fd;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        /* HEADER & NAVIGATION */
+        header {
+            background: linear-gradient(135deg, #01579b, #4fc3f7);
+            color: white;
+            padding: 20px;
+            font-size: 1.8em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        nav {
+            background: #0288d1;
+            padding: 12px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2em;
+            margin: 10px;
+            transition: opacity 0.3s ease;
+        }
+
+        nav a:hover {
+            opacity: 0.7;
+        }
+
+        /* CONTENT */
+        .content {
+            padding: 30px;
+            text-align: left;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        h2 {
+            color: #0277bd;
+            font-style: italic;
+            text-align: center;
+        }
+
+        p {
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        /* INTERACTIVE ENGINE */
+        .card {
+            background: white;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .file-btn {
+            background: #0288d1;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: transform 0.2s ease;
+        }
+
+        .file-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .file-log {
+            margin-top: 10px;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #01579b;
+        }
+
+        /* INTERACTIVE FOLDERS */
+        .folder {
+            cursor: pointer;
+            font-size: 1.2em;
+            padding: 10px;
+            background: #b3e5fc;
+            border-radius: 5px;
+            margin: 10px 0;
+            transition: background 0.3s ease;
+        }
+
+        .folder:hover {
+            background: #81d4fa;
+        }
+
+        .folder-content {
+            display: none;
+            padding: 15px;
+            border-left: 4px solid #0288d1;
+            margin-top: 5px;
+            background: #e1f5fe;
+            border-radius: 5px;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #01579b;
+            color: white;
+            padding: 20px;
+            margin-top: 40px;
+            font-size: 1em;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>🏊 La Magie des Piscines - Expérience Interactive</header>
+
+    <nav>
+        <a href="#">Accueil</a>
+        <a href="#">Histoire</a>
+        <a href="#">Conseils</a>
+        <a href="#">Explorer</a>
+    </nav>
+
+    <div class="content">
+        <h2>📁 Gestion Interactive des Piscines</h2>
+
+        <!-- File Management System -->
+        <div class="card">
+            <h2>🏗️ Gestion des Données Piscine</h2>
+            <div style="text-align:center;">
+                <button class="file-btn" onclick="fileAction('Ouvrir')">📂 Ouvrir</button>
+                <button class="file-btn" onclick="fileAction('Organiser')">📑 Organiser</button>
+                <button class="file-btn" onclick="fileAction('Nettoyer')">🧼 Nettoyer</button>
+                <button class="file-btn" onclick="fileAction('Effacer')">🗑️ Effacer</button>
+                <button class="file-btn" onclick="fileAction('Masquer')">👁️ Masquer</button>
+                <button class="file-btn" onclick="fileAction('Archiver')">📦 Archiver</button>
+            </div>
+            <div id="fileLog" class="file-log"></div>
+        </div>
+
+        <!-- Interactive Data Folders -->
+        <h2>🔍 Explorer l'Univers Aquatique</h2>
+        <div class="card">
+            <div class="folder" onclick="toggleFolder('folderAlgo')">📁 Dessins Aquatiques</div>
+            <div id="folderAlgo" class="folder-content">
+                <p>Plongez dans un monde d'œuvres inspirées par la fluidité et la beauté de l'eau.</p>
+            </div>
+
+            <div class="folder" onclick="toggleFolder('folderText')">📁 Histoires & Légendes</div>
+            <div id="folderText" class="folder-content">
+                <p>Des récits fascinants sur les mers perdues et les piscines enchantées des temps anciens.</p>
+            </div>
+
+            <div class="folder" onclick="toggleFolder('folderBooks')">📁 Science des Océans</div>
+            <div id="folderBooks" class="folder-content">
+                <p>Découvrez comment l'eau façonne notre planète, nos vies et notre imaginaire.</p>
+            </div>
+
+            <div class="folder" onclick="toggleFolder('folderAudio')">📁 Musiques Fluides</div>
+            <div id="folderAudio" class="folder-content">
+                <p>Des mélodies inspirées du mouvement des vagues et du chant des dauphins.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        © 2025 La Magie des Piscines - Expérience interactive conçue pour les explorateurs de l'eau.
+    </footer>
+
+    <!-- JavaScript for Interactivity -->
+    <script>
+        function fileAction(action) {
+            const messages = {
+                "Ouvrir": "📂 Vous avez ouvert les archives aquatiques.",
+                "Organiser": "📑 Classement des courants marins en cours...",
+                "Nettoyer": "🧼 Purification de l'eau cristalline en action !",
+                "Effacer": "🗑️ Suppression des vagues inutiles...",
+                "Masquer": "👁️ L'information est cachée sous l'écume...",
+                "Archiver": "📦 Sauvegarde des mémoires océaniques."
+            };
+            document.getElementById("fileLog").innerHTML = messages[action] || "Action inconnue.";
+        }
+
+        function toggleFolder(folderId) {
+            let folder = document.getElementById(folderId);
+            let isVisible = folder.style.display === "block";
+            folder.style.display = isVisible ? "none" : "block";
+            gsap.fromTo(folder, { opacity: 0 }, { opacity: 1, duration: 0.5 });
+        }
+    </script>
+
+</body>
+</html>
