@@ -456,19 +456,22 @@
   <!-- Master Control Modal -->
   <div id="masterModal" class="modal master-modal">
     <div class="modal-content master-content">
-      <h2>Master Control Panel</h2>
+      <h2>Le Panel</h2>
       <p>
         Bienvenue dans votre espace interactif magique ! Choisissez l'exercice qui vous inspire aujourd'hui :
       </p>
       <button class="option-btn" onclick="window.open('https://kvnbbg.my.canva.site/eager-ester', '_blank')">
-        Accéder à l'Eager Ester Hint
+        Accéder à la Saint Valentin
       </button>
       <button class="option-btn" onclick="focusNotepad()">
-        Ouvrir Notepad &amp; Simuler le Paiement de Taxe Stripe
+        Ouvrir Mémo
       </button>
-      <button class="option-btn" onclick="window.open('https://ko-fi.com/kevinmarville', '_blank')">
-        Soutenez-moi sur Ko‑fi
+      <button class="option-btn" onclick="window.open('/waterRoom.html', '_blank')">
+        Suivant
       </button>
+       <!-- <button class="option-btn" onclick="window.open('https://ko-fi.com/kevinmarville', '_blank')">
+        Soutenez-nous sur Ko‑fi
+      </button> -->
       <br><br>
       <button class="option-btn" onclick="closeMasterModal()">Fermer</button>
     </div>
@@ -632,57 +635,6 @@
     </div>
 
     
-    <!-- Gestion de Fichiers -->
-    <div class="card">
-      <h2>Gestion de Fichiers</h2>
-      <div style="text-align:center;">
-        <button class="file-btn" onclick="fileAction('Ouvrir')">Ouvrir</button>
-        <button class="file-btn" onclick="fileAction('Organiser')">Organiser</button>
-        <button class="file-btn" onclick="fileAction('Nettoyer')">Nettoyer</button>
-        <button class="file-btn" onclick="fileAction('Effacer')">Effacer</button>
-        <button class="file-btn" onclick="fileAction('Masquer')">Masquer</button>
-        <button class="file-btn" onclick="fileAction('Archiver')">Archiver</button>
-      </div>
-      <div id="fileLog"></div>
-    </div>
-
- <!-- Données Diverses -->
-<div class="card">
-  <h2>Données Diverses</h2>
-  
-  <div class="folder" onclick="toggleFolder('folderAlgo')">📁 Dessins</div>
-  <div id="folderAlgo" class="folder-content">
-    <p>
-      Bienvenue, artiste intrépide ! Ces dessins sont des quêtes épiques tracées par le pinceau du destin.<br>
-      Prépare-toi à explorer des doodles magiques dignes des plus grandes légendes !
-    </p>
-  </div>
-  
-  <div class="folder" onclick="toggleFolder('folderText')">📁 Mémos</div>
-  <div id="folderText" class="folder-content">
-    <p>
-      Salut, stratège ! Ces mémos renferment des astuces secrètes et des plans machiavéliques pour conquérir l'univers... ou du moins, ton prochain niveau.<br>
-      Attention aux pièges de l'oubli !
-    </p>
-  </div>
-  
-  <div class="folder" onclick="toggleFolder('folderBooks')">📁 Bouquins</div>
-  <div id="folderBooks" class="folder-content">
-    <p>
-      Chevalier de la lecture, prends ton épée (ou ta loupe) et plonge dans ces bouquins légendaires !<br>
-      Chaque page est une aventure où savoir rime avec bravoure... et parfois un soupçon d'humour !
-    </p>
-  </div>
-  
-  <div class="folder" onclick="toggleFolder('folderAudio')">📁 Musiques</div>
-  <div id="folderAudio" class="folder-content">
-    <p>
-      Prépare tes oreilles, aventurier musical ! Ces morceaux envoûtants transformeront n'importe quelle quête en une danse épique.<br>
-      N'hésite pas à bouger, même les boss les plus coriaces ne résistent pas à un bon beat !
-    </p>
-  </div>
-</div>
-
 
     <!-- Contact & Collaboration Card -->
     <div class="card" id="contactCard">
@@ -717,7 +669,7 @@
       </p>
     </div>
 
-    <!-- Suivez-moi sur Meta (Optional Additional Links) -->
+    <!-- Suivez-moi sur Meta (Optional Additional Links) 
     <div class="card">
       <h2>Restez Connecté</h2>
       <p>Découvrez nos plugins VR/AR et suivez mes actualités :</p>
@@ -725,7 +677,7 @@
         <a href="https://kvnbbg-creations.io" target="_blank" class="file-btn" style="margin:5px;">CREATIONS</a>
         <a href="https://kvnbbg.fr" target="_blank" class="file-btn" style="margin:5px;">KVNBBG.FR</a>
       </div>
-    </div>
+    </div>-->
 
     <!-- Virtual Desktop -->
     <div class="card">
@@ -739,17 +691,17 @@
             <br>
             <button class="file-btn" onclick="saveNotes()">Sauvegarder</button>
           </div>
-          <div class="window-footer">Attrape 👌</div>
+          <div class="window-footer">Attrape</div>
         </div>
         <!-- Virtual File Viewer Window -->
         <div class="window" id="fileViewerWindow" style="top: 160px; left: 320px;">
-          <div class="window-header">Virtual Friend Files Viewer</div>
+          <div class="window-header">Zoom</div>
           <div class="window-content">
             <p>Ici, vous pouvez visualiser vos données virtuelles.</p>
             <button class="file-btn" onclick="openVirtualFile()">Ouvrir Fichier</button>
             <div id="virtualFileContent" style="margin-top:10px; font-size:0.9rem;"></div>
           </div>
-          <div class="window-footer">Attrape 👌</div>
+          <div class="window-footer">Attrape</div>
         </div>
       </div>
     </div>
