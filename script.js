@@ -1,49 +1,98 @@
-function openMasterModal() {
-    document.getElementById('masterModal').style.display = 'flex';
-}
+document.addEventListener("DOMContentLoaded", function () {
+    // Caching DOM elements for performance
+    const masterModal = document.getElementById("masterModal");
+    const feedbackForm = document.getElementById("feedbackForm");
+    const confirmationAnimation = document.getElementById("confirmation-animation");
+    const toggleLangBtn = document.getElementById("toggle-lang");
 
-function closeMasterModal() {
-    document.getElementById('masterModal').style.display = 'none';
-}
-
-function openIndex() {
-    window.open("index.html", "_blank");
-    alert("^_^ I appreciate the suggestion!");
-}
-
-// Toggle Language
-function toggleLanguage() {
-    const lang = document.documentElement.lang;
-    document.documentElement.lang = lang === "fr" ? "en" : "fr";
-    document.getElementById("toggle-lang").textContent = lang === "fr" ? "🌍 Passer en Français" : "🌍 Switch to English";
-}
-
-// Handle Feedback Submission
-document.getElementById("feedbackForm").addEventListener("submit", function (event) {
-    event.preventDefault();
-    
-    const name = document.getElementById("name").value;
-    const email = document.getElementById("email").value;
-    const message = document.getElementById("message").value;
-
-    if (!name || !email || !message) {
-        alert("Veuillez remplir tous les champs.");
-        return;
+    // Safe function execution wrapper
+    function safeExecute(func, alternative = null) {
+        try {
+            func();
+        } catch (error) {
+            console.error("Error executing function:", error);
+            if (alternative) alternative();
+        }
     }
 
-    const mailtoLink = `mailto:kevinmarville@gmail.com?subject=Feedback from ${name}&body=${message}%0D%0A%0D%0AEmail: ${email}`;
-    
-    window.location.href = mailtoLink;
+    // Open Master Modal with error handling
+    window.openMasterModal = function () {
+        safeExecute(() => {
+            if (masterModal) {
+                masterModal.style.display = "flex";
+            } else {
+                console.warn("Modal not found.");
+            }
+        });
+    };
 
-    document.getElementById("confirmation-animation").classList.remove("hidden");
-    setTimeout(() => {
-        document.getElementById("confirmation-animation").classList.add("hidden");
-    }, 3000);
+    // Close Master Modal
+    window.closeMasterModal = function () {
+        safeExecute(() => {
+            if (masterModal) {
+                masterModal.style.display = "none";
+            }
+        });
+    };
+
+    // Open Index Page with alternative alert
+    window.openIndex = function () {
+        safeExecute(
+            () => window.open("index.html", "_blank"),
+            () => alert("^_^ I appreciate the suggestion!")
+        );
+    };
+
+    // Toggle Language with proper UI updates
+    window.toggleLanguage = function () {
+        const currentLang = document.documentElement.lang;
+        const newLang = currentLang === "fr" ? "en" : "fr";
+        document.documentElement.lang = newLang;
+        if (toggleLangBtn) {
+            toggleLangBtn.textContent =
+                newLang === "fr" ? "🌍 Passer en Français" : "🌍 Switch to English";
+        }
+    };
+
+    // Feedback Form Submission with input validation
+    if (feedbackForm) {
+        feedbackForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const name = document.getElementById("name")?.value.trim();
+            const email = document.getElementById("email")?.value.trim();
+            const message = document.getElementById("message")?.value.trim();
+
+            if (!name || !email || !message) {
+                alert("Veuillez remplir tous les champs.");
+                return;
+            }
+
+            const mailtoLink = `mailto:kevinmarville@gmail.com?subject=Feedback from ${name}&body=${encodeURIComponent(message)}%0D%0A%0D%0AEmail: ${email}`;
+            window.location.href = mailtoLink;
+
+            if (confirmationAnimation) {
+                confirmationAnimation.classList.remove("hidden");
+                setTimeout(() => confirmationAnimation.classList.add("hidden"), 3000);
+            }
+        });
+    }
+
+    // Save Feedback Locally with error handling
+    window.saveFeedback = function () {
+        safeExecute(() => {
+            const message = document.getElementById("message")?.value.trim();
+            if (message) {
+                localStorage.setItem("savedFeedback", message);
+                alert("💾 Feedback sauvegardé !");
+            } else {
+                alert("Veuillez entrer un message.");
+            }
+        });
+    };
+
+    // Ensure elements exist before attaching event listeners
+    if (toggleLangBtn) {
+        toggleLangBtn.addEventListener("click", toggleLanguage);
+    }
 });
-
-// Save Feedback Locally
-function saveFeedback() {
-    const message = document.getElementById("message").value;
-    localStorage.setItem("savedFeedback", message);
-    alert("💾 Feedback sauvegardé !");
-}
