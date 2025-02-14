@@ -466,12 +466,11 @@
       <button class="option-btn" onclick="focusNotepad()">
         Ouvrir Mémo
       </button>
-     <button class="option-btn" id="nextBtn">Suivant</button>
+<button class="option-btn" id="nextBtn">Suivant</button>
 
 <script>
   document.getElementById('nextBtn').addEventListener('click', function() {
-    const url = `${location.origin}${location.pathname.replace(/\/[^/]*$/, '/') + 'waterRoom.html'}`;
-    window.open(url, '_blank', 'noopener,noreferrer');
+    window.location.assign('waterRoom.html'); // Ensures navigation within the same repo
   });
 </script>
        <!-- <button class="option-btn" onclick="window.open('https://ko-fi.com/kevinmarville', '_blank')">
