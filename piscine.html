@@ -135,22 +135,27 @@
     </style>
 </head>
 <body>
-
+  <!-- Navigation Bar -->
+    <nav class="navbar">
+        <a href="index.html" class="nav-link">⬅️ Retour</a>
+        <a href="bubbleRoom.html" class="nav-link">➡️ Suivant</a>
+        <button id="toggle-lang" class="file-btn" onclick="toggleLanguage()">🌍 Langue</button>
+    </nav>
     <header>🏊 La Magie des Piscines - Expérience Interactive</header>
-
+<!--
     <nav>
         <a href="#">Accueil</a>
         <a href="#">Histoire</a>
         <a href="#">Conseils</a>
         <a href="#">Explorer</a>
     </nav>
-
+-->
     <div class="content">
-        <h2>📁 Gestion Interactive des Piscines</h2>
+        <h2>📁 Gestion Interactive</h2>
 
         <!-- File Management System -->
         <div class="card">
-            <h2>🏗️ Gestion des Données Piscine</h2>
+            <h2>🏗️ Gestion</h2>
             <div style="text-align:center;">
                 <button class="file-btn" onclick="fileAction('Ouvrir')">📂 Ouvrir</button>
                 <button class="file-btn" onclick="fileAction('Organiser')">📑 Organiser</button>
@@ -163,9 +168,9 @@
         </div>
 
         <!-- Interactive Data Folders -->
-        <h2>🔍 Explorer l'Univers Aquatique</h2>
+        <h2>🔍 Explorer l'Univers</h2>
         <div class="card">
-            <div class="folder" onclick="toggleFolder('folderAlgo')">📁 Dessins Aquatiques</div>
+            <div class="folder" onclick="toggleFolder('folderAlgo')">📁 Dessins</div>
             <div id="folderAlgo" class="folder-content">
                 <p>Plongez dans un monde d'œuvres inspirées par la fluidité et la beauté de l'eau.</p>
             </div>
