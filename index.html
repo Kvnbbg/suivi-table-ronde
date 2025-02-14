@@ -627,138 +627,11 @@
     <div class="card">
       <h2>Nouvelles Solutions ❤️</h2>
       <p>
-        Nous proposons des solutions logicielles innovantes, notamment des applications Flutter et des outils numériques, permettant aux utilisateurs de tester les logiciels, d’ajouter des mentions J’aime, de commenter et de publier du contenu. Les paiements sont débités au moment de l'achat pour un accès immédiat aux services.
+        Nous proposons des solutions logicielles innovantes, notamment des applications Format Famille. .
       </p>
     </div>
 
-    <!-- Jeu des Pièces: Gamification des Opérations Monétaires -->
-     <style>
-    /* Conteneur principal, responsive et mobile friendly */
-    .container {
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 15px;
-      font-family: 'Arial', sans-serif;
-      line-height: 1.5;
-    }
-    @media (max-width: 600px) {
-      .container {
-        padding: 10px;
-        max-width: 90%;
-      }
-    }
-    /* Style du popup alert avec effets "bois" et animations naturelles */
-    .popup-alert {
-      display: inline-block;
-      padding: 10px 15px;
-      background-color: #f4e1c1; /* Teinte bois clair */
-      color: #8b4513; /* Couleur brun saddle */
-      border: 2px solid #8b4513;
-      border-radius: 5px;
-      box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
-      cursor: pointer;
-      /* Première animation d'apparition, puis effet de balancement "naturel" */
-      animation: popupAnimation 0.5s ease-in-out, woodSway 2s ease-in-out infinite 2.5s;
-      margin-top: 10px;
-    }
-    /* Animation d'apparition : zoom et fondu */
-    @keyframes popupAnimation {
-      0% {
-        opacity: 0;
-        transform: scale(0.8);
-      }
-      100% {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-    /* Animation de balancement imitant un signe en bois qui se balance doucement */
-    @keyframes woodSway {
-      0% {
-        transform: rotate(0deg);
-      }
-      25% {
-        transform: rotate(2deg);
-      }
-      50% {
-        transform: rotate(0deg);
-      }
-      75% {
-        transform: rotate(-2deg);
-      }
-      100% {
-        transform: rotate(0deg);
-      }
-    }
-  </style>
-    <div class="card" id="coinGameCard">
-      <h2>Jeu des Pièces – Défi des Opérations</h2>
- <div class="container">
-    <p>
-      Dans ce défi, combinez vos pièces pour atteindre un seuil donné.<br>
-      À chaque opération, les deux plus petites pièces sont retirées et une nouvelle pièce est créée selon la formule :<br>
-      <em>min(x, y) * 2 + max(x, y)</em><br>
-      Continuez jusqu'à ce que toutes vos pièces soient supérieures ou égales à un seuil <strong>k</strong>.<br>
-      Optimisez le nombre d'opérations et gagnez des pièces virtuelles !<br><br>
-      <strong>Note :</strong> Notre équipe de développement travaille sans relâche pour améliorer continuellement le système et vous offrir la meilleure expérience possible.<br>
-      <span class="popup-alert" id="popupAlert">
-        Alerte : Une panne imprévue s'est produite durant la nuit. Nos techniciens sont mobilisés pour rendre l'application meilleure.
-      </span>
-    </p>
-  </div>
-  <script>
-    // Script pour faire disparaître le popup après 5 secondes
-    document.addEventListener('DOMContentLoaded', function() {
-      var popup = document.getElementById('popupAlert');
-      setTimeout(function() {
-        popup.style.transition = 'opacity 0.5s ease-out';
-        popup.style.opacity = '0';
-        // Retirer l'alerte du DOM après l'animation de disparition
-        setTimeout(function() {
-          if (popup && popup.parentNode) {
-            popup.parentNode.removeChild(popup);
-          }
-        }, 500);
-      }, 5000);
-    });
-  </script>
-
-      <div>
-        <label for="coinsInput">Entrez vos pièces (séparées par des virgules) :</label><br>
-        <input type="text" id="coinsInput" placeholder="ex: 2,11,10,1,3" style="width:80%; padding:5px; margin-bottom:10px;">
-      </div>
-      <div>
-        <label for="thresholdInput">Seuil k :</label><br>
-        <input type="number" id="thresholdInput" placeholder="ex: 10" style="width:80%; padding:5px; margin-bottom:10px;">
-      </div>
-      <button class="file-btn" id="startCoinGame" style="margin-bottom:10px;">Démarrer le Jeu</button>
-      <div id="coinDisplay" style="margin-bottom:10px;"></div>
-      <div id="coinLog" style="font-weight:bold;"></div>
-    </div>
-
-    <!-- Calculatrice Mathématique -->
-    <div class="card">
-      <h2>Calculatrice Mathématique</h2>
-      <p>Saisissez une expression mathématique :</p>
-      <input type="text" id="mathInput" placeholder="Exemple: 2+3*4" style="width:80%; padding:10px; margin-bottom:10px; border:1px solid var(--border-color); border-radius:var(--border-radius);" />
-      <br>
-      <button id="calcBtn" class="file-btn" style="padding:10px 20px;">Calculer</button>
-      <p id="mathResult" style="margin-top:10px; font-weight:bold;"></p>
-    </div>
-
-    <!-- Command Card -->
-    <div class="command-card">
-      <h2>Commandes Clavier &amp; Thème</h2>
-      <p>
-        Raccourcis pour interagir :<br>
-        • <strong>Alt+R</strong> : Réinitialiser les tâches<br>
-        • <strong>Alt+N</strong> : Valider la prochaine tâche inachevée<br>
-        • <strong>Alt+T</strong> : Basculer le thème (Saint Valentin)<br>
-        Ou tapez une commande ci-dessous :
-      </p>
-      <input type="text" id="commandInput" placeholder="Tapez 'reset', 'next', 'toggle' ou le mot magique" />
-    </div>
-
+    
     <!-- Gestion de Fichiers -->
     <div class="card">
       <h2>Gestion de Fichiers</h2>
@@ -835,12 +708,12 @@
           电话: +86 XXX XXX XXX
         </p>
         <p>
-          <a href="https://www.linkedin.com/in/kevinmarville" target="_blank" class="file-btn" style="margin:5px;">LinkedIn</a>
+          <a href="https://www.linkedin.com/in/marvillekevin" target="_blank" class="file-btn" style="margin:5px;">LinkedIn</a>
           <a href="https://bsky.app/profile/techandstream.bsky.social" target="_blank" class="file-btn" style="margin:5px;">Bluesky</a>
         </p>
       </div>
       <p style="margin-top:20px; font-size:0.9rem;">
-        Security Note: This site uses robust security measures to safeguard against malicious attacks.
+        Security Note: This site uses measures to safeguard against malicious.
       </p>
     </div>
 
@@ -856,7 +729,7 @@
 
     <!-- Virtual Desktop -->
     <div class="card">
-      <h2>Virtual Desktop</h2>
+      <h2>Mémo</h2>
       <div id="desktop">
         <!-- Notes Window -->
         <div class="window" id="notesWindow" style="top: 20px; left: 20px;">
@@ -870,7 +743,7 @@
         </div>
         <!-- Virtual File Viewer Window -->
         <div class="window" id="fileViewerWindow" style="top: 160px; left: 320px;">
-          <div class="window-header">Virtual File Viewer</div>
+          <div class="window-header">Virtual Friend Files Viewer</div>
           <div class="window-content">
             <p>Ici, vous pouvez visualiser vos données virtuelles.</p>
             <button class="file-btn" onclick="openVirtualFile()">Ouvrir Fichier</button>
