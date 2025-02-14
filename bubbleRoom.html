@@ -4,85 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Application interactive Bubble Room avec traduction et formulaire de feedback.">
-    <title>Bubble Room - Espace Interactif</title>
+    <title>Espace Interactif</title>
     <link rel="stylesheet" href="styles.css">
     <script src="script.js" defer></script>
 </head>
 <body>
-
+  <!-- Navigation Bar -->
+    <nav class="navbar">
+        <a href="index.html" class="nav-link">⬅️ Retour</a>
+        <a href="waterRoom.html" class="nav-link">➡️ Suivant</a>
+        <button id="toggle-lang" class="file-btn" onclick="toggleLanguage()">🌍 Langue</button>
+    </nav>
     <header>
-        <h1 id="main-title">Bubble Room - Espace Interactif</h1>
-        <button id="toggle-lang" class="toggle-btn" onclick="toggleLanguage()">🌍 Switch Language</button>
-    </header>
-<div style="
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background: linear-gradient(to right, #333, #555);
-    padding: 20px 0;
-    text-align: center;
-    z-index: 1000;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: Arial, sans-serif;
-">
-
-    <!-- Logo / Branding -->
-    <div style="margin-right: 30px; font-size: 26px; font-weight: bold; color: white;">
-        🌊 Bullet Navigation
-    </div>
-
-    <!-- Navigation Links -->
-    <a href="index.html" style="
-        color: white;
-        text-decoration: none;
-        font-size: 20px;
-        margin: 15px;
-        padding: 10px 20px;
-        display: inline-block;
-        transition: all 0.3s ease;
-    " onmouseover="this.style.color='#FFD700'" onmouseout="this.style.color='white'">Home</a>
-
-    <a href="bubbleRoom.html" style="
-        color: white;
-        text-decoration: none;
-        font-size: 20px;
-        margin: 15px;
-        padding: 10px 20px;
-        display: inline-block;
-        transition: all 0.3s ease;
-    " onmouseover="this.style.color='#FFD700'" onmouseout="this.style.color='white'">Bulletijs</a>
-
-    <a href="waterRoom.html" style="
-        color: white;
-        text-decoration: none;
-        font-size: 20px;
-        margin: 15px;
-        padding: 10px 20px;
-        display: inline-block;
-        transition: all 0.3s ease;
-    " onmouseover="this.style.color='#FFD700'" onmouseout="this.style.color='white'">Informations</a>
-
-    <a href="piscine.html" style="
-        color: white;
-        text-decoration: none;
-        font-size: 20px;
-        margin: 15px;
-        padding: 10px 20px;
-        display: inline-block;
-        background: red;
-        border-radius: 5px;
-        font-weight: bold;
-        transition: all 0.3s ease;
-    " onmouseover="this.style.background='darkred'" onmouseout="this.style.background='red'">Administrators</a>
-</div>
+        <h1>>Espace 
+        </h1>
+      </header>
     <main>
         <section class="recipe-container">
             <h2 id="instructions-title">Suivez votre parcours étape par étape</h2>
-            <p>Découvrez chaque action symbolisée par une interaction. Accessible pour tous les utilisateurs.</p>
+            <p>Découvrez chaque interactions. Accessible pour tous les utilisateurs.</p>
 
             <button class="recipe-btn" onclick="openMasterModal()">🎛️ Ouvrir le Panneau de Contrôle</button>
             <button class="recipe-btn" onclick="window.open('https://bsky.app/profile/kvnbbg.bsky.social', '_blank')">🔗 Suivez-moi sur Bluesky</button>
@@ -109,21 +49,9 @@
             <div id="confirmation-animation" class="hidden">✅ Message envoyé avec succès !</div>
         </section>
     </main>
-
-    <!-- Master Control Modal -->
-    <div id="masterModal" class="modal" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <h2>Panneau de Contrôle</h2>
-            <p>Bienvenue dans votre espace interactif. Faites votre choix :</p>
-            
-            <button class="option-btn" onclick="window.open('https://kvnbbg.my.canva.site/eager-ester', '_blank')">🔍 Indice Eager Ester</button>
-            <button class="option-btn" onclick="focusNotepad()">💳</button>
-            <button class="option-btn" onclick="window.open('waterRoom.html', '_blank')">☕ Distribute</button>
-            
-            <br><br>
-            <button class="option-btn close-btn" onclick="closeMasterModal()">❌ Fermer</button>
-        </div>
-    </div>
+    <footer>
+        <p>2025 Kevin Marville</p>
+        </footer>
 
 </body>
 </html>
