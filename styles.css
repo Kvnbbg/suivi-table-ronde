@@ -1,23 +1,123 @@
 /* General Styles */
-body {
-    font-family: 'San Francisco', Arial, sans-serif;
+:root {
+    --primary-bg: #F5F8FA;
+    --secondary-bg: #E3EAF0;
+    --accent-color: #B0C4DE; /* Light steel blue */
+    --text-color: #37474F;
+    --button-bg: #DCE1E8;
+    --button-hover: #CBD5DD;
+    --border-color: #BFC9D5;
+    --shadow: rgba(0, 0, 0, 0.1);
+    --rounded: 16px;
+    --transition: all 0.3s ease-in-out;
+}
+
+* {
     margin: 0;
     padding: 0;
-    background-color: #121212;
-    color: #ffffff;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background: var(--primary-bg);
+    color: var(--text-color);
     text-align: center;
+    transition: var(--transition);
+}
+
+/* Navigation Bar */
+.navbar {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: var(--secondary-bg);
+    padding: 12px;
+    box-shadow: 0 4px 6px var(--shadow);
+    border-radius: var(--rounded);
+}
+
+.nav-link, .file-btn {
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: var(--rounded);
+    background: var(--button-bg);
+    color: var(--text-color);
+    font-weight: bold;
+    transition: var(--transition);
+    border: none;
+    cursor: pointer;
+}
+
+.nav-link:hover, .file-btn:hover {
+    background: var(--button-hover);
 }
 
 /* Header */
 header {
-    background: #007aff;
-    color: white;
     padding: 20px;
-    font-size: 2rem;
-    text-align: center;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+}
+
+h1 {
+    font-size: 2em;
+}
+
+/* Main Content */
+.recipe-container, .feedback-container {
+    max-width: 400px;
+    margin: 20px auto;
+    background: var(--secondary-bg);
+    padding: 20px;
+    border-radius: var(--rounded);
+    box-shadow: 0 6px 12px var(--shadow);
+}
+
+/* Buttons */
+.recipe-btn, .coffee-btn, .submit-btn, .save-btn {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 12px;
+    border: none;
+    border-radius: var(--rounded);
+    background: var(--button-bg);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.recipe-btn:hover, .coffee-btn:hover, .submit-btn:hover, .save-btn:hover {
+    background: var(--button-hover);
+}
+
+/* Form */
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 2px solid var(--border-color);
+    border-radius: var(--rounded);
+    background: white;
+}
+
+textarea {
+    height: 80px;
+}
+
+/* Confirmation Message */
+#confirmation-animation {
+    margin-top: 10px;
+    font-weight: bold;
+    color: green;
+    display: none;
+}
+
+/* Footer */
+footer {
+    margin-top: 30px;
+    padding: 10px;
+    background: var(--secondary-bg);
+    border-radius: var(--rounded);
 }
 
 /* Toggle Button */
