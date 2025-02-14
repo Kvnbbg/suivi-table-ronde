@@ -466,9 +466,14 @@
       <button class="option-btn" onclick="focusNotepad()">
         Ouvrir Mémo
       </button>
-      <button class="option-btn" onclick="window.open('/waterRoom.html', '_blank')">
-        Suivant
-      </button>
+     <button class="option-btn" id="nextBtn">Suivant</button>
+
+<script>
+  document.getElementById('nextBtn').addEventListener('click', function() {
+    const url = `${location.origin}${location.pathname.replace(/\/[^/]*$/, '/') + 'waterRoom.html'}`;
+    window.open(url, '_blank', 'noopener,noreferrer');
+  });
+</script>
        <!-- <button class="option-btn" onclick="window.open('https://ko-fi.com/kevinmarville', '_blank')">
         Soutenez-nous sur Ko‑fi
       </button> -->
