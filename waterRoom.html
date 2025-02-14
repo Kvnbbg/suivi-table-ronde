@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="WaterRoom - Gamification et Algorithme de Distribution">
+    <title>💦 WaterRoom - Jeu des Pièces</title>
+
+    <style>
+        /* General Styling */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(180deg, #b3e5fc, #4fa3d1);
+            color: #fff;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            background: rgba(0, 76, 140, 0.8);
+            padding: 10px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .nav-link:hover { background: #005bb5; }
+
+        /* Interactive Water Particles */
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* Game Container */
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+        }
+
+        /* Game Buttons */
+        .file-btn {
+            padding: 10px 20px;
+            background: #005bb5;
+            border: none;
+            color: white;
+            cursor: pointer;
+            margin: 10px 0;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .file-btn:hover { background: #004c8c; }
+
+        /* Footer Navigation */
+        .footer {
+            background: #004c8c;
+            padding: 15px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .footer-btn {
+            padding: 10px 15px;
+            background: #0066cc;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <a href="index.html" class="nav-link">🏠 Accueil</a>
+        <a href="bubbleRoom.html" class="nav-link">🌐 Salle Des Bulletins</a>
+        <button id="toggle-lang" class="file-btn" onclick="toggleLanguage()">🌍 Langue</button>
+    </nav>
+
+    <header>
+         <h1> <a href="piscine.html" id="floatingBubble" style="
+        position: absolute; 
+        padding: 15px 20px; 
+        background: rgba(173, 216, 230, 0.8); 
+        border-radius: 50%; 
+        font-size: 1.2em; 
+        text-align: center; 
+        cursor: pointer; 
+        text-decoration: none; 
+        color: #333;
+        transition: transform 0.3s ease, background 0.3s ease;
+    ">
+        🏊‍♂️ Nager...💦 WaterRoom - Pièces de bains
+    </a>
+
+    <script>
+        const bubble = document.getElementById("floatingBubble");
+        let posY = 50, direction = 1;
+
+        function animateBubble() {
+            posY += direction * 0.5;
+            if (posY >= 60 || posY <= 40) direction *= -1;
+            bubble.style.top = posY + "%";
+            requestAnimationFrame(animateBubble);
+        }
+
+        bubble.style.position = "absolute";
+        bubble.style.top = "50%";
+        bubble.style.left = "50%";
+        bubble.style.transform = "translate(-50%, -50%)";
+
+        bubble.addEventListener("mouseenter", () => {
+            bubble.style.transform = "translate(-50%, -50%) scale(1.2)";
+            bubble.style.background = "rgba(135, 206, 235, 1)";
+        });
+
+        bubble.addEventListener("mouseleave", () => {
+            bubble.style.transform = "translate(-50%, -50%)";
+            bubble.style.background = "rgba(173, 216, 230, 0.8)";
+        });
+
+        animateBubble();
+    </script>
+    </h1>
+        
+    </header>
+
+    <main>
+        <!-- Game Introduction -->
+        <div class="container">
+            <h2>Opérations</h2>
+            <p>Combinez vos pièces sans atteindre un seuil donné.<br>
+               Optimisez !</p>
+
+            <label for="coinsInput">Entrez :</label><br>
+            <input type="text" id="coinsInput" placeholder="ex: 2,11,10,1,3" style="width:80%; padding:5px;"><br>
+
+            <label for="thresholdInput">Seuil k :</label><br>
+            <input type="number" id="thresholdInput" placeholder="ex: 10" style="width:80%; padding:5px;"><br>
+
+            <button class="file-btn" id="startCoinGame">Démarrer</button>
+            <div id="coinDisplay"></div>
+            <div id="coinLog" style="font-weight:bold;"></div>
+        </div>
+    </main>
+
+    <!-- Navigation Footer -->
+    <footer class="footer">
+        <button class="footer-btn" onclick="window.location.href='index.html'">⬅️ Retour</button>
+        <button class="footer-btn" onclick="window.location.href='bubbleRoom.html'">➡️ Suivant</button>
+    </footer>
+
+    <canvas id="waterCanvas"></canvas>
+
+    <script>
+        // Interactive Water Particles
+        const canvas = document.getElementById('waterCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.radius = Math.random() * 5 + 2;
+                this.speedX = Math.random() * 2 - 1;
+                this.speedY = Math.random() * 2 - 1;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
+                ctx.fill();
+            }
+        }
+
+        let particlesArray = [];
+        for (let i = 0; i < 100; i++) { particlesArray.push(new Particle()); }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particlesArray.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Secure Coin Game Logic
+        document.getElementById("startCoinGame").addEventListener("click", function() {
+            let coins = document.getElementById("coinsInput").value.split(',').map(Number);
+            let k = parseInt(document.getElementById("thresholdInput").value);
+
+            if (coins.some(isNaN) || isNaN(k)) {
+                alert("⚠️ Veuillez entrer des nombres valides.");
+                return;
+            }
+
+            let operations = 0;
+            coins.sort((a, b) => a - b);
+
+            while (coins[0] < k && coins.length > 1) {
+                let a = coins.shift(), b = coins.shift();
+                coins.push(Math.min(a, b) * 2 + Math.max(a, b));
+                coins.sort((a, b) => a - b);
+                operations++;
+            }
+
+            document.getElementById("coinDisplay").innerHTML = `Final: ${coins.join(", ")}`;
+            document.getElementById("coinLog").innerHTML = `Nombre d'opérations: ${operations}`;
+        });
+
+        // Language Toggle
+        function toggleLanguage() {
+            document.documentElement.lang = document.documentElement.lang === "fr" ? "en" : "fr";
+        }
+    </script>
+</body>
+</html>
