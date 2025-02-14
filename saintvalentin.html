@@ -146,7 +146,60 @@
     <!-- Game Interface -->
     <h1>💖 Jeu de Saint-Valentin 💖</h1>
 
-    <img src="saintvalentin.png" id="valentine-img" alt="Saint Valentin Image">
+  <section class="sidebar">
+    <div class="carousel">
+        <img id="valentine-img" src="https://tse2.mm.bing.net/th?id=OIF.wca%2F4JqxRGZ%2FNR7jtlIRyQ&pid=Api" alt="Saint Valentin Image">
+    </div>
+    <style>
+    /* Sidebar styling */
+.sidebar {
+    width: 300px; /* Adjust width as needed */
+    height: 350px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Carousel styling */
+.carousel {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.carousel img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+}
+    </style>
+    <script>
+    const images = [
+        "https://tse2.mm.bing.net/th?id=OIF.wca%2F4JqxRGZ%2FNR7jtlIRyQ&pid=Api",
+        "https://tse3.mm.bing.net/th?id=OIF.FIBIK7XerU%2FFAva8QfrYFQ&pid=Api",
+        "https://tse2.mm.bing.net/th?id=OIF.CKGPELgWT7mMA9vAvPuErQ&pid=Api",
+        "https://tse2.mm.bing.net/th?id=OIF.shv9JFZo9YZc4p1IdlLhrg&pid=Api"
+    ];
+
+    let currentIndex = 0;
+    const imgElement = document.getElementById("valentine-img");
+
+    function changeImage() {
+        currentIndex = (currentIndex + 1) % images.length;
+        imgElement.src = images[currentIndex];
+    }
+
+    setInterval(changeImage, 3000); // Change every 3 seconds
+</script>
+</section>
 
     <div id="game-container">
         <h2>Entrez vos noms</h2>
