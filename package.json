@@ -1,0 +1,9 @@
+{
+  "name": "suivi-table-ronde",
+  "version": "1.0.0",
+  "description": "Outil communautaire pour préparer et suivre la table ronde",
+  "type": "commonjs",
+  "scripts": {
+    "test": "node --test \"tests/**/*.test.js\""
+  }
+}

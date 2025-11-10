@@ -2,7 +2,6 @@
 
 [![Description de l'image](https://raw.githubusercontent.com/Kvnbbg/suivi-table-ronde/main/image.png)](https://raw.githubusercontent.com/Kvnbbg/suivi-table-ronde/main/image.png)
 
-
 **Outil de gestion des tâches pour préparer et suivre la table ronde**
 
 Ce projet interactif est une application web avancée conçue pour offrir une expérience utilisateur immersive et ludique. Inspiré par une esthétique moderne et chaleureuse, cet outil combine la gestion des tâches, une calculatrice mathématique, un bureau virtuel interactif et une gamification intelligente pour vous aider à organiser vos projets et à explorer des fonctionnalités innovantes.
@@ -38,6 +37,9 @@ Ce projet interactif est une application web avancée conçue pour offrir une ex
 - **Gamification par Pièces**  
   Un système de points et de pièces vous motive à effectuer des opérations mathématiques asynchrones, avec des animations dynamiques qui simulent un univers « physique » dans lequel chaque opération vous rapproche de votre objectif.
 
+- **Journal communautaire transparent**  
+  Un espace dédié, `community.html`, vous permet de documenter publiquement les décisions, engagements et demandes de soutien. Les contributions sont sauvegardées localement, exportables en JSON et filtrables par mots-clés pour encourager la participation et la transparence collective.
+
 ## Démo et Liens Utiles
 
 - **Eager Ester Hint** : [Accéder à l'Eager Ester](https://kvnbbg.my.canva.site/eager-ester)
@@ -49,17 +51,29 @@ Ce projet interactif est une application web avancée conçue pour offrir une ex
 1. **Installation**  
    Clonez le dépôt et ouvrez `index.html` dans votre navigateur préféré. L’application est entièrement responsive et s’adapte à tous les types d’écrans.
 
-2. **Navigation et Interaction**  
+2. **Espace communautaire**  
+   Ouvrez `community.html` pour documenter les décisions et engagements. Les contributions restent dans votre navigateur, vous pouvez les exporter en JSON pour les partager avec d’autres collectifs.
+
+3. **Navigation et Interaction**  
    Utilisez les commandes clavier (Alt+R, Alt+N, Alt+T) pour interagir rapidement avec les tâches et changer de thème. Tapez des commandes dans la zone dédiée pour exécuter des opérations spécifiques.
 
-3. **Bureau Virtuel**  
+4. **Bureau Virtuel**  
    Organisez votre espace de travail en déplaçant les fenêtres du bureau virtuel, en sauvegardant vos notes et en visualisant des fichiers virtuels via l’interface dédiée.
 
-4. **Jeu des Pièces**  
+5. **Jeu des Pièces**  
    Entrez une série de pièces et un seuil, puis lancez le jeu pour combiner les pièces selon la formule donnée et observer l’évolution en temps réel des opérations.
 
-5. **Master Control Panel**  
+6. **Master Control Panel**  
    Cliquez sur le bouton "Master Control" pour accéder à un panneau central qui vous propose divers exercices, notamment pour simuler des paiements ou découvrir des indices magiques.
+
+## Tests
+
+Ce dépôt inclut un jeu de tests pour garantir la fiabilité des fonctionnalités de journalisation communautaire. Pour les exécuter :
+
+```bash
+npm install # (aucune dépendance n'est requise, cette étape prépare votre environnement)
+npm test
+```
 
 ## Technologies Utilisées
 
