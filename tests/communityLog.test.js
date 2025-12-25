@@ -16,7 +16,7 @@ test('sanitizeText removes HTML and extra spaces', () => {
   const sanitized = CommunityLog.sanitizeText(unsafe);
   assert.strictEqual(sanitized.includes('<'), false);
   assert.strictEqual(sanitized.includes('>'), false);
-  assert.strictEqual(sanitized, "&lt;script&gt;alert(&#39;xss&#39;)&lt;/script&gt;");
+  assert.strictEqual(sanitized, '&lt;script&gt;alert(&#39;xss&#39;)&lt;/script&gt;');
 });
 
 test('createEntry trims inputs and assigns defaults', () => {
@@ -26,7 +26,7 @@ test('createEntry trims inputs and assigns defaults', () => {
     commitments: '  Partager le compte-rendu  ',
     participants: '  Collectif A  ',
     decisionType: 'Consensus ',
-    tags: ' coopération, feedback '
+    tags: ' coopération, feedback ',
   };
 
   const entry = CommunityLog.createEntry(data, {
@@ -125,4 +125,18 @@ test('removeEntry deletes entry from storage', () => {
   CommunityLog.persistEntries(entries, storage);
   const remaining = CommunityLog.removeEntry('entry-1', storage);
   assert.strictEqual(remaining.length, 0);
+});
+
+test('loadEntries returns empty array for invalid JSON', () => {
+  const storage = mockStorage();
+  storage.setItem(CommunityLog.STORAGE_KEY, '{invalid json');
+  const entries = CommunityLog.loadEntries(storage);
+  assert.deepStrictEqual(entries, []);
+});
+
+test('createCommunityLog rejects invalid config', () => {
+  assert.throws(
+    () => CommunityLog.createCommunityLog({ storageKey: '', maxFieldLength: -1, requiredFields: [] }),
+    /Configuration invalide/,
+  );
 });
