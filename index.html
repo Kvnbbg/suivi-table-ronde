@@ -19,9 +19,11 @@
       --text-color: #4b382a;       /* Dark brown text */
       --card-bg: #ffffff;
       --border-color: #d2a679;
-      --transition-speed: 0.1s;
+      --transition-speed: 0.2s;
       --border-radius: 3px;
       --shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+      --shadow-strong: 0 8px 20px rgba(75, 56, 42, 0.15);
+      --glow: 0 0 0 3px rgba(210, 166, 121, 0.35);
     }
     /* Valentine Theme Overrides */
     .valentine-theme {
@@ -75,7 +77,11 @@
       box-shadow: var(--shadow);
       padding: 20px;
       margin-bottom: 20px;
-      transition: background-color var(--transition-speed);
+      transition: background-color var(--transition-speed), box-shadow var(--transition-speed), transform 0.2s ease;
+      transform: translateY(var(--float-offset, 0px));
+    }
+    .card:hover, .command-card:hover, .score-card:hover {
+      box-shadow: var(--shadow-strong);
     }
     h1, h2 {
       text-align: center;
@@ -130,6 +136,16 @@
       width: 0%;
       background: var(--highlight-color);
       transition: width 0.5s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .progress-bar::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+      transform: translateX(-100%);
+      animation: shimmer 3s infinite;
     }
     
     /* ================================
@@ -150,6 +166,20 @@
     }
     .swap-clean {
       animation: swapClean 0.6s ease;
+    }
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      50% { transform: translateX(100%); }
+      100% { transform: translateX(100%); }
+    }
+    @keyframes floatIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes whiteoutPulse {
+      0% { opacity: 0.98; }
+      50% { opacity: 0.9; }
+      100% { opacity: 0.98; }
     }
     
     /* ================================
@@ -409,11 +439,72 @@
       font-weight: bold;
       transition: transform 0.5s ease;
     }
+
+    .command-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-top: 10px;
+    }
+    .command-card {
+      animation: floatIn 0.4s ease;
+    }
+    .command-card input,
+    .command-card button,
+    .command-card textarea {
+      width: 100%;
+    }
+    .command-card .helper-text {
+      font-size: 0.85rem;
+      color: var(--secondary-color);
+    }
+    .command-card .command-hints {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .command-card .command-chip {
+      background: var(--background-color);
+      border: 1px solid var(--border-color);
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 0.8rem;
+    }
+
+    .whiteout-overlay {
+      position: fixed;
+      inset: 0;
+      background: #fff;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1400;
+      color: #2b1c14;
+      text-align: center;
+      padding: 20px;
+    }
+    .whiteout-overlay.is-active {
+      display: flex;
+      animation: whiteoutPulse 3s ease-in-out infinite;
+    }
+    .whiteout-overlay .whiteout-content {
+      max-width: 420px;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-strong);
+      padding: 20px;
+    }
+    .whiteout-overlay strong {
+      display: block;
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+    }
     
     /* ================================
        Contact & Collaboration Card (Modified Meta Section)
        ================================ */
-    <!-– Replace the original "Suivez-moi sur Meta" section with this new card –->
     /* Contact & Collaboration Card */
     #contactCard {
       margin-top: 20px;
@@ -449,6 +540,16 @@
       input[type="checkbox"] { transform: scale(1); }
       .command-card input[type="text"] { width: 100%; }
       .window { width: 90%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation: none !important;
+        transition-duration: 0.01ms !important;
+      }
+      .card, .command-card, .score-card {
+        transform: none !important;
+      }
     }
   </style>
 </head>
@@ -514,6 +615,15 @@
     </div>
   </div>
 
+  <div id="whiteoutOverlay" class="whiteout-overlay" aria-hidden="true">
+    <div class="whiteout-content">
+      <strong>Pause Whiteout en cours</strong>
+      <p>Prenez un moment pour respirer et revenir avec énergie.</p>
+      <p>Temps restant : <span id="whiteoutTimer">05:00</span></p>
+      <button id="whiteoutStopOverlay" class="file-btn">Revenir à la session</button>
+    </div>
+  </div>
+
     <!-- Score Card -->
     <div class="score-card">
       Score : <span id="scoreDisplay">0</span>
@@ -530,6 +640,26 @@
     <!-- Progress Bar -->
     <div class="progress-container">
       <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="card">
+      <h2>Pause Whiteout &amp; Focus</h2>
+      <p>Activez un écran blanc pour une vraie pause visuelle et un retour clair.</p>
+      <div class="command-grid">
+        <div class="command-card">
+          <label for="whiteoutMinutes"><strong>Durée (minutes)</strong></label>
+          <input id="whiteoutMinutes" type="number" min="1" max="30" value="5">
+          <p class="helper-text">Recommandé : 5 à 10 minutes pour recharger l’attention.</p>
+          <button id="whiteoutStart" class="file-btn">Démarrer la pause</button>
+          <button id="whiteoutStop" class="file-btn" style="background: var(--accent-color);">Arrêter</button>
+        </div>
+        <div class="command-card">
+          <h3>Focus rapide</h3>
+          <p class="helper-text">Un rappel doux pour reprendre la prochaine tâche essentielle.</p>
+          <button id="focusNextTask" class="file-btn">Valider la prochaine tâche</button>
+          <button id="focusThemeToggle" class="file-btn">Basculer le thème</button>
+        </div>
+      </div>
     </div>
 
     <!-- Tasks Card -->
@@ -634,6 +764,40 @@
       </p>
     </div>
 
+    <div class="card">
+      <h2>Centre de Commande Interactif</h2>
+      <p>Tout ce qu’il faut pour piloter vos actions quotidiennes, en mode fluide et gamifié.</p>
+      <div class="command-grid">
+        <div class="command-card">
+          <h3>Commandes rapides</h3>
+          <p class="helper-text">Tapez une commande et appuyez sur Entrée.</p>
+          <input type="text" id="commandInput" placeholder="reset, next, toggle, aujourdh8onsa1m1">
+          <div class="command-hints">
+            <span class="command-chip">reset</span>
+            <span class="command-chip">next</span>
+            <span class="command-chip">toggle</span>
+            <span class="command-chip">aujourdh8onsa1m1</span>
+          </div>
+        </div>
+        <div class="command-card">
+          <h3>Calcul express</h3>
+          <p class="helper-text">Gagnez du temps avec un mini-calculateur intégré.</p>
+          <input type="text" id="mathInput" placeholder="Ex: (12 + 6) * 2">
+          <button id="calcBtn" class="file-btn">Calculer</button>
+          <p id="mathResult" class="helper-text">Résultat : —</p>
+        </div>
+        <div class="command-card">
+          <h3>Jeu des pièces</h3>
+          <p class="helper-text">Testez la fusion optimale des pièces.</p>
+          <input type="text" id="coinsInput" placeholder="Ex: 1, 3, 7, 10">
+          <input type="number" id="thresholdInput" min="1" value="15">
+          <button id="startCoinGame" class="file-btn">Lancer</button>
+          <div id="coinDisplay"></div>
+          <div id="coinLog" class="helper-text"></div>
+        </div>
+      </div>
+    </div>
+
     
 
     <!-- Contact & Collaboration Card -->
@@ -720,20 +884,33 @@
     /* ======================================
        GLOBAL VARIABLES & SCORE
        ====================================== */
-    const checkboxes = document.querySelectorAll('.task-checkbox');
-    const progressBar = document.getElementById('progressBar');
-    const resetBtn = document.getElementById('resetBtn');
-    const commandInput = document.getElementById('commandInput');
-    const mathInput = document.getElementById('mathInput');
-    const calcBtn = document.getElementById('calcBtn');
-    const mathResult = document.getElementById('mathResult');
-    const scoreDisplay = document.getElementById('scoreDisplay');
+    const $ = (selector) => document.querySelector(selector);
+    const $$ = (selector) => Array.from(document.querySelectorAll(selector));
+    const addListener = (el, event, handler) => {
+      if (el) el.addEventListener(event, handler);
+    };
+    const checkboxes = $$('.task-checkbox');
+    const progressBar = $('#progressBar');
+    const resetBtn = $('#resetBtn');
+    const commandInput = $('#commandInput');
+    const mathInput = $('#mathInput');
+    const calcBtn = $('#calcBtn');
+    const mathResult = $('#mathResult');
+    const scoreDisplay = $('#scoreDisplay');
     const body = document.body;
-    const easterModal = document.getElementById('easterModal');
-    const closeEaster = document.getElementById('closeEaster');
-    const storyModal = document.getElementById('storyModal');
-    const closeStory = document.getElementById('closeStory');
-    const masterModal = document.getElementById('masterModal');
+    const easterModal = $('#easterModal');
+    const closeEaster = $('#closeEaster');
+    const storyModal = $('#storyModal');
+    const closeStory = $('#closeStory');
+    const masterModal = $('#masterModal');
+    const whiteoutOverlay = $('#whiteoutOverlay');
+    const whiteoutTimer = $('#whiteoutTimer');
+    const whiteoutMinutes = $('#whiteoutMinutes');
+    const whiteoutStart = $('#whiteoutStart');
+    const whiteoutStop = $('#whiteoutStop');
+    const whiteoutStopOverlay = $('#whiteoutStopOverlay');
+    const focusNextTaskBtn = $('#focusNextTask');
+    const focusThemeToggle = $('#focusThemeToggle');
     
     let score = 0;
     const totalTasks = checkboxes.length;
@@ -742,14 +919,16 @@
        FUNCTIONS: TASK PROGRESS & SCORE
        ====================================== */
     function updateProgress() {
-      const completed = document.querySelectorAll('.task-checkbox:checked').length;
+      const completed = $$('.task-checkbox:checked').length;
       const percent = (completed / totalTasks) * 100;
-      progressBar.style.width = percent + '%';
+      if (progressBar) {
+        progressBar.style.width = percent + '%';
+      }
     }
     function updateScore(points) {
       score += points;
       if(score < 0) score = 0;
-      scoreDisplay.textContent = score;
+      if (scoreDisplay) scoreDisplay.textContent = score;
     }
     function handleCheckboxChange() {
       const label = this.parentElement;
@@ -783,7 +962,7 @@
         }
       });
       score = 0;
-      scoreDisplay.textContent = score;
+      if (scoreDisplay) scoreDisplay.textContent = score;
     }
     function validateNextTask() {
       for(let cb of checkboxes) {
@@ -799,6 +978,7 @@
        MATH CALCULATOR FUNCTION
        ====================================== */
     function calculateMath() {
+      if (!mathInput || !mathResult) return;
       let expr = mathInput.value;
       try {
         let result = Function('"use strict"; return (' + expr + ')')();
@@ -820,31 +1000,27 @@
        ====================================== */
     function triggerEasterEgg() {
       updateScore(50);
-      easterModal.style.display = 'block';
+      if (easterModal) easterModal.style.display = 'block';
     }
-    if(closeEaster) {
-      closeEaster.addEventListener('click', () => {
-        easterModal.style.display = 'none';
-      });
-    }
+    addListener(closeEaster, 'click', () => {
+      if (easterModal) easterModal.style.display = 'none';
+    });
     
     /* ======================================
        STORY HELPER FUNCTIONS
        ====================================== */
-    if(closeStory) {
-      closeStory.addEventListener('click', () => {
-        storyModal.style.display = 'none';
-      });
-    }
+    addListener(closeStory, 'click', () => {
+      if (storyModal) storyModal.style.display = 'none';
+    });
     
     /* ======================================
        MASTER MODAL FUNCTIONS
        ====================================== */
     function openMasterModal() {
-      masterModal.style.display = 'block';
+      if (masterModal) masterModal.style.display = 'block';
     }
     function closeMasterModal() {
-      masterModal.style.display = 'none';
+      if (masterModal) masterModal.style.display = 'none';
     }
     function focusNotepad() {
       const notesWindow = document.getElementById('notesWindow');
@@ -861,8 +1037,10 @@
     function fileAction(action) {
       const logDiv = document.getElementById('fileLog');
       const timestamp = new Date().toLocaleTimeString();
-      logDiv.innerHTML += `<p>[${timestamp}] Action: ${action}</p>`;
-      logDiv.scrollTop = logDiv.scrollHeight;
+      if (logDiv) {
+        logDiv.innerHTML += `<p>[${timestamp}] Action: ${action}</p>`;
+        logDiv.scrollTop = logDiv.scrollHeight;
+      }
     }
     
     /* ======================================
@@ -870,6 +1048,7 @@
        ====================================== */
     function toggleFolder(id) {
       const folderContent = document.getElementById(id);
+      if (!folderContent) return;
       folderContent.style.display = folderContent.style.display === 'block' ? 'none' : 'block';
     }
     
@@ -907,21 +1086,24 @@
         document.onmousemove = null;
       }
     }
-    const windows = document.querySelectorAll('.window');
+    const windows = $$('.window');
     windows.forEach(win => makeDraggable(win));
     
     /* ======================================
        VIRTUAL NOTES: SAVE TO LOCAL STORAGE
        ====================================== */
     function saveNotes() {
-      const notes = document.getElementById('notesArea').value;
+      const notesArea = document.getElementById('notesArea');
+      if (!notesArea) return;
+      const notes = notesArea.value;
       localStorage.setItem('virtualNotes', notes);
       alert("Notes sauvegardées !");
     }
     window.addEventListener('load', () => {
       const savedNotes = localStorage.getItem('virtualNotes');
-      if(savedNotes) {
-        document.getElementById('notesArea').value = savedNotes;
+      const notesArea = document.getElementById('notesArea');
+      if(savedNotes && notesArea) {
+        notesArea.value = savedNotes;
       }
     });
     
@@ -937,15 +1119,16 @@
     /* ======================================
        COIN GAME: GAMIFICATION DES OPÉRATIONS
        ====================================== */
-    const startCoinGameBtn = document.getElementById('startCoinGame');
-    const coinsInput = document.getElementById('coinsInput');
-    const thresholdInput = document.getElementById('thresholdInput');
-    const coinDisplay = document.getElementById('coinDisplay');
-    const coinLog = document.getElementById('coinLog');
+    const startCoinGameBtn = $('#startCoinGame');
+    const coinsInput = $('#coinsInput');
+    const thresholdInput = $('#thresholdInput');
+    const coinDisplay = $('#coinDisplay');
+    const coinLog = $('#coinLog');
     function sleep(ms) {
       return new Promise(resolve => setTimeout(resolve, ms));
     }
     function renderCoins(coins) {
+      if (!coinDisplay) return;
       coinDisplay.innerHTML = "";
       coins.forEach(val => {
         const coinEl = document.createElement("div");
@@ -957,25 +1140,30 @@
     async function playCoinGame(coins, threshold) {
       let operations = 0;
       renderCoins(coins);
-      coinLog.innerHTML = "";
+      if (coinLog) coinLog.innerHTML = "";
       while(coins.length > 1 && coins.some(val => val < threshold)) {
         coins.sort((a, b) => a - b);
         const x = coins.shift();
         const y = coins.shift();
         const newCoin = Math.min(x, y) * 2 + Math.max(x, y);
         operations++;
-        coinLog.innerHTML += `<p>Opération ${operations} : Fusion de ${x} et ${y} pour créer ${newCoin}</p>`;
+        if (coinLog) {
+          coinLog.innerHTML += `<p>Opération ${operations} : Fusion de ${x} et ${y} pour créer ${newCoin}</p>`;
+        }
         await sleep(1000);
         coins.push(newCoin);
         renderCoins(coins);
         await sleep(500);
       }
-      coinLog.innerHTML += `<p><strong>Nombre minimum d'opérations nécessaires : ${operations}</strong></p>`;
+      if (coinLog) {
+        coinLog.innerHTML += `<p><strong>Nombre minimum d'opérations nécessaires : ${operations}</strong></p>`;
+      }
     }
     if(startCoinGameBtn) {
       startCoinGameBtn.addEventListener('click', () => {
+        if (!coinsInput || !thresholdInput) return;
         const coinsStr = coinsInput.value;
-        const threshold = parseInt(thresholdInput.value);
+        const threshold = parseInt(thresholdInput.value, 10);
         if(!coinsStr || isNaN(threshold)) {
           alert("Veuillez entrer des pièces valides et un seuil.");
           return;
@@ -996,11 +1184,61 @@
         const frequency = 0.5;
         const phaseOffset = index * Math.PI / 6;
         const deltaY = amplitude * Math.sin(2 * Math.PI * frequency * time + phaseOffset);
-        card.style.transform = `translateY(${deltaY}px)`;
+        card.style.setProperty('--float-offset', `${deltaY}px`);
       });
       requestAnimationFrame(animateCards);
     }
-    requestAnimationFrame(animateCards);
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (!prefersReducedMotion.matches) {
+      requestAnimationFrame(animateCards);
+    }
+
+    /* ======================================
+       WHITEOUT BREAK MODE
+       ====================================== */
+    let whiteoutInterval = null;
+    let remainingSeconds = 0;
+    function formatTime(seconds) {
+      const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
+      const secs = Math.floor(seconds % 60).toString().padStart(2, '0');
+      return `${mins}:${secs}`;
+    }
+    function setWhiteoutActive(active) {
+      if (!whiteoutOverlay) return;
+      whiteoutOverlay.classList.toggle('is-active', active);
+      whiteoutOverlay.setAttribute('aria-hidden', String(!active));
+    }
+    function updateWhiteoutDisplay() {
+      if (whiteoutTimer) {
+        whiteoutTimer.textContent = formatTime(remainingSeconds);
+      }
+    }
+    function stopWhiteout() {
+      if (whiteoutInterval) {
+        clearInterval(whiteoutInterval);
+        whiteoutInterval = null;
+      }
+      setWhiteoutActive(false);
+    }
+    function startWhiteout() {
+      if (!whiteoutMinutes) return;
+      const minutes = parseInt(whiteoutMinutes.value, 10);
+      if (isNaN(minutes) || minutes <= 0) {
+        alert("Veuillez choisir une durée valide.");
+        return;
+      }
+      remainingSeconds = Math.min(minutes, 30) * 60;
+      updateWhiteoutDisplay();
+      setWhiteoutActive(true);
+      if (whiteoutInterval) clearInterval(whiteoutInterval);
+      whiteoutInterval = setInterval(() => {
+        remainingSeconds -= 1;
+        updateWhiteoutDisplay();
+        if (remainingSeconds <= 0) {
+          stopWhiteout();
+        }
+      }, 1000);
+    }
     
     /* ======================================
        EVENT LISTENERS FOR COMMANDS & SHORTCUTS
@@ -1008,8 +1246,8 @@
     checkboxes.forEach(cb => {
       cb.addEventListener('change', handleCheckboxChange);
     });
-    resetBtn.addEventListener('click', resetTasks);
-    calcBtn.addEventListener('click', calculateMath);
+    addListener(resetBtn, 'click', resetTasks);
+    addListener(calcBtn, 'click', calculateMath);
     document.addEventListener('keydown', function(e) {
       if(e.altKey && e.key.toLowerCase() === 'r') {
         e.preventDefault();
@@ -1024,7 +1262,7 @@
         toggleValentineTheme();
       }
     });
-    commandInput.addEventListener('keydown', function(e) {
+    addListener(commandInput, 'keydown', function(e) {
       if(e.key === 'Enter') {
         const command = commandInput.value.trim().toLowerCase();
         if(command === 'reset') {
@@ -1045,12 +1283,19 @@
        ====================================== */
     function toggleContactInfo() {
       const contactInfo = document.getElementById("contactInfo");
+      if (!contactInfo) return;
       if (contactInfo.style.display === "none") {
         contactInfo.style.display = "block";
       } else {
         contactInfo.style.display = "none";
       }
     }
+
+    addListener(whiteoutStart, 'click', startWhiteout);
+    addListener(whiteoutStop, 'click', stopWhiteout);
+    addListener(whiteoutStopOverlay, 'click', stopWhiteout);
+    addListener(focusNextTaskBtn, 'click', validateNextTask);
+    addListener(focusThemeToggle, 'click', toggleValentineTheme);
   </script>
 </body>
 </html>
