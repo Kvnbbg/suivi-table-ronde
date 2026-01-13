@@ -70,6 +70,46 @@
       margin: 20px auto;
       padding: 0 15px;
     }
+    .hero {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(247, 243, 232, 0.95));
+      border: 1px solid var(--border-color);
+      border-radius: calc(var(--border-radius) * 2);
+      padding: 24px;
+      box-shadow: var(--shadow-strong);
+      margin-bottom: 20px;
+    }
+    .hero-title {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      margin-bottom: 8px;
+    }
+    .hero-subtitle {
+      font-size: 1rem;
+      color: var(--secondary-color);
+      margin-bottom: 16px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+    .hero-actions .file-btn {
+      min-width: 160px;
+    }
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .status-card {
+      background: var(--background-color);
+      border: 1px dashed var(--border-color);
+      border-radius: var(--border-radius);
+      padding: 12px;
+      text-align: left;
+      font-size: 0.95rem;
+    }
     .card, .command-card, .score-card {
       background-color: var(--card-bg);
       border: 1px solid var(--border-color);
@@ -228,6 +268,8 @@
       border: none;
       border-radius: var(--border-radius);
       cursor: pointer;
+      display: inline-block;
+      text-align: center;
       transition: background var(--transition-speed);
     }
     .file-btn:hover {
@@ -624,12 +666,45 @@
     </div>
   </div>
 
+  <div class="container">
+    <noscript>
+      <div class="card">
+        <strong>JavaScript est nécessaire.</strong>
+        <p>Activez JavaScript pour profiter des animations et des fonctions interactives.</p>
+      </div>
+    </noscript>
+
+    <section class="hero" aria-labelledby="heroTitle">
+      <h1 id="heroTitle" class="hero-title">Suivi Table Ronde</h1>
+      <p class="hero-subtitle">
+        Un poste de pilotage clair et actionnable pour préparer, animer et suivre votre table ronde.
+      </p>
+      <div class="hero-actions">
+        <button class="file-btn" onclick="openMasterModal()">Ouvrir le panel</button>
+        <a class="file-btn" href="community.html">Journal communautaire</a>
+        <a class="file-btn" href="bubbleRoom.html">Salle immersive</a>
+      </div>
+      <div class="status-grid">
+        <div class="status-card">
+          <strong>Vue rapide</strong>
+          <p>Progression, score, focus et tâches critiques au même endroit.</p>
+        </div>
+        <div class="status-card">
+          <strong>Mode focus</strong>
+          <p>Whiteout + rappel intelligent pour reprendre la tâche prioritaire.</p>
+        </div>
+        <div class="status-card">
+          <strong>Suivi transparent</strong>
+          <p>Historique communautaire, export et partage immédiat.</p>
+        </div>
+      </div>
+    </section>
+
     <!-- Score Card -->
     <div class="score-card">
       Score : <span id="scoreDisplay">0</span>
     </div>
-    
-  <div class="container">
+
     <!-- Master Button (always visible) -->
     <div style="text-align:center; margin-bottom:20px;">
       <button class="file-btn" onclick="openMasterModal()">Panel</button>

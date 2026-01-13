@@ -1,0 +1,53 @@
+<svg width="1200" height="260" viewBox="0 0 1200 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="matrixGlow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4dff8f" stop-opacity="0.95" />
+      <stop offset="100%" stop-color="#0b1f14" stop-opacity="0.2" />
+    </linearGradient>
+    <filter id="blur" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2" />
+    </filter>
+  </defs>
+
+  <rect width="1200" height="260" fill="#050b08" />
+
+  <g opacity="0.9" filter="url(#blur)">
+    <rect x="60" width="6" height="120" fill="url(#matrixGlow)">
+      <animate attributeName="y" values="-120;260" dur="2.8s" repeatCount="indefinite" />
+    </rect>
+    <rect x="140" width="5" height="160" fill="url(#matrixGlow)">
+      <animate attributeName="y" values="-200;260" dur="3.4s" repeatCount="indefinite" />
+    </rect>
+    <rect x="260" width="4" height="140" fill="url(#matrixGlow)">
+      <animate attributeName="y" values="-160;260" dur="2.6s" repeatCount="indefinite" />
+    </rect>
+    <rect x="360" width="6" height="180" fill="url(#matrixGlow)">
+      <animate attributeName="y" values="-220;260" dur="3.1s" repeatCount="indefinite" />
+    </rect>
+    <rect x="470" width="5" height="150" fill="url(#matrixGlow)">
+      <animate attributeName="y" values="-180;260" dur="2.9s" repeatCount="indefinite" />
+    </rect>
+    <rect x="580" width="4" height="170" fill="url(#matrixGlow)">
+      <animate attributeName="y" values="-190;260" dur="3.6s" repeatCount="indefinite" />
+    </rect>
+    <rect x="700" width="5" height="140" fill="url(#matrixGlow)">
+      <animate attributeName="y" values="-150;260" dur="2.7s" repeatCount="indefinite" />
+    </rect>
+    <rect x="820" width="6" height="190" fill="url(#matrixGlow)">
+      <animate attributeName="y" values="-240;260" dur="3.2s" repeatCount="indefinite" />
+    </rect>
+    <rect x="940" width="5" height="160" fill="url(#matrixGlow)">
+      <animate attributeName="y" values="-200;260" dur="2.8s" repeatCount="indefinite" />
+    </rect>
+    <rect x="1060" width="4" height="150" fill="url(#matrixGlow)">
+      <animate attributeName="y" values="-180;260" dur="3.5s" repeatCount="indefinite" />
+    </rect>
+    <rect x="1140" width="6" height="130" fill="url(#matrixGlow)">
+      <animate attributeName="y" values="-140;260" dur="2.4s" repeatCount="indefinite" />
+    </rect>
+  </g>
+
+  <g opacity="0.35">
+    <text x="40" y="230" fill="#1aff6a" font-size="14" font-family="'Courier New', monospace">TECHANDSTREAM :: MATRIX SIGNAL</text>
+  </g>
+</svg>

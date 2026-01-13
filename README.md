@@ -1,26 +1,38 @@
 # Suivi Table Ronde
 
 ![Aperçu de l'interface](image.png)
+![Matrix effect](assets/matrix.svg)
 
-**Suivi Table Ronde** est un ensemble de pages web statiques destinées à préparer, animer et documenter une table ronde.
-Le cœur du produit est le journal communautaire (`community.html`), qui aide à consigner les décisions, les engagements et
-les contributions en toute transparence.
+**Suivi Table Ronde** est un environnement web immersif pour préparer, animer et documenter des tables rondes avec rigueur,
+clarté et impact. L'expérience met l'accent sur l'organisation, la transparence et la productivité — sans backend, en mode local.
 
-## Portée du produit
+## À propos du créateur
 
-- **Suivi communautaire** : consigner, filtrer, exporter et partager les décisions d'une table ronde.
-- **Expérience immersive** : interface graphique ludique et responsive pour la préparation et l'animation.
-- **Aucun backend requis** : tout fonctionne en local via le navigateur (Local Storage).
+**Kevin Marville** — alias **Kvnbbg** pour l'open source, et **Techandstream** pour les projets commerciaux.
+
+- **Open source** : expérimente des interfaces immersives, des outils de suivi, et des expériences UI/UX élégantes.
+- **Freelance (Techandstream)** : livrables premium, UX fluide, exécution rapide, et communication claire.
+- **Contact freelance** : [contact@techandstream.com](mailto:contact@techandstream.com)
+- **GitHub** : https://github.com/kvnbbg
+
+## Valeur livrée
+
+- **Pilotage clair** : checklists, progression visuelle, focus sur les actions à fort impact.
+- **Traçabilité** : journal communautaire pour consigner décisions, engagements et contributions.
+- **Expérience immersive** : animations légères, interface responsive, et modes focus.
+- **Zéro backend** : fonctionnement 100% local via le navigateur (Local Storage).
 
 ## Points d'entrée
 
-- `index.html` : page principale et expérience immersive.
+- `index.html` : tableau de bord principal et expérience immersive.
 - `community.html` : journal communautaire transparent.
+- `bubbleRoom.html` : salle immersive pour préparation et inspiration.
 
-## Prérequis
+## Animations & inspiration visuelle
 
-- **Navigateur moderne** (Chrome, Firefox, Safari, Edge).
-- **Node.js 18+** (uniquement pour les scripts de développement, les tests et la CI).
+- **Matrix effect** : intégré en SVG animé pour une signature visuelle futuriste.
+- **Effets UI** : transitions, micro-animations et cartes flottantes.
+- **Option premium** : intégrations Three.js, Web Components, ou versions TypeScript sur demande.
 
 ## Installation
 
