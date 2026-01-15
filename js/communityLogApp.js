@@ -23,6 +23,8 @@
   const entriesCounter = document.getElementById('entriesCounter');
   const tagFilter = document.getElementById('tagFilter');
   const searchEntries = document.getElementById('searchEntries');
+  const importButton = document.getElementById('importEntriesButton');
+  const importInput = document.getElementById('importEntriesInput');
   const exportButton = document.getElementById('exportEntries');
   const clearButton = document.getElementById('clearEntries');
   const exportFeedback = document.getElementById('exportFeedback');
@@ -202,6 +204,93 @@
     URL.revokeObjectURL(url);
   }
 
+  function buildImportedEntry(rawEntry) {
+    if (!rawEntry || typeof rawEntry !== 'object') return null;
+
+    const data = {
+      title: rawEntry.title ?? '',
+      summary: rawEntry.summary ?? '',
+      commitments: rawEntry.commitments ?? '',
+      participants: rawEntry.participants ?? '',
+      decisionType: rawEntry.decisionType ?? '',
+      tags: rawEntry.tags ?? '',
+    };
+
+    const options = {};
+    if (rawEntry.id) {
+      const safeId = String(rawEntry.id);
+      options.idGenerator = () => safeId;
+    }
+
+    if (rawEntry.createdAt) {
+      const parsedDate = new Date(rawEntry.createdAt);
+      if (!Number.isNaN(parsedDate.getTime())) {
+        const timestamp = parsedDate.toISOString();
+        options.timestamp = () => timestamp;
+      }
+    }
+
+    try {
+      return communityLog.createEntry(data, options);
+    } catch (error) {
+      logger.warn('import.entry_invalid', { error: error?.message });
+      return null;
+    }
+  }
+
+  function mergeEntries(existingEntries, importedEntries) {
+    const merged = new Map();
+    existingEntries.forEach((entry) => merged.set(entry.id, entry));
+    importedEntries.forEach((entry) => merged.set(entry.id, entry));
+    return Array.from(merged.values());
+  }
+
+  async function handleImport(file) {
+    if (!file) return;
+    if (!hasStorageSupport()) {
+      showFeedback(exportFeedback, 'Impossible d’importer sans stockage local.', 6000);
+      return;
+    }
+
+    try {
+      const text = await file.text();
+      const parsed = JSON.parse(text);
+
+      if (!Array.isArray(parsed)) {
+        showFeedback(exportFeedback, 'Le fichier importé doit contenir un tableau de contributions.', 7000);
+        return;
+      }
+
+      const importedEntries = parsed.map(buildImportedEntry).filter(Boolean);
+      if (!importedEntries.length) {
+        showFeedback(exportFeedback, 'Aucune contribution valide n’a été trouvée dans ce fichier.', 7000);
+        return;
+      }
+
+      const existingEntries = communityLog.loadEntries();
+      const existingIds = new Set(existingEntries.map((entry) => entry.id));
+      const addedCount = importedEntries.filter((entry) => !existingIds.has(entry.id)).length;
+
+      const mergedEntries = mergeEntries(existingEntries, importedEntries);
+      const sortedEntries = communityLog.sortEntries(mergedEntries);
+      communityLog.persistEntries(sortedEntries);
+      refreshEntries(sortedEntries);
+
+      showFeedback(
+        exportFeedback,
+        `Import terminé : ${addedCount} contribution(s) ajoutée(s), ${importedEntries.length - addedCount} mise(s) à jour.`,
+        7000,
+      );
+    } catch (error) {
+      logger.error('import.failed', { error: error?.message });
+      showFeedback(exportFeedback, 'Impossible de lire ce fichier. Vérifiez qu’il s’agit d’un JSON valide.', 7000);
+    } finally {
+      if (importInput) {
+        importInput.value = '';
+      }
+    }
+  }
+
   function saveDraftData() {
     if (!hasStorageSupport()) {
       showFeedback(formFeedback, 'Le brouillon ne peut pas être sauvegardé sans stockage local.', 6000);
@@ -290,6 +379,17 @@
       exportEntriesToFile(entries);
       showFeedback(exportFeedback, 'Fichier exporté. Partagez-le avec votre collectif pour renforcer la transparence.');
     });
+
+    if (importButton && importInput) {
+      importButton.addEventListener('click', () => {
+        importInput.click();
+      });
+
+      importInput.addEventListener('change', (event) => {
+        const file = event.target.files?.[0];
+        handleImport(file);
+      });
+    }
 
     clearButton.addEventListener('click', () => {
       if (confirm('Cette action efface toutes les contributions de ce navigateur. Continuer ?')) {
