@@ -37,6 +37,33 @@ function parseArgs(args) {
   }, {});
 }
 
+function loadEnvFile(baseDir) {
+  const envPath = path.join(baseDir, '.env');
+  if (!fs.existsSync(envPath)) return;
+
+  const content = fs.readFileSync(envPath, 'utf8');
+  content.split('\n').forEach((line) => {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('#')) return;
+
+    const separatorIndex = trimmed.indexOf('=');
+    if (separatorIndex <= 0) return;
+
+    const key = trimmed.slice(0, separatorIndex).trim();
+    let value = trimmed.slice(separatorIndex + 1).trim();
+    if (!key || Object.prototype.hasOwnProperty.call(process.env, key)) return;
+
+    if (
+      (value.startsWith('"') && value.endsWith('"')) ||
+      (value.startsWith("'") && value.endsWith("'"))
+    ) {
+      value = value.slice(1, -1);
+    }
+
+    process.env[key] = value;
+  });
+}
+
 const options = parseArgs(process.argv.slice(2));
 
 if (options.help) {
@@ -44,15 +71,17 @@ if (options.help) {
   process.exit(0);
 }
 
-const port = Number(options.port || process.env.PORT || 8080);
-if (!Number.isInteger(port) || port <= 0 || port > 65535) {
-  console.error('Port invalide. Utilisez --port <nombre entre 1 et 65535>.');
-  process.exit(1);
-}
-
 const root = path.resolve(options.root || process.cwd());
 if (!fs.existsSync(root)) {
   console.error(`Répertoire introuvable : ${root}`);
+  process.exit(1);
+}
+
+loadEnvFile(root);
+
+const port = Number(options.port || process.env.PORT || 8080);
+if (!Number.isInteger(port) || port <= 0 || port > 65535) {
+  console.error('Port invalide. Utilisez --port <nombre entre 1 et 65535>.');
   process.exit(1);
 }
 
