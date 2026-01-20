@@ -22,6 +22,7 @@
       --transition-speed: 0.2s;
       --border-radius: 14px;
       --radius-lg: 20px;
+      --radius-xl: 28px;
       --surface: rgba(255, 255, 255, 0.82);
       --surface-strong: rgba(255, 255, 255, 0.96);
       --glass-border: rgba(255, 255, 255, 0.55);
@@ -29,9 +30,16 @@
       --shadow: 0 8px 22px rgba(75, 56, 42, 0.12);
       --shadow-strong: 0 16px 40px rgba(75, 56, 42, 0.2);
       --glow: 0 0 0 3px rgba(210, 166, 121, 0.35);
+      --focus-ring: 0 0 0 3px rgba(200, 117, 51, 0.25);
       --gradient-main: radial-gradient(circle at top, #fdf6ec, #f4e2cb 45%, #e7cfb1 100%);
       --gradient-soft: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(247, 243, 232, 0.8));
       --gradient-accent: linear-gradient(120deg, #c87533, #d2a679, #f3d5aa);
+      --gradient-hero: conic-gradient(from 210deg at 50% 50%, rgba(200, 117, 51, 0.18), rgba(210, 166, 121, 0.28), rgba(255, 255, 255, 0.8), rgba(200, 117, 51, 0.18));
+      --space-xs: 6px;
+      --space-sm: 12px;
+      --space-md: 18px;
+      --space-lg: 24px;
+      --space-xl: 32px;
     }
     /* Valentine Theme Overrides */
     .valentine-theme {
@@ -62,10 +70,21 @@
         radial-gradient(circle at 80% 90%, rgba(200, 117, 51, 0.18), transparent 45%),
         var(--gradient-main);
       color: var(--text-color);
-      padding: 24px;
+      padding: clamp(18px, 3vw, 32px);
       min-height: 100vh;
       line-height: 1.6;
       transition: background 0.3s ease, color 0.3s ease;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.45), transparent 50%),
+        radial-gradient(circle at 80% 10%, rgba(210, 166, 121, 0.2), transparent 45%),
+        radial-gradient(circle at 50% 90%, rgba(200, 117, 51, 0.2), transparent 55%);
+      opacity: 0.7;
+      pointer-events: none;
+      z-index: -1;
     }
     a {
       text-decoration: none;
@@ -82,17 +101,27 @@
     .container {
       max-width: 1080px;
       margin: 24px auto 60px;
-      padding: 0 18px;
+      padding: 0 clamp(12px, 2.5vw, 22px);
     }
     .hero {
       background: var(--gradient-soft);
       border: 1px solid var(--glass-border);
-      border-radius: var(--radius-lg);
-      padding: 28px;
+      border-radius: var(--radius-xl);
+      padding: clamp(22px, 4vw, 32px);
       box-shadow: var(--shadow-strong);
       margin-bottom: 28px;
       position: relative;
       overflow: hidden;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: var(--gradient-hero);
+      animation: slowSpin 18s linear infinite;
+      opacity: 0.6;
+      filter: blur(10px);
+      pointer-events: none;
     }
     .hero::after {
       content: "";
@@ -141,13 +170,19 @@
       text-align: left;
       font-size: 0.95rem;
       backdrop-filter: blur(var(--glass-blur));
+      box-shadow: var(--shadow);
+      transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+    }
+    .status-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-strong);
     }
     .card, .command-card, .score-card {
       background-color: var(--surface);
       border: 1px solid var(--glass-border);
       border-radius: var(--border-radius);
       box-shadow: var(--shadow);
-      padding: 22px;
+      padding: clamp(16px, 3vw, 24px);
       margin-bottom: 22px;
       transition: background-color var(--transition-speed), box-shadow var(--transition-speed), transform 0.2s ease;
       transform: translateY(var(--float-offset, 0px));
@@ -172,6 +207,18 @@
       position: relative;
       overflow: hidden;
     }
+    .task-item {
+      padding: 14px 16px;
+      border-radius: var(--border-radius);
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--shadow);
+      transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+    }
+    .task-item:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-strong);
+    }
     li label {
       cursor: pointer;
       display: inline-block;
@@ -188,6 +235,7 @@
       margin-right: 10px;
       transform: scale(1.2);
       vertical-align: middle;
+      accent-color: var(--highlight-color);
     }
     input[type="number"],
     input[type="text"],
@@ -220,14 +268,17 @@
       border-radius: var(--border-radius);
       overflow: hidden;
       margin-bottom: 20px;
+      padding: 3px;
     }
     .progress-bar {
-      height: 20px;
+      height: 16px;
       width: 0%;
       background: var(--gradient-accent);
-      transition: width 0.5s ease;
+      transition: width 0.5s ease, box-shadow 0.5s ease;
       position: relative;
       overflow: hidden;
+      border-radius: 999px;
+      box-shadow: 0 8px 16px rgba(200, 117, 51, 0.35);
     }
     .progress-bar::after {
       content: "";
@@ -271,6 +322,9 @@
       50% { opacity: 0.9; }
       100% { opacity: 0.98; }
     }
+    @keyframes slowSpin {
+      to { transform: rotate(360deg); }
+    }
     
     /* ================================
        Social Preview SVG Styles
@@ -305,6 +359,14 @@
       background: var(--gradient-accent);
       color: #fff;
       letter-spacing: 0.4px;
+      position: relative;
+      overflow: hidden;
+    }
+    .score-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(255, 255, 255, 0.35), transparent 55%);
     }
     
     /* ================================
@@ -327,14 +389,27 @@
       text-align: center;
       transition: transform var(--transition-speed), box-shadow var(--transition-speed), background var(--transition-speed);
       box-shadow: 0 10px 18px rgba(200, 117, 51, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+    :is(.file-btn, .option-btn, .modal-content.story-content button, .modal-content.easter-content button)::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+      transform: translateX(-120%);
+      transition: transform 0.6s ease;
     }
     :is(.file-btn, .option-btn, .modal-content.story-content button, .modal-content.easter-content button):hover {
       transform: translateY(-1px);
       box-shadow: 0 14px 24px rgba(200, 117, 51, 0.28);
     }
+    :is(.file-btn, .option-btn, .modal-content.story-content button, .modal-content.easter-content button):hover::after {
+      transform: translateX(120%);
+    }
     :is(.file-btn, .option-btn, .modal-content.story-content button, .modal-content.easter-content button):focus-visible {
       outline: none;
-      box-shadow: var(--glow);
+      box-shadow: var(--glow), var(--focus-ring);
     }
     .file-btn--ghost {
       background: rgba(210, 166, 121, 0.25);
@@ -394,7 +469,7 @@
     }
     .window {
       position: absolute;
-      width: 280px;
+      width: min(320px, 100%);
       background: var(--surface);
       border: 1px solid var(--glass-border);
       border-radius: var(--border-radius);
@@ -513,6 +588,13 @@
     .modal-content.easter-content button {
       margin-top: 15px;
     }
+
+    .modal-content.story-content,
+    .modal-content.master-content,
+    .modal-content.easter-content,
+    .whiteout-overlay .whiteout-content {
+      animation: floatIn 0.3s ease;
+    }
     
     /* ================================
        Coins Game Card Styles
@@ -611,6 +693,7 @@
       color: var(--card-bg);
       border-radius: var(--border-radius);
       margin-top: 20px;
+      box-shadow: var(--shadow);
     }
     footer .social-links a {
       margin: 0 10px;
@@ -624,13 +707,33 @@
     /* ================================
        Responsive Styles
        ================================ */
+    @media (max-width: 900px) {
+      .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .hero-actions .file-btn {
+        width: 100%;
+      }
+      .status-grid {
+        grid-template-columns: 1fr;
+      }
+      .window {
+        position: static;
+        margin-bottom: var(--space-md);
+      }
+      #desktop {
+        display: grid;
+        gap: var(--space-md);
+      }
+    }
     @media (max-width: 600px) {
       h1 { font-size: 1.8rem; }
       h2 { font-size: 1.5rem; }
       .card, .command-card, .score-card { padding: 15px; }
       input[type="checkbox"] { transform: scale(1); }
       .command-card input[type="text"] { width: 100%; }
-      .window { width: 90%; }
+      .window { width: 100%; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -790,7 +893,7 @@
     <div class="card">
       <h1>Tâches à Accomplir</h1>
       <ul id="taskList">
-        <li>
+        <li class="task-item">
           <label>
             <input type="checkbox" class="task-checkbox">
             <strong>Vérification de l'Email</strong>
@@ -810,7 +913,7 @@
             </li>
           </ul>
         </li>
-        <li>
+        <li class="task-item">
           <label>
             <input type="checkbox" class="task-checkbox">
             <strong>Confirmation de la Prise en Compte</strong>
@@ -830,7 +933,7 @@
             </li>
           </ul>
         </li>
-        <li>
+        <li class="task-item">
           <label>
             <input type="checkbox" class="task-checkbox">
             <strong>Préparation pour la Table Ronde</strong>
@@ -856,7 +959,7 @@
             </li>
           </ul>
         </li>
-        <li>
+        <li class="task-item">
           <label>
             <input type="checkbox" class="task-checkbox">
             <strong>Suivi Post-Événement</strong>
