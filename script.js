@@ -1,92 +1,151 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // Caching DOM elements for performance
+  const CONSTANTS = {
+    CONFIRMATION_HIDE_DELAY_MS: 3000,
+    FEEDBACK_STORAGE_KEY: 'savedFeedback',
+    FEEDBACK_EMAIL: 'kevinmarville@gmail.com',
+    INDEX_URL: 'index.html',
+    LANGUAGE_LABELS: {
+      en: '🌍 Switch to English',
+      fr: '🌍 Passer en Français',
+    },
+    MESSAGES: {
+      emptyFields: 'Veuillez remplir tous les champs.',
+      invalidEmail: 'Veuillez entrer une adresse email valide.',
+      savedFeedback: '💾 Feedback sauvegardé !',
+      missingMessage: 'Veuillez entrer un message.',
+      openIndexFallback: '^_^ I appreciate the suggestion!',
+    },
+  };
+
+  const logger = {
+    error(message, error) {
+      console.error(`[feedback-ui] ${message}`, error);
+    },
+  };
+
   const masterModal = document.getElementById('masterModal');
   const feedbackForm = document.getElementById('feedbackForm');
   const confirmationAnimation = document.getElementById('confirmation-animation');
   const toggleLangBtn = document.getElementById('toggle-lang');
 
-  // Safe function execution wrapper
+  const getInputValue = (inputId) => document.getElementById(inputId)?.value.trim() ?? '';
+  const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
   function safeExecute(func, alternative = null) {
     try {
       func();
     } catch (error) {
-      console.error('Error executing function:', error);
-      if (alternative) alternative();
+      logger.error('Error executing function.', error);
+      if (alternative) {
+        alternative();
+      }
     }
   }
 
-  // Open Master Modal with error handling
+  /**
+   * Opens the master modal window if it exists.
+   */
   const openMasterModal = () => {
     safeExecute(() => {
-      if (masterModal) {
-        masterModal.style.display = 'flex';
-      } else {
-        console.warn('Modal not found.');
+      if (!masterModal) {
+        return;
       }
+
+      masterModal.style.display = 'flex';
     });
   };
 
-  // Close Master Modal
+  /**
+   * Closes the master modal window if it exists.
+   */
   const closeMasterModal = () => {
     safeExecute(() => {
-      if (masterModal) {
-        masterModal.style.display = 'none';
+      if (!masterModal) {
+        return;
       }
+
+      masterModal.style.display = 'none';
     });
   };
 
-  // Open Index Page with alternative alert
+  /**
+   * Opens the index page in a new tab.
+   */
   const openIndex = () => {
     safeExecute(
-      () => window.open('index.html', '_blank'),
-      () => alert('^_^ I appreciate the suggestion!'),
+      () => window.open(CONSTANTS.INDEX_URL, '_blank'),
+      () => alert(CONSTANTS.MESSAGES.openIndexFallback),
     );
   };
 
-  // Toggle Language with proper UI updates
+  /**
+   * Toggles the document language and updates UI labels.
+   */
   const toggleLanguage = () => {
-    const currentLang = document.documentElement.lang;
-    const newLang = currentLang === 'fr' ? 'en' : 'fr';
-    document.documentElement.lang = newLang;
-    if (toggleLangBtn) {
-      toggleLangBtn.textContent = newLang === 'fr' ? '🌍 Passer en Français' : '🌍 Switch to English';
+    const documentElement = document.documentElement;
+    if (!documentElement) {
+      return;
     }
+
+    const currentLang = documentElement.lang || 'fr';
+    const newLang = currentLang === 'fr' ? 'en' : 'fr';
+    documentElement.lang = newLang;
+
+    if (!toggleLangBtn) {
+      return;
+    }
+
+    toggleLangBtn.textContent = CONSTANTS.LANGUAGE_LABELS[newLang];
   };
 
-  // Feedback Form Submission with input validation
   if (feedbackForm) {
     feedbackForm.addEventListener('submit', (event) => {
       event.preventDefault();
 
-      const name = document.getElementById('name')?.value.trim();
-      const email = document.getElementById('email')?.value.trim();
-      const message = document.getElementById('message')?.value.trim();
+      const name = getInputValue('name');
+      const email = getInputValue('email');
+      const message = getInputValue('message');
 
       if (!name || !email || !message) {
-        alert('Veuillez remplir tous les champs.');
+        alert(CONSTANTS.MESSAGES.emptyFields);
         return;
       }
 
-      const mailtoLink = `mailto:kevinmarville@gmail.com?subject=Feedback from ${name}&body=${encodeURIComponent(message)}%0D%0A%0D%0AEmail: ${email}`;
+      if (!isValidEmail(email)) {
+        alert(CONSTANTS.MESSAGES.invalidEmail);
+        return;
+      }
+
+      const subject = encodeURIComponent(`Feedback from ${name}`);
+      const body = encodeURIComponent(`${message}\n\nEmail: ${email}`);
+      const mailtoLink = `mailto:${CONSTANTS.FEEDBACK_EMAIL}?subject=${subject}&body=${body}`;
       window.location.href = mailtoLink;
 
-      if (confirmationAnimation) {
-        confirmationAnimation.classList.remove('hidden');
-        setTimeout(() => confirmationAnimation.classList.add('hidden'), 3000);
+      if (!confirmationAnimation) {
+        return;
       }
+
+      confirmationAnimation.classList.remove('hidden');
+      setTimeout(
+        () => confirmationAnimation.classList.add('hidden'),
+        CONSTANTS.CONFIRMATION_HIDE_DELAY_MS,
+      );
     });
   }
 
-  // Save Feedback Locally with error handling
+  /**
+   * Saves feedback locally for later retrieval.
+   */
   const saveFeedback = () => {
     safeExecute(() => {
-      const message = document.getElementById('message')?.value.trim();
-      if (message) {
-        localStorage.setItem('savedFeedback', message);
-        alert('💾 Feedback sauvegardé !');
-      } else {
-        alert('Veuillez entrer un message.');
+      const message = getInputValue('message');
+      if (!message) {
+        alert(CONSTANTS.MESSAGES.missingMessage);
+        return;
       }
+
+      localStorage.setItem(CONSTANTS.FEEDBACK_STORAGE_KEY, message);
+      alert(CONSTANTS.MESSAGES.savedFeedback);
     });
   };
 
@@ -96,7 +155,6 @@ document.addEventListener('DOMContentLoaded', () => {
   window.toggleLanguage = toggleLanguage;
   window.saveFeedback = saveFeedback;
 
-  // Ensure elements exist before attaching event listeners
   if (toggleLangBtn) {
     toggleLangBtn.addEventListener('click', toggleLanguage);
   }
