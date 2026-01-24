@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     FEEDBACK_STORAGE_KEY: 'savedFeedback',
     FEEDBACK_EMAIL: 'kevinmarville@gmail.com',
     INDEX_URL: 'index.html',
+    LOCAL_STORAGE_TEST_KEY: '__feedback_storage_test__',
     LANGUAGE_LABELS: {
       en: '🌍 Switch to English',
       fr: '🌍 Passer en Français',
@@ -13,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
       invalidEmail: 'Veuillez entrer une adresse email valide.',
       savedFeedback: '💾 Feedback sauvegardé !',
       missingMessage: 'Veuillez entrer un message.',
+      storageUnavailable: 'Le stockage local est indisponible.',
       openIndexFallback: '^_^ I appreciate the suggestion!',
     },
   };
@@ -30,12 +32,41 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const getInputValue = (inputId) => document.getElementById(inputId)?.value.trim() ?? '';
   const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const isLocalStorageAvailable = () => {
+    if (typeof localStorage === 'undefined') {
+      logger.error('Local storage is not supported in this environment.', new Error('No localStorage'));
+      return false;
+    }
+
+    try {
+      localStorage.setItem(CONSTANTS.LOCAL_STORAGE_TEST_KEY, CONSTANTS.LOCAL_STORAGE_TEST_KEY);
+      localStorage.removeItem(CONSTANTS.LOCAL_STORAGE_TEST_KEY);
+      return true;
+    } catch (error) {
+      if (error instanceof Error) {
+        logger.error('Local storage is unavailable.', error);
+      }
+      return false;
+    }
+  };
 
   function safeExecute(func, alternative = null) {
+    if (typeof func !== 'function') {
+      logger.error('safeExecute expected a function.', new Error('Invalid function argument'));
+      if (alternative) {
+        alternative();
+      }
+      return;
+    }
+
     try {
       func();
     } catch (error) {
-      logger.error('Error executing function.', error);
+      if (error instanceof Error) {
+        logger.error(error.message, error);
+      } else {
+        logger.error('Unknown error while executing function.', new Error(String(error)));
+      }
       if (alternative) {
         alternative();
       }
@@ -141,6 +172,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const message = getInputValue('message');
       if (!message) {
         alert(CONSTANTS.MESSAGES.missingMessage);
+        return;
+      }
+
+      if (!isLocalStorageAvailable()) {
+        alert(CONSTANTS.MESSAGES.storageUnavailable);
         return;
       }
 
