@@ -33,6 +33,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const getInputValue = (inputId) => document.getElementById(inputId)?.value.trim() ?? '';
   const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const isLocalStorageAvailable = () => {
+    if (typeof localStorage === 'undefined') {
+      logger.error('Local storage is not supported in this environment.', new Error('No localStorage'));
+      return false;
+    }
+
     try {
       localStorage.setItem(CONSTANTS.LOCAL_STORAGE_TEST_KEY, CONSTANTS.LOCAL_STORAGE_TEST_KEY);
       localStorage.removeItem(CONSTANTS.LOCAL_STORAGE_TEST_KEY);
@@ -46,6 +51,14 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   function safeExecute(func, alternative = null) {
+    if (typeof func !== 'function') {
+      logger.error('safeExecute expected a function.', new Error('Invalid function argument'));
+      if (alternative) {
+        alternative();
+      }
+      return;
+    }
+
     try {
       func();
     } catch (error) {
