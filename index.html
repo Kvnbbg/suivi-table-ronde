@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com;">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
   <title>Suivi Table Ronde</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
 
     :root {
@@ -59,12 +59,6 @@
     body {
       font-family: 'Roboto', sans-serif;
       background: var(--gradient-main);
-      background-attachment: fixed;
-      background-image:
-        radial-gradient(circle at 10% 10%, rgba(255, 255, 255, 0.6), transparent 42%),
-        radial-gradient(circle at 90% 15%, rgba(210, 166, 121, 0.25), transparent 40%),
-        radial-gradient(circle at 80% 90%, rgba(200, 117, 51, 0.18), transparent 45%),
-        var(--gradient-main);
       color: var(--text-color);
       min-height: 100vh;
       line-height: 1.6;
@@ -84,9 +78,41 @@
     }
 
     a {
+      color: inherit;
       text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    .app-header {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      backdrop-filter: blur(18px);
+      background: var(--glass-bg);
+      border-bottom: 1px solid var(--glass-border);
+      box-shadow: var(--shadow);
+    }
+
+    .nav-bar {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 1.1rem;
       color: var(--primary-color);
-      transition: color var(--transition-speed) ease;
     }
 
     a:hover, a:focus {
@@ -261,6 +287,7 @@
 
     .hero-actions {
       display: flex;
+      gap: 12px;
       flex-wrap: wrap;
       gap: 10px;
     }
@@ -511,16 +538,17 @@
     .window {
       position: absolute;
       width: min(320px, 100%);
-      background: var(--surface);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--border-radius);
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
       box-shadow: var(--shadow);
     }
 
     .window-header {
       background: var(--gradient-accent);
       color: #fff;
-      padding: 8px;
+      padding: 8px 10px;
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
       cursor: move;
       border-top-left-radius: var(--border-radius);
       border-top-right-radius: var(--border-radius);
@@ -528,7 +556,6 @@
 
     .window-content {
       padding: 10px;
-      font-size: 0.95rem;
     }
 
     .window-footer {
@@ -587,16 +614,15 @@
 
     .whiteout-overlay.is-active {
       display: flex;
-      animation: whiteoutPulse 3s ease-in-out infinite;
     }
 
     .whiteout-overlay .whiteout-content {
       max-width: 420px;
-      background: var(--surface-strong);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--border-radius);
-      box-shadow: var(--shadow-strong);
+      background: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
       padding: 20px;
+      box-shadow: var(--shadow-strong);
     }
 
     .whiteout-overlay strong {
@@ -688,7 +714,9 @@
 
       .hero-actions {
         flex-direction: column;
-        align-items: stretch;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 12px 0;
       }
     }
 
@@ -708,7 +736,11 @@
 
       #desktop {
         display: grid;
-        gap: var(--space-md);
+        gap: 16px;
+      }
+
+      .window {
+        position: static;
       }
     }
 
@@ -730,8 +762,8 @@
 <body>
 
   <!-- Master Control Modal -->
-  <div id="masterModal" class="modal master-modal">
-    <div class="modal-content master-content">
+  <div id="masterModal" class="modal">
+    <div class="modal-content">
       <h2>Le Panel</h2>
       <p>Bienvenue ! Choisissez ce qui vous inspire aujourd'hui :</p>
       <div class="modal-actions">
@@ -744,8 +776,8 @@
   </div>
 
   <!-- Story Helper Modal -->
-  <div id="storyModal" class="modal story-modal">
-    <div class="modal-content story-content">
+  <div id="storyModal" class="modal">
+    <div class="modal-content">
       <h2>Bienvenue dans l'univers enchanté de #suivi-table-ronde</h2>
       <p>
         Cet outil magique vous guide à travers une aventure captivante :<br>
@@ -769,8 +801,8 @@
   </div>
 
   <!-- Easter Egg Modal -->
-  <div id="easterModal" class="modal easter-modal">
-    <div class="modal-content easter-content">
+  <div id="easterModal" class="modal">
+    <div class="modal-content">
       <h2>Joyeuse Saint Valentin !</h2>
       <p>Félicitations, vous avez découvert ! Bonus : +50 points</p>
       <p>Voici le lien magique :</p>
@@ -785,7 +817,7 @@
       <strong>Pause Whiteout en cours</strong>
       <p>Prenez un moment pour respirer et revenir avec énergie.</p>
       <p>Temps restant : <span id="whiteoutTimer">05:00</span></p>
-      <button id="whiteoutStopOverlay" class="file-btn">Revenir à la session</button>
+      <button id="whiteoutStopOverlay" class="btn btn--primary">Revenir à la session</button>
     </div>
   </div>
 
@@ -833,16 +865,16 @@
           <a class="file-btn file-btn--ghost" href="bubbleRoom.html">Salle immersive</a>
         </div>
       </div>
-      <div class="status-grid">
-        <div class="status-card">
+      <div class="stats-grid">
+        <div class="stat-card">
           <strong>Vue rapide</strong>
           <p>Progression, score, focus et tâches critiques au même endroit.</p>
         </div>
-        <div class="status-card">
+        <div class="stat-card">
           <strong>Mode focus</strong>
           <p>Whiteout + rappel intelligent pour reprendre la tâche prioritaire.</p>
         </div>
-        <div class="status-card">
+        <div class="stat-card">
           <strong>Suivi transparent</strong>
           <p>Historique communautaire, export et partage immédiat.</p>
         </div>
@@ -1102,9 +1134,6 @@
   </footer>
 
   <script>
-    /* ======================================
-       GLOBAL VARIABLES & SCORE
-       ====================================== */
     const $ = (selector) => document.querySelector(selector);
     const $$ = (selector) => Array.from(document.querySelectorAll(selector));
     const addListener = (el, event, handler) => {
@@ -1138,10 +1167,7 @@
     
     let score = 0;
     const totalTasks = checkboxes.length;
-    
-    /* ======================================
-       FUNCTIONS: TASK PROGRESS & SCORE
-       ====================================== */
+
     function updateProgress() {
       const completed = $$('.task-checkbox:checked').length;
       const percent = (completed / totalTasks) * 100;
@@ -1149,140 +1175,102 @@
         progressBar.style.width = percent + '%';
       }
     }
+
     function updateScore(points) {
       score += points;
-      if(score < 0) score = 0;
+      if (score < 0) score = 0;
       if (scoreDisplay) scoreDisplay.textContent = score;
     }
+
     function handleCheckboxChange() {
       const label = this.parentElement;
-      label.classList.add('pulse');
-      setTimeout(() => {
-        label.classList.remove('pulse');
-        label.classList.add('swap-clean');
-        setTimeout(() => {
-          if(this.checked) {
-            label.classList.add('done');
-            updateScore(10);
-          } else {
-            label.classList.remove('done');
-            updateScore(-10);
-          }
-          label.classList.remove('swap-clean');
-          updateProgress();
-        }, 600);
-      }, 500);
+      if (this.checked) {
+        label.classList.add('done');
+        updateScore(10);
+      } else {
+        label.classList.remove('done');
+        updateScore(-10);
+      }
+      updateProgress();
     }
+
     function resetTasks() {
       checkboxes.forEach(cb => {
-        if(cb.checked) {
+        if (cb.checked) {
           cb.checked = false;
-          const label = cb.parentElement;
-          label.classList.add('swap-clean');
-          setTimeout(() => {
-            label.classList.remove('swap-clean', 'done');
-            updateProgress();
-          }, 600);
+          cb.parentElement.classList.remove('done');
         }
       });
       score = 0;
       if (scoreDisplay) scoreDisplay.textContent = score;
+      updateProgress();
     }
+
     function validateNextTask() {
-      for(let cb of checkboxes) {
-        if(!cb.checked) {
+      for (let cb of checkboxes) {
+        if (!cb.checked) {
           cb.checked = true;
           handleCheckboxChange.call(cb);
           break;
         }
       }
     }
-    
-    /* ======================================
-       MATH CALCULATOR FUNCTION
-       ====================================== */
+
     function calculateMath() {
       if (!mathInput || !mathResult) return;
       let expr = mathInput.value;
       try {
         let result = Function('"use strict"; return (' + expr + ')')();
-        mathResult.textContent = "Résultat : " + result;
-      } catch(error) {
-        mathResult.textContent = "Expression invalide.";
+        mathResult.textContent = 'Résultat : ' + result;
+      } catch (error) {
+        mathResult.textContent = 'Expression invalide.';
       }
     }
-    
-    /* ======================================
-       THEME TOGGLE FUNCTION
-       ====================================== */
+
     function toggleValentineTheme() {
       body.classList.toggle('valentine-theme');
     }
-    
-    /* ======================================
-       EASTER EGG FUNCTION
-       ====================================== */
+
     function triggerEasterEgg() {
       updateScore(50);
       if (easterModal) easterModal.style.display = 'block';
     }
+
     addListener(closeEaster, 'click', () => {
       if (easterModal) easterModal.style.display = 'none';
     });
-    
-    /* ======================================
-       STORY HELPER FUNCTIONS
-       ====================================== */
+
     addListener(closeStory, 'click', () => {
       if (storyModal) storyModal.style.display = 'none';
     });
-    
-    /* ======================================
-       MASTER MODAL FUNCTIONS
-       ====================================== */
+
     function openMasterModal() {
       if (masterModal) masterModal.style.display = 'block';
     }
+
     function closeMasterModal() {
       if (masterModal) masterModal.style.display = 'none';
     }
+
     function focusNotepad() {
       const notesWindow = document.getElementById('notesWindow');
-      if(notesWindow) {
+      if (notesWindow) {
         notesWindow.style.zIndex = 1300;
-        notesWindow.style.border = "2px solid var(--highlight-color)";
+        notesWindow.style.border = '2px solid var(--highlight-color)';
       }
       closeMasterModal();
     }
-    
-    /* ======================================
-       FILE MANAGEMENT FUNCTIONS
-       ====================================== */
-    function fileAction(action) {
-      const logDiv = document.getElementById('fileLog');
-      const timestamp = new Date().toLocaleTimeString();
-      if (logDiv) {
-        logDiv.innerHTML += `<p>[${timestamp}] Action: ${action}</p>`;
-        logDiv.scrollTop = logDiv.scrollHeight;
-      }
+
+    function toggleContactInfo() {
+      const contactInfo = document.getElementById('contactInfo');
+      if (!contactInfo) return;
+      contactInfo.style.display = contactInfo.style.display === 'none' ? 'block' : 'none';
     }
-    
-    /* ======================================
-       COLLAPSIBLE FOLDERS
-       ====================================== */
-    function toggleFolder(id) {
-      const folderContent = document.getElementById(id);
-      if (!folderContent) return;
-      folderContent.style.display = folderContent.style.display === 'block' ? 'none' : 'block';
-    }
-    
-    /* ======================================
-       DRAGGABLE WINDOWS (VIRTUAL DESKTOP)
-       ====================================== */
+
     function makeDraggable(el) {
       let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
       const header = el.querySelector('.window-header');
-      if(header) {
+      if (header) {
         header.onmousedown = dragMouseDown;
       } else {
         el.onmousedown = dragMouseDown;
@@ -1302,70 +1290,66 @@
         pos2 = pos4 - e.clientY;
         pos3 = e.clientX;
         pos4 = e.clientY;
-        el.style.top = (el.offsetTop - pos2) + "px";
-        el.style.left = (el.offsetLeft - pos1) + "px";
+        el.style.top = (el.offsetTop - pos2) + 'px';
+        el.style.left = (el.offsetLeft - pos1) + 'px';
       }
       function closeDragElement() {
         document.onmouseup = null;
         document.onmousemove = null;
       }
     }
+
     const windows = $$('.window');
     windows.forEach(win => makeDraggable(win));
-    
-    /* ======================================
-       VIRTUAL NOTES: SAVE TO LOCAL STORAGE
-       ====================================== */
+
     function saveNotes() {
       const notesArea = document.getElementById('notesArea');
       if (!notesArea) return;
       const notes = notesArea.value;
       localStorage.setItem('virtualNotes', notes);
-      alert("Notes sauvegardées !");
+      alert('Notes sauvegardées !');
     }
+
     window.addEventListener('load', () => {
       const savedNotes = localStorage.getItem('virtualNotes');
       const notesArea = document.getElementById('notesArea');
-      if(savedNotes && notesArea) {
+      if (savedNotes && notesArea) {
         notesArea.value = savedNotes;
       }
     });
-    
-    /* ======================================
-       VIRTUAL FILE VIEWER EXAMPLE
-       ====================================== */
+
     function openVirtualFile() {
       const fileContentDiv = document.getElementById('virtualFileContent');
-      const equation = "E = mc²";
+      const equation = 'E = mc²';
       fileContentDiv.innerHTML = `<p>Contenu du fichier virtuel :</p><p>Une équation célèbre : <strong>${equation}</strong></p>`;
     }
-    
-    /* ======================================
-       COIN GAME: GAMIFICATION DES OPÉRATIONS
-       ====================================== */
+
     const startCoinGameBtn = $('#startCoinGame');
     const coinsInput = $('#coinsInput');
     const thresholdInput = $('#thresholdInput');
     const coinDisplay = $('#coinDisplay');
     const coinLog = $('#coinLog');
+
     function sleep(ms) {
       return new Promise(resolve => setTimeout(resolve, ms));
     }
+
     function renderCoins(coins) {
       if (!coinDisplay) return;
-      coinDisplay.innerHTML = "";
+      coinDisplay.innerHTML = '';
       coins.forEach(val => {
-        const coinEl = document.createElement("div");
-        coinEl.className = "coin";
+        const coinEl = document.createElement('div');
+        coinEl.className = 'coin';
         coinEl.textContent = val;
         coinDisplay.appendChild(coinEl);
       });
     }
+
     async function playCoinGame(coins, threshold) {
       let operations = 0;
       renderCoins(coins);
-      if (coinLog) coinLog.innerHTML = "";
-      while(coins.length > 1 && coins.some(val => val < threshold)) {
+      if (coinLog) coinLog.innerHTML = '';
+      while (coins.length > 1 && coins.some(val => val < threshold)) {
         coins.sort((a, b) => a - b);
         const x = coins.shift();
         const y = coins.shift();
@@ -1383,60 +1367,42 @@
         coinLog.innerHTML += `<p><strong>Nombre minimum d'opérations nécessaires : ${operations}</strong></p>`;
       }
     }
-    if(startCoinGameBtn) {
+
+    if (startCoinGameBtn) {
       startCoinGameBtn.addEventListener('click', () => {
         if (!coinsInput || !thresholdInput) return;
         const coinsStr = coinsInput.value;
         const threshold = parseInt(thresholdInput.value, 10);
-        if(!coinsStr || isNaN(threshold)) {
-          alert("Veuillez entrer des pièces valides et un seuil.");
+        if (!coinsStr || isNaN(threshold)) {
+          alert('Veuillez entrer des pièces valides et un seuil.');
           return;
         }
-        const coins = coinsStr.split(",").map(s => parseInt(s.trim())).filter(n => !isNaN(n));
+        const coins = coinsStr.split(',').map(s => parseInt(s.trim())).filter(n => !isNaN(n));
         playCoinGame(coins, threshold);
       });
     }
-    
-    /* ======================================
-       GLOBAL DYNAMIC ANIMATION (SIMPLE HARMONIC MOTION)
-       ====================================== */
-    function animateCards() {
-      const cards = document.querySelectorAll('.card, .command-card, .score-card');
-      const time = Date.now() / 1000;
-      cards.forEach((card, index) => {
-        const amplitude = 5;
-        const frequency = 0.5;
-        const phaseOffset = index * Math.PI / 6;
-        const deltaY = amplitude * Math.sin(2 * Math.PI * frequency * time + phaseOffset);
-        card.style.setProperty('--float-offset', `${deltaY}px`);
-      });
-      requestAnimationFrame(animateCards);
-    }
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (!prefersReducedMotion.matches) {
-      requestAnimationFrame(animateCards);
-    }
 
-    /* ======================================
-       WHITEOUT BREAK MODE
-       ====================================== */
     let whiteoutInterval = null;
     let remainingSeconds = 0;
+
     function formatTime(seconds) {
       const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
       const secs = Math.floor(seconds % 60).toString().padStart(2, '0');
       return `${mins}:${secs}`;
     }
+
     function setWhiteoutActive(active) {
       if (!whiteoutOverlay) return;
       whiteoutOverlay.classList.toggle('is-active', active);
       whiteoutOverlay.setAttribute('aria-hidden', String(!active));
     }
+
     function updateWhiteoutDisplay() {
       if (whiteoutTimer) {
         whiteoutTimer.textContent = formatTime(remainingSeconds);
       }
     }
+
     function stopWhiteout() {
       if (whiteoutInterval) {
         clearInterval(whiteoutInterval);
@@ -1444,11 +1410,12 @@
       }
       setWhiteoutActive(false);
     }
+
     function startWhiteout() {
       if (!whiteoutMinutes) return;
       const minutes = parseInt(whiteoutMinutes.value, 10);
       if (isNaN(minutes) || minutes <= 0) {
-        alert("Veuillez choisir une durée valide.");
+        alert('Veuillez choisir une durée valide.');
         return;
       }
       remainingSeconds = Math.min(minutes, 30) * 60;
@@ -1463,57 +1430,43 @@
         }
       }, 1000);
     }
-    
-    /* ======================================
-       EVENT LISTENERS FOR COMMANDS & SHORTCUTS
-       ====================================== */
+
     checkboxes.forEach(cb => {
       cb.addEventListener('change', handleCheckboxChange);
     });
     addListener(resetBtn, 'click', resetTasks);
     addListener(calcBtn, 'click', calculateMath);
-    document.addEventListener('keydown', function(e) {
-      if(e.altKey && e.key.toLowerCase() === 'r') {
+
+    document.addEventListener('keydown', function (e) {
+      if (e.altKey && e.key.toLowerCase() === 'r') {
         e.preventDefault();
         resetTasks();
       }
-      if(e.altKey && e.key.toLowerCase() === 'n') {
+      if (e.altKey && e.key.toLowerCase() === 'n') {
         e.preventDefault();
         validateNextTask();
       }
-      if(e.altKey && e.key.toLowerCase() === 't') {
+      if (e.altKey && e.key.toLowerCase() === 't') {
         e.preventDefault();
         toggleValentineTheme();
       }
     });
-    addListener(commandInput, 'keydown', function(e) {
-      if(e.key === 'Enter') {
+
+    addListener(commandInput, 'keydown', function (e) {
+      if (e.key === 'Enter') {
         const command = commandInput.value.trim().toLowerCase();
-        if(command === 'reset') {
+        if (command === 'reset') {
           resetTasks();
-        } else if(command === 'next') {
+        } else if (command === 'next') {
           validateNextTask();
-        } else if(command === 'toggle') {
+        } else if (command === 'toggle') {
           toggleValentineTheme();
-        } else if(command === 'aujourdh8onsa1m1') {
+        } else if (command === 'aujourdh8onsa1m1') {
           triggerEasterEgg();
         }
         commandInput.value = '';
       }
     });
-    
-    /* ======================================
-       TOGGLE CONTACT INFO (for Collaboration Card)
-       ====================================== */
-    function toggleContactInfo() {
-      const contactInfo = document.getElementById("contactInfo");
-      if (!contactInfo) return;
-      if (contactInfo.style.display === "none") {
-        contactInfo.style.display = "block";
-      } else {
-        contactInfo.style.display = "none";
-      }
-    }
 
     addListener(whiteoutStart, 'click', startWhiteout);
     addListener(whiteoutStop, 'click', stopWhiteout);
