@@ -5,43 +5,29 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com;">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
   <title>Suivi Table Ronde</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    /* ================================
-       Global Variables – Warm Coffee Palette
-       ================================ */
     :root {
-      --primary-color: #6f4e37; /* Dark coffee */
-      --secondary-color: #8b5e3c; /* Medium coffee */
-      --accent-color: #d2a679;    /* Latte */
-      --highlight-color: #c87533; /* Copper coffee */
-      --background-color: #f7f3e8;  /* Light cream */
-      --text-color: #4b382a;       /* Dark brown text */
+      --primary-color: #6f4e37;
+      --secondary-color: #8b5e3c;
+      --accent-color: #d2a679;
+      --highlight-color: #c87533;
+      --background-color: #f7f3e8;
+      --text-color: #3f2b1f;
       --card-bg: #ffffff;
-      --border-color: rgba(125, 87, 63, 0.25);
-      --transition-speed: 0.2s;
-      --border-radius: 14px;
-      --radius-lg: 20px;
-      --radius-xl: 28px;
-      --surface: rgba(255, 255, 255, 0.82);
-      --surface-strong: rgba(255, 255, 255, 0.96);
-      --glass-border: rgba(255, 255, 255, 0.55);
-      --glass-blur: 14px;
-      --shadow: 0 8px 22px rgba(75, 56, 42, 0.12);
-      --shadow-strong: 0 16px 40px rgba(75, 56, 42, 0.2);
-      --glow: 0 0 0 3px rgba(210, 166, 121, 0.35);
-      --focus-ring: 0 0 0 3px rgba(200, 117, 51, 0.25);
-      --gradient-main: radial-gradient(circle at top, #fdf6ec, #f4e2cb 45%, #e7cfb1 100%);
-      --gradient-soft: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(247, 243, 232, 0.8));
+      --border-color: rgba(125, 87, 63, 0.2);
+      --shadow: 0 12px 30px rgba(75, 56, 42, 0.12);
+      --shadow-strong: 0 18px 45px rgba(75, 56, 42, 0.2);
+      --radius-sm: 12px;
+      --radius-md: 18px;
+      --radius-lg: 24px;
+      --glass-bg: rgba(255, 255, 255, 0.85);
+      --glass-border: rgba(255, 255, 255, 0.6);
+      --gradient-main: radial-gradient(circle at top, #fdf6ec, #f4e2cb 40%, #e7cfb1 100%);
       --gradient-accent: linear-gradient(120deg, #c87533, #d2a679, #f3d5aa);
-      --gradient-hero: conic-gradient(from 210deg at 50% 50%, rgba(200, 117, 51, 0.18), rgba(210, 166, 121, 0.28), rgba(255, 255, 255, 0.8), rgba(200, 117, 51, 0.18));
-      --space-xs: 6px;
-      --space-sm: 12px;
-      --space-md: 18px;
-      --space-lg: 24px;
-      --space-xl: 32px;
+      --focus-ring: 0 0 0 3px rgba(200, 117, 51, 0.2);
     }
-    /* Valentine Theme Overrides */
+
     .valentine-theme {
       --primary-color: #d81b60;
       --secondary-color: #ad1457;
@@ -51,598 +37,420 @@
       --text-color: #880e4f;
       --border-color: #f48fb1;
     }
-    
-    /* ================================
-       Reset & Base Styles
-       ================================ */
+
     *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
+
     body {
       font-family: 'Roboto', sans-serif;
       background: var(--gradient-main);
-      background-attachment: fixed;
-      background-image:
-        radial-gradient(circle at 10% 10%, rgba(255, 255, 255, 0.6), transparent 42%),
-        radial-gradient(circle at 90% 15%, rgba(210, 166, 121, 0.25), transparent 40%),
-        radial-gradient(circle at 80% 90%, rgba(200, 117, 51, 0.18), transparent 45%),
-        var(--gradient-main);
       color: var(--text-color);
-      padding: clamp(18px, 3vw, 32px);
       min-height: 100vh;
       line-height: 1.6;
-      transition: background 0.3s ease, color 0.3s ease;
     }
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.45), transparent 50%),
-        radial-gradient(circle at 80% 10%, rgba(210, 166, 121, 0.2), transparent 45%),
-        radial-gradient(circle at 50% 90%, rgba(200, 117, 51, 0.2), transparent 55%);
-      opacity: 0.7;
-      pointer-events: none;
-      z-index: -1;
-    }
+
     a {
+      color: inherit;
       text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    .app-header {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      backdrop-filter: blur(18px);
+      background: var(--glass-bg);
+      border-bottom: 1px solid var(--glass-border);
+      box-shadow: var(--shadow);
+    }
+
+    .nav-bar {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 1.1rem;
       color: var(--primary-color);
-      transition: color var(--transition-speed) ease;
     }
-    a:hover, a:focus {
-      color: var(--accent-color);
+
+    .nav-toggle {
+      display: none;
+      border: 1px solid var(--border-color);
+      background: var(--card-bg);
+      border-radius: 10px;
+      width: 40px;
+      height: 40px;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
     }
-    
-    /* ================================
-       Container & Card Styles
-       ================================ */
+
+    .nav-checkbox {
+      display: none;
+    }
+
+    .nav-center {
+      display: flex;
+      gap: 18px;
+      justify-content: center;
+      font-weight: 600;
+    }
+
+    .nav-center a {
+      padding: 6px 8px;
+      border-radius: 8px;
+      color: var(--secondary-color);
+    }
+
+    .nav-center a:hover,
+    .nav-center a:focus-visible {
+      background: rgba(210, 166, 121, 0.2);
+      color: var(--primary-color);
+      outline: none;
+    }
+
+    .nav-right {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
     .container {
-      max-width: 1080px;
-      margin: 24px auto 60px;
-      padding: 0 clamp(12px, 2.5vw, 22px);
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 24px 60px;
     }
-    .hero {
-      background: var(--gradient-soft);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius-xl);
-      padding: clamp(22px, 4vw, 32px);
-      box-shadow: var(--shadow-strong);
-      margin-bottom: 28px;
-      position: relative;
-      overflow: hidden;
+
+    main {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
     }
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: -40%;
-      background: var(--gradient-hero);
-      animation: slowSpin 18s linear infinite;
-      opacity: 0.6;
-      filter: blur(10px);
-      pointer-events: none;
-    }
-    .hero::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at top right, rgba(210, 166, 121, 0.2), transparent 45%);
-      pointer-events: none;
-    }
-    .hero > * {
-      position: relative;
-      z-index: 1;
-    }
-    .hero-title {
-      font-size: clamp(1.8rem, 4vw, 2.6rem);
+
+    .page-title {
+      font-size: clamp(2rem, 3vw, 2.6rem);
+      font-weight: 700;
       margin-bottom: 8px;
     }
-    .hero-subtitle {
-      font-size: 1rem;
+
+    .subtitle {
       color: var(--secondary-color);
-      margin-bottom: 16px;
+      font-size: 1rem;
+      max-width: 720px;
     }
+
+    .panel {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .panel h2 {
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+    }
+
+    .panel h3 {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+    }
+
+    .panel p {
+      font-size: 1rem;
+      margin-bottom: 10px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+      gap: 24px;
+      align-items: center;
+    }
+
     .hero-actions {
       display: flex;
+      gap: 12px;
       flex-wrap: wrap;
-      gap: 10px;
-      justify-content: center;
+      margin-top: 16px;
     }
-    .hero-actions .file-btn {
-      min-width: 160px;
-    }
-    .centered-actions {
-      text-align: center;
-      margin-bottom: 24px;
-    }
-    .status-grid {
+
+    .stats-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 12px;
-      margin-top: 16px;
     }
-    .status-card {
-      background: var(--surface);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--border-radius);
-      padding: 12px;
-      text-align: left;
+
+    .stat-card {
+      padding: 16px;
+      border-radius: var(--radius-md);
+      background: rgba(247, 243, 232, 0.7);
+      border: 1px solid var(--border-color);
       font-size: 0.95rem;
-      backdrop-filter: blur(var(--glass-blur));
-      box-shadow: var(--shadow);
-      transition: transform var(--transition-speed), box-shadow var(--transition-speed);
     }
-    .status-card:hover {
-      transform: translateY(-3px);
-      box-shadow: var(--shadow-strong);
+
+    .dashboard-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+      gap: 24px;
     }
-    .card, .command-card, .score-card {
-      background-color: var(--surface);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--border-radius);
-      box-shadow: var(--shadow);
-      padding: clamp(16px, 3vw, 24px);
-      margin-bottom: 22px;
-      transition: background-color var(--transition-speed), box-shadow var(--transition-speed), transform 0.2s ease;
-      transform: translateY(var(--float-offset, 0px));
-      backdrop-filter: blur(var(--glass-blur));
+
+    .stack {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
     }
-    .card:hover, .command-card:hover, .score-card:hover {
-      box-shadow: var(--shadow-strong);
+
+    .panel-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
-    h1, h2 {
-      text-align: center;
-      margin-bottom: 20px;
+
+    .score-card {
+      background: var(--gradient-accent);
+      color: #fff;
+      border-radius: var(--radius-md);
+      padding: 18px;
+      font-size: 1.4rem;
+      font-weight: 700;
     }
-    p {
-      margin-bottom: 10px;
-    }
-    ul {
-      list-style: none;
-      padding-left: 0;
-    }
-    li {
-      margin-bottom: 15px;
-      position: relative;
+
+    .progress-container {
+      width: 100%;
+      background: rgba(210, 166, 121, 0.3);
+      border-radius: 999px;
       overflow: hidden;
+      padding: 4px;
     }
+
+    .progress-bar {
+      height: 14px;
+      width: 0%;
+      background: var(--gradient-accent);
+      border-radius: 999px;
+      transition: width 0.5s ease;
+    }
+
+    .task-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
     .task-item {
-      padding: 14px 16px;
-      border-radius: var(--border-radius);
-      background: rgba(255, 255, 255, 0.72);
-      border: 1px solid var(--glass-border);
-      box-shadow: var(--shadow);
-      transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+      padding: 16px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+      background: rgba(255, 255, 255, 0.85);
     }
-    .task-item:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-strong);
-    }
-    li label {
-      cursor: pointer;
+
+    .task-item strong {
       display: inline-block;
+      margin-bottom: 6px;
     }
-    .subtask {
-      margin-left: 20px;
+
+    .task-item .subtask {
       margin-top: 10px;
+      padding-left: 18px;
     }
-    .subtask li {
-      margin-bottom: 10px;
-      list-style-type: disc;
+
+    .task-item .subtask li {
+      margin-bottom: 8px;
+      list-style: disc;
     }
+
     input[type="checkbox"] {
       margin-right: 10px;
-      transform: scale(1.2);
-      vertical-align: middle;
+      transform: scale(1.1);
       accent-color: var(--highlight-color);
     }
+
     input[type="number"],
     input[type="text"],
-    textarea {
+    textarea,
+    select {
+      width: 100%;
       border: 1px solid var(--border-color);
       border-radius: 12px;
       padding: 10px 12px;
-      background: var(--surface-strong);
-      font-size: 0.95rem;
-      transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+      font-size: 1rem;
+      background: #fff;
     }
-    input[type="number"]:focus,
-    input[type="text"]:focus,
-    textarea:focus {
+
+    input:focus,
+    textarea:focus,
+    select:focus,
+    button:focus-visible {
       outline: none;
-      border-color: var(--accent-color);
-      box-shadow: var(--glow);
+      box-shadow: var(--focus-ring);
     }
-    .done {
-      text-decoration: line-through;
-      color: var(--secondary-color);
-    }
-    
-    /* ================================
-       Progress Bar
-       ================================ */
-    .progress-container {
-      width: 100%;
-      background: rgba(210, 166, 121, 0.35);
-      border-radius: var(--border-radius);
-      overflow: hidden;
-      margin-bottom: 20px;
-      padding: 3px;
-    }
-    .progress-bar {
-      height: 16px;
-      width: 0%;
-      background: var(--gradient-accent);
-      transition: width 0.5s ease, box-shadow 0.5s ease;
-      position: relative;
-      overflow: hidden;
-      border-radius: 999px;
-      box-shadow: 0 8px 16px rgba(200, 117, 51, 0.35);
-    }
-    .progress-bar::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.5), transparent);
-      transform: translateX(-100%);
-      animation: shimmer 3s infinite;
-    }
-    
-    /* ================================
-       Animations
-       ================================ */
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
-    }
-    .pulse {
-      animation: pulse 0.5s ease;
-    }
-    @keyframes swapClean {
-      0% { background-color: transparent; }
-      50% { background-color: var(--accent-color); }
-      100% { background-color: transparent; }
-    }
-    .swap-clean {
-      animation: swapClean 0.6s ease;
-    }
-    @keyframes shimmer {
-      0% { transform: translateX(-100%); }
-      50% { transform: translateX(100%); }
-      100% { transform: translateX(100%); }
-    }
-    @keyframes floatIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes whiteoutPulse {
-      0% { opacity: 0.98; }
-      50% { opacity: 0.9; }
-      100% { opacity: 0.98; }
-    }
-    @keyframes slowSpin {
-      to { transform: rotate(360deg); }
-    }
-    
-    /* ================================
-       Social Preview SVG Styles
-       ================================ */
-    .social-preview {
-      display: block;
-      width: 100%;
-      height: auto;
-      max-width: 1280px;
-      margin: 0 auto 20px;
-    }
-    
-    /* ================================
-       Command Card Styles
-       ================================ */
-    .command-card input[type="text"] {
-      width: 100%;
-      margin-top: 10px;
-    }
-    .command-card p {
-      margin-bottom: 10px;
-      font-style: italic;
-    }
-    
-    /* ================================
-       Score Card
-       ================================ */
-    .score-card {
-      text-align: center;
-      font-size: 1.2rem;
-      font-weight: bold;
-      background: var(--gradient-accent);
-      color: #fff;
-      letter-spacing: 0.4px;
-      position: relative;
-      overflow: hidden;
-    }
-    .score-card::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at top, rgba(255, 255, 255, 0.35), transparent 55%);
-    }
-    
-    /* ================================
-       File Management Buttons
-       ================================ */
-    :is(.file-btn, .option-btn, .modal-content.story-content button, .modal-content.easter-content button) {
-      padding: 10px 18px;
-      margin: 5px;
-      background: var(--gradient-accent);
-      color: #fff;
-      border: none;
-      border-radius: 999px;
-      cursor: pointer;
+
+    .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 8px;
+      height: 46px;
+      padding: 0 18px;
+      border-radius: 999px;
+      border: none;
       font-weight: 600;
-      letter-spacing: 0.2px;
-      text-align: center;
-      transition: transform var(--transition-speed), box-shadow var(--transition-speed), background var(--transition-speed);
-      box-shadow: 0 10px 18px rgba(200, 117, 51, 0.2);
-      position: relative;
-      overflow: hidden;
-    }
-    :is(.file-btn, .option-btn, .modal-content.story-content button, .modal-content.easter-content button)::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.55), transparent);
-      transform: translateX(-120%);
-      transition: transform 0.6s ease;
-    }
-    :is(.file-btn, .option-btn, .modal-content.story-content button, .modal-content.easter-content button):hover {
-      transform: translateY(-1px);
-      box-shadow: 0 14px 24px rgba(200, 117, 51, 0.28);
-    }
-    :is(.file-btn, .option-btn, .modal-content.story-content button, .modal-content.easter-content button):hover::after {
-      transform: translateX(120%);
-    }
-    :is(.file-btn, .option-btn, .modal-content.story-content button, .modal-content.easter-content button):focus-visible {
-      outline: none;
-      box-shadow: var(--glow), var(--focus-ring);
-    }
-    .file-btn--ghost {
-      background: rgba(210, 166, 121, 0.25);
-      color: var(--primary-color);
-      box-shadow: none;
-    }
-    .file-btn--ghost:hover {
-      background: rgba(210, 166, 121, 0.4);
-      transform: translateY(-1px);
-      box-shadow: none;
-    }
-    #fileLog {
-      margin-top: 10px;
-      padding: 10px;
-      background: var(--surface-strong);
-      border-radius: var(--border-radius);
-      max-height: 150px;
-      overflow-y: auto;
-      font-size: 0.9rem;
-      border: 1px solid var(--glass-border);
-    }
-    
-    /* ================================
-       Collapsible Folders for Various Data
-       ================================ */
-    .folder {
-      background: var(--gradient-accent);
-      color: var(--card-bg);
-      padding: 10px;
-      border-radius: var(--border-radius);
-      margin-bottom: 10px;
       cursor: pointer;
-      user-select: none;
-    }
-    .folder-content {
-      display: none;
-      padding: 10px;
-      border: 1px solid var(--glass-border);
-      border-radius: var(--border-radius);
-      background: var(--surface);
-      box-shadow: var(--shadow);
-    }
-    
-    /* ================================
-       Virtual Desktop – Draggable Windows
-       ================================ */
-    #desktop {
-      position: relative;
-      width: 100%;
-      min-height: 300px;
-      border: 2px dashed var(--glass-border);
-      border-radius: var(--border-radius);
-      margin: 20px 0;
-      overflow: hidden;
-      padding: 10px;
-      background: rgba(255, 255, 255, 0.4);
-    }
-    .window {
-      position: absolute;
-      width: min(320px, 100%);
-      background: var(--surface);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--border-radius);
-      box-shadow: var(--shadow);
-      transition: transform var(--transition-speed);
-    }
-    .window-header {
-      background: var(--gradient-accent);
-      color: #fff;
-      padding: 8px;
-      cursor: move;
-      border-top-left-radius: var(--border-radius);
-      border-top-right-radius: var(--border-radius);
-      user-select: none;
-    }
-    .window-content {
-      padding: 10px;
-      font-size: 0.95rem;
-    }
-    .window-footer {
-      text-align: right;
-      padding: 5px;
-      font-size: 0.8rem;
-      color: var(--secondary-color);
-    }
-    
-    /* ================================
-       Story Helper Modal (Pop-up Story)
-       ================================ */
-    .modal.story-modal {
-      display: none;
-      position: fixed;
-      z-index: 1100;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.8);
-    }
-    .modal-content.story-content {
-      background-color: var(--surface);
-      margin: 10% auto;
-      padding: 20px;
-      border: 1px solid var(--glass-border);
-      width: 90%;
-      max-width: 500px;
-      border-radius: var(--border-radius);
-      text-align: center;
-      box-shadow: var(--shadow-strong);
-      backdrop-filter: blur(var(--glass-blur));
-    }
-    .modal-content.story-content button {
-      margin-top: 15px;
-    }
-    
-    /* ================================
-       Master Control Modal
-       ================================ */
-    .modal.master-modal {
-      display: none;
-      position: fixed;
-      z-index: 1200;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.85);
-    }
-    .modal-content.master-content {
-      background-color: var(--surface);
-      margin: 10% auto;
-      padding: 20px;
-      border: 1px solid var(--glass-border);
-      width: 90%;
-      max-width: 600px;
-      border-radius: var(--border-radius);
-      text-align: center;
-      box-shadow: var(--shadow-strong);
-      backdrop-filter: blur(var(--glass-blur));
-    }
-    .modal-content.master-content h2 {
-      margin-bottom: 15px;
-    }
-    .modal-content.master-content .option-btn {
-      width: min(260px, 100%);
-    }
-    
-    /* ================================
-       Easter Egg Modal
-       ================================ */
-    .modal.easter-modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0,0,0,0.8);
-    }
-    .modal-content.easter-content {
-      background-color: var(--surface);
-      margin: 15% auto;
-      padding: 20px;
-      border: 1px solid var(--glass-border);
-      width: 80%;
-      max-width: 400px;
-      border-radius: var(--border-radius);
-      text-align: center;
-      box-shadow: var(--shadow-strong);
-      backdrop-filter: blur(var(--glass-blur));
-    }
-    .modal-content.easter-content button {
-      margin-top: 15px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
-    .modal-content.story-content,
-    .modal-content.master-content,
-    .modal-content.easter-content,
-    .whiteout-overlay .whiteout-content {
-      animation: floatIn 0.3s ease;
+    .btn--primary {
+      background: var(--gradient-accent);
+      color: #fff;
+      box-shadow: 0 10px 18px rgba(200, 117, 51, 0.2);
     }
-    
-    /* ================================
-       Coins Game Card Styles
-       ================================ */
-    .coin {
-      display: inline-block;
-      margin: 5px;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: var(--accent-color);
-      color: var(--card-bg);
-      text-align: center;
-      line-height: 40px;
-      font-weight: bold;
-      transition: transform 0.5s ease;
+
+    .btn--ghost {
+      background: rgba(210, 166, 121, 0.18);
+      color: var(--primary-color);
+      height: 36px;
+    }
+
+    .btn--secondary {
+      background: rgba(210, 166, 121, 0.3);
+      color: var(--primary-color);
+      height: 36px;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 24px rgba(200, 117, 51, 0.22);
     }
 
     .command-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 16px;
-      margin-top: 10px;
     }
+
     .command-card {
-      animation: floatIn 0.4s ease;
+      padding: 16px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+      background: rgba(247, 243, 232, 0.6);
     }
-    .command-card input,
-    .command-card button,
-    .command-card textarea {
-      width: 100%;
-    }
+
     .command-card .helper-text {
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       color: var(--secondary-color);
     }
-    .command-card .command-hints {
+
+    .command-hints {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 6px;
       margin-top: 8px;
     }
-    .command-card .command-chip {
-      background: var(--background-color);
-      border: 1px solid var(--border-color);
-      border-radius: 999px;
+
+    .command-chip {
       padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border-color);
+      background: #fff;
       font-size: 0.8rem;
+    }
+
+    #desktop {
+      position: relative;
+      width: 100%;
+      min-height: 260px;
+      border: 1px dashed var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      background: rgba(255, 255, 255, 0.6);
+    }
+
+    .window {
+      position: absolute;
+      width: min(320px, 100%);
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow);
+    }
+
+    .window-header {
+      background: var(--gradient-accent);
+      color: #fff;
+      padding: 8px 10px;
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
+      cursor: move;
+      font-weight: 600;
+    }
+
+    .window-content {
+      padding: 10px;
+    }
+
+    .window-footer {
+      padding: 6px 10px;
+      font-size: 0.8rem;
+      color: var(--secondary-color);
+    }
+
+    .coin {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin: 4px;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--accent-color);
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .done {
+      text-decoration: line-through;
+      color: var(--secondary-color);
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      z-index: 1200;
+      padding: 20px;
+    }
+
+    .modal-content {
+      background: var(--card-bg);
+      margin: 10% auto;
+      padding: 24px;
+      border-radius: var(--radius-lg);
+      max-width: 520px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-strong);
+      text-align: center;
     }
 
     .whiteout-overlay {
@@ -657,155 +465,176 @@
       text-align: center;
       padding: 20px;
     }
+
     .whiteout-overlay.is-active {
       display: flex;
-      animation: whiteoutPulse 3s ease-in-out infinite;
     }
-    .whiteout-overlay .whiteout-content {
+
+    .whiteout-content {
       max-width: 420px;
-      background: var(--surface-strong);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--border-radius);
-      box-shadow: var(--shadow-strong);
+      background: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
       padding: 20px;
+      box-shadow: var(--shadow-strong);
     }
-    .whiteout-overlay strong {
-      display: block;
-      font-size: 1.4rem;
-      margin-bottom: 10px;
-    }
-    
-    /* ================================
-       Contact & Collaboration Card (Modified Meta Section)
-       ================================ */
-    /* Contact & Collaboration Card */
-    #contactCard {
-      margin-top: 20px;
-    }
-    
-    /* ================================
-       Footer
-       ================================ */
+
     footer {
-      background: linear-gradient(135deg, var(--accent-color), var(--highlight-color));
-      padding: 20px 10px;
+      margin-top: 40px;
+      padding: 20px;
       text-align: center;
-      color: var(--card-bg);
-      border-radius: var(--border-radius);
-      margin-top: 20px;
-      box-shadow: var(--shadow);
+      color: #fff;
+      background: var(--gradient-accent);
+      border-radius: var(--radius-lg);
     }
-    footer .social-links a {
-      margin: 0 10px;
-      color: var(--card-bg);
-      transition: transform var(--transition-speed);
+
+    footer .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 8px;
     }
-    footer .social-links a:hover {
-      transform: scale(1.1);
-    }
-    
-    /* ================================
-       Responsive Styles
-       ================================ */
-    @media (max-width: 900px) {
-      .hero-actions {
-        flex-direction: column;
-        align-items: stretch;
-      }
-      .hero-actions .file-btn {
-        width: 100%;
-      }
-      .status-grid {
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .dashboard-layout {
         grid-template-columns: 1fr;
       }
-      .window {
-        position: static;
-        margin-bottom: var(--space-md);
+    }
+
+    @media (max-width: 820px) {
+      .nav-bar {
+        grid-template-columns: 1fr auto;
+        grid-template-areas:
+          "logo toggle"
+          "nav nav"
+          "utilities utilities";
       }
-      #desktop {
-        display: grid;
-        gap: var(--space-md);
+
+      .nav-left {
+        grid-area: logo;
+      }
+
+      .nav-toggle {
+        display: inline-flex;
+        grid-area: toggle;
+      }
+
+      .nav-center {
+        grid-area: nav;
+        display: none;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 12px 0;
+      }
+
+      .nav-right {
+        grid-area: utilities;
+        justify-content: flex-start;
+      }
+
+      .nav-checkbox:checked ~ .nav-center {
+        display: flex;
       }
     }
+
     @media (max-width: 600px) {
-      h1 { font-size: 1.8rem; }
-      h2 { font-size: 1.5rem; }
-      .card, .command-card, .score-card { padding: 15px; }
-      input[type="checkbox"] { transform: scale(1); }
-      .command-card input[type="text"] { width: 100%; }
-      .window { width: 100%; }
+      .container {
+        padding: 24px 16px 48px;
+      }
+
+      .panel {
+        padding: 20px;
+      }
+
+      #desktop {
+        display: grid;
+        gap: 16px;
+      }
+
+      .window {
+        position: static;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation: none !important;
-        transition-duration: 0.01ms !important;
-      }
-      .card, .command-card, .score-card {
-        transform: none !important;
+      * {
+        transition: none !important;
       }
     }
   </style>
 </head>
 <body>
+  <header class="app-header">
+    <div class="nav-bar">
+      <div class="nav-left">
+        <span>Suivi Table Ronde</span>
+      </div>
+      <input type="checkbox" id="navToggle" class="nav-checkbox" aria-hidden="true">
+      <label for="navToggle" class="nav-toggle" aria-label="Ouvrir le menu">☰</label>
+      <nav class="nav-center" aria-label="Navigation principale">
+        <a href="#overview">Dashboard</a>
+        <a href="#tasks">Tâches</a>
+        <a href="#command">Centre de commande</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="nav-right">
+        <button class="btn btn--secondary" id="themeToggleNav">Thème</button>
+        <select aria-label="Langue">
+          <option>FR</option>
+          <option>EN</option>
+          <option>中文</option>
+        </select>
+        <button class="btn btn--ghost" onclick="openMasterModal()">Panel</button>
+        <button class="btn btn--primary">Déconnexion</button>
+      </div>
+    </div>
+  </header>
+
   <!-- Master Control Modal -->
-  <div id="masterModal" class="modal master-modal">
-    <div class="modal-content master-content">
+  <div id="masterModal" class="modal">
+    <div class="modal-content">
       <h2>Le Panel</h2>
-      <p>
-        Bienvenue ! Choisissez ce qui vous inspire aujourd'hui :
-      </p><a href="saintvalentin.html">
-      <button class="option-btn">
-        💖 Jeu de Saint-Valentin
-      </button></a>
-      <button class="option-btn" onclick="focusNotepad()">
-        Ouvrir
-      </button>
-<a href="bubbleRoom.html">
-  <button class="option-btn">Suivant</button>
-</a>
-       <!-- <button class="option-btn" onclick="window.open('https://ko-fi.com/kevinmarville', '_blank')">
-        Soutenez-nous sur Ko‑fi
-      </button> -->
-      <br><br>
-      <button class="option-btn" onclick="closeMasterModal()">Fermer</button>
+      <p>Bienvenue ! Choisissez ce qui vous inspire aujourd'hui :</p>
+      <div class="stack" style="align-items:center;">
+        <a href="saintvalentin.html" class="btn btn--primary">💖 Jeu de Saint-Valentin</a>
+        <button class="btn btn--secondary" onclick="focusNotepad()">Ouvrir</button>
+        <a href="bubbleRoom.html" class="btn btn--secondary">Suivant</a>
+        <button class="btn btn--ghost" onclick="closeMasterModal()">Fermer</button>
+      </div>
     </div>
   </div>
 
   <!-- Story Helper Modal -->
-  <div id="storyModal" class="modal story-modal">
-    <div class="modal-content story-content">
+  <div id="storyModal" class="modal">
+    <div class="modal-content">
       <h2>Bienvenue dans l'univers enchanté de #suivi-table-ronde</h2>
       <p>
-        Cet outil magique vous guide à travers une aventure captivante :<br>
-          <a href="https://www.github.com/kvnbbg/suivi-table-ronde/bubbleRoom.html" 
-   target="_blank" 
-   rel="noopener noreferrer" 
-   title="feedbacks" 
-   aria-label="feedbacks">
-    
-
-        • Vérifiez vos emails avec soin<br>
-        • Confirmez vos contributions avec fierté<br>
-        • Préparez votre réunion comme dans un conte de fées<br>
-        • Planifiez le suivi post-événement avec élégance<br>
+        Cet outil magique vous guide à travers une aventure captivante :
+        <br>
+        <a href="https://www.github.com/kvnbbg/suivi-table-ronde/bubbleRoom.html" target="_blank" rel="noopener noreferrer" title="feedbacks" aria-label="feedbacks">
+          • Vérifiez vos emails avec soin<br>
+          • Confirmez vos contributions avec fierté<br>
+          • Préparez votre réunion comme dans un conte de fées<br>
+          • Planifiez le suivi post-événement avec élégance<br>
         </a>
         <br>
         Chaque étape est un chapitre d'un merveilleux livre d'aventures interactives.
       </p>
-      <button id="closeStory">Fermer l'aide</button>
+      <button id="closeStory" class="btn btn--primary">Fermer l'aide</button>
     </div>
   </div>
 
   <!-- Easter Egg Modal -->
-  <div id="easterModal" class="modal easter-modal">
-    <div class="modal-content easter-content">
+  <div id="easterModal" class="modal">
+    <div class="modal-content">
       <h2>Joyeuse Saint Valentin !</h2>
       <p>Félicitations, vous avez découvert ! Bonus : +50 points</p>
       <p>Voici le lien magique :</p>
       <a href="sainvalentin.html">Accéder</a>
       <br>
-      <button id="closeEaster">Fermer</button>
+      <button id="closeEaster" class="btn btn--primary">Fermer</button>
     </div>
   </div>
 
@@ -814,292 +643,263 @@
       <strong>Pause Whiteout en cours</strong>
       <p>Prenez un moment pour respirer et revenir avec énergie.</p>
       <p>Temps restant : <span id="whiteoutTimer">05:00</span></p>
-      <button id="whiteoutStopOverlay" class="file-btn">Revenir à la session</button>
+      <button id="whiteoutStopOverlay" class="btn btn--primary">Revenir à la session</button>
     </div>
   </div>
 
-  <div class="container">
-    <noscript>
-      <div class="card">
-        <strong>JavaScript est nécessaire.</strong>
-        <p>Activez JavaScript pour profiter des animations et des fonctions interactives.</p>
+  <main class="container">
+    <section id="overview" class="panel hero-grid">
+      <div>
+        <h1 class="page-title">Suivi Table Ronde</h1>
+        <p class="subtitle">
+          Un tableau de bord clair et actionnable pour préparer, animer et suivre votre table ronde.
+        </p>
+        <div class="hero-actions">
+          <button class="btn btn--primary" onclick="openMasterModal()">Ouvrir le panel</button>
+          <a class="btn btn--secondary" href="community.html">Journal communautaire</a>
+          <a class="btn btn--secondary" href="bubbleRoom.html">Salle immersive</a>
+        </div>
       </div>
-    </noscript>
-
-    <section class="hero" aria-labelledby="heroTitle">
-      <h1 id="heroTitle" class="hero-title">Suivi Table Ronde</h1>
-      <p class="hero-subtitle">
-        Un poste de pilotage clair et actionnable pour préparer, animer et suivre votre table ronde.
-      </p>
-      <div class="hero-actions">
-        <button class="file-btn" onclick="openMasterModal()">Ouvrir le panel</button>
-        <a class="file-btn" href="community.html">Journal communautaire</a>
-        <a class="file-btn" href="bubbleRoom.html">Salle immersive</a>
-      </div>
-      <div class="status-grid">
-        <div class="status-card">
+      <div class="stats-grid">
+        <div class="stat-card">
           <strong>Vue rapide</strong>
           <p>Progression, score, focus et tâches critiques au même endroit.</p>
         </div>
-        <div class="status-card">
+        <div class="stat-card">
           <strong>Mode focus</strong>
           <p>Whiteout + rappel intelligent pour reprendre la tâche prioritaire.</p>
         </div>
-        <div class="status-card">
+        <div class="stat-card">
           <strong>Suivi transparent</strong>
           <p>Historique communautaire, export et partage immédiat.</p>
         </div>
       </div>
     </section>
 
-    <!-- Score Card -->
-    <div class="score-card">
-      Score : <span id="scoreDisplay">0</span>
-    </div>
-
-    <!-- Master Button (always visible) -->
-    <div class="centered-actions">
-      <button class="file-btn" onclick="openMasterModal()">Panel</button>
-    </div>
-
-
-
-    <!-- Progress Bar -->
-    <div class="progress-container">
-      <div class="progress-bar" id="progressBar"></div>
-    </div>
-
-    <div class="card">
-      <h2>Pause Whiteout &amp; Focus</h2>
-      <p>Activez un écran blanc pour une vraie pause visuelle et un retour clair.</p>
-      <div class="command-grid">
-        <div class="command-card">
-          <label for="whiteoutMinutes"><strong>Durée (minutes)</strong></label>
-          <input id="whiteoutMinutes" type="number" min="1" max="30" value="5">
-          <p class="helper-text">Recommandé : 5 à 10 minutes pour recharger l’attention.</p>
-          <button id="whiteoutStart" class="file-btn">Démarrer la pause</button>
-          <button id="whiteoutStop" class="file-btn file-btn--ghost">Arrêter</button>
-        </div>
-        <div class="command-card">
-          <h3>Focus rapide</h3>
-          <p class="helper-text">Un rappel doux pour reprendre la prochaine tâche essentielle.</p>
-          <button id="focusNextTask" class="file-btn">Valider la prochaine tâche</button>
-          <button id="focusThemeToggle" class="file-btn">Basculer le thème</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Tasks Card -->
-    <div class="card">
-      <h1>Tâches à Accomplir</h1>
-      <ul id="taskList">
-        <li class="task-item">
-          <label>
-            <input type="checkbox" class="task-checkbox">
-            <strong>Vérification de l'Email</strong>
-          </label>
-          <ul class="subtask">
-            <li>
+    <section class="dashboard-layout">
+      <div class="stack">
+        <section id="tasks" class="panel">
+          <h2>Tâches prioritaires</h2>
+          <p>Structurez votre journée avec une liste claire et des sous-étapes guidées.</p>
+          <ul id="taskList" class="task-list">
+            <li class="task-item">
               <label>
                 <input type="checkbox" class="task-checkbox">
-                S’assurer que l’email contenant vos questions et la liste des participants a bien été reçu.
+                <strong>Vérification de l'Email</strong>
               </label>
+              <ul class="subtask">
+                <li>
+                  <label>
+                    <input type="checkbox" class="task-checkbox">
+                    S’assurer que l’email contenant vos questions et la liste des participants a bien été reçu.
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="checkbox" class="task-checkbox">
+                    Vérifier l'intégrité et l’accessibilité des pièces jointes.
+                  </label>
+                </li>
+              </ul>
             </li>
-            <li>
+            <li class="task-item">
               <label>
                 <input type="checkbox" class="task-checkbox">
-                Vérifier l'intégrité et l’accessibilité des pièces jointes.
+                <strong>Confirmation de la Prise en Compte</strong>
               </label>
+              <ul class="subtask">
+                <li>
+                  <label>
+                    <input type="checkbox" class="task-checkbox">
+                    Contacter l’organisateur pour confirmer que vos contributions ont été enregistrées malgré le retard.
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="checkbox" class="task-checkbox">
+                    Demander s’il y a des informations supplémentaires ou des ajustements à prévoir.
+                  </label>
+                </li>
+              </ul>
             </li>
-          </ul>
-        </li>
-        <li class="task-item">
-          <label>
-            <input type="checkbox" class="task-checkbox">
-            <strong>Confirmation de la Prise en Compte</strong>
-          </label>
-          <ul class="subtask">
-            <li>
+            <li class="task-item">
               <label>
                 <input type="checkbox" class="task-checkbox">
-                Contacter l’organisateur pour confirmer que vos contributions ont été enregistrées malgré le retard.
+                <strong>Préparation pour la Table Ronde</strong>
               </label>
+              <ul class="subtask">
+                <li>
+                  <label>
+                    <input type="checkbox" class="task-checkbox">
+                    Relire et finaliser vos questions pour l'intervenante.
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="checkbox" class="task-checkbox">
+                    Réviser la liste des participants et la mettre à jour si nécessaire.
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="checkbox" class="task-checkbox">
+                    Préparer les points de discussion pour être prêt lors de l’événement.
+                  </label>
+                </li>
+              </ul>
             </li>
-            <li>
+            <li class="task-item">
               <label>
                 <input type="checkbox" class="task-checkbox">
-                Demander s’il y a des informations supplémentaires ou des ajustements à prévoir.
+                <strong>Suivi Post-Événement</strong>
               </label>
-            </li>
-          </ul>
-        </li>
-        <li class="task-item">
-          <label>
-            <input type="checkbox" class="task-checkbox">
-            <strong>Préparation pour la Table Ronde</strong>
-          </label>
-          <ul class="subtask">
-            <li>
-              <label>
-                <input type="checkbox" class="task-checkbox">
-                Relire et finaliser vos questions pour l'intervenante.
-              </label>
-            </li>
-            <li>
-              <label>
-                <input type="checkbox" class="task-checkbox">
-                Réviser la liste des participants et la mettre à jour si nécessaire.
-              </label>
-            </li>
-            <li>
-              <label>
-                <input type="checkbox" class="task-checkbox">
-                Préparer les points de discussion pour être prêt lors de l’événement.
-              </label>
+              <ul class="subtask">
+                <li>
+                  <label>
+                    <input type="checkbox" class="task-checkbox">
+                    Planifier une réunion ou un suivi après la table ronde pour discuter des retours et des prochaines étapes.
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="checkbox" class="task-checkbox">
+                    Conserver une copie de tous les échanges et documents pour référence future.
+                  </label>
+                </li>
+              </ul>
             </li>
           </ul>
-        </li>
-        <li class="task-item">
-          <label>
-            <input type="checkbox" class="task-checkbox">
-            <strong>Suivi Post-Événement</strong>
-          </label>
-          <ul class="subtask">
-            <li>
-              <label>
-                <input type="checkbox" class="task-checkbox">
-                Planifier une réunion ou un suivi après la table ronde pour discuter des retours et des prochaines étapes.
-              </label>
-            </li>
-            <li>
-              <label>
-                <input type="checkbox" class="task-checkbox">
-                Conserver une copie de tous les échanges et documents pour référence future.
-              </label>
-            </li>
-          </ul>
-        </li>
-      </ul>
-      <button id="resetBtn" class="file-btn" style="margin:20px auto; display:block;">Réinitialiser</button>
-    </div>
-
-    <!-- New Features Card -->
-    <div class="card">
-      <h2>Nouvelles Solutions ❤️</h2>
-      <p>
-        Nous proposons des solutions logicielles innovantes, notamment des applications Format Famille. .
-      </p>
-    </div>
-
-    <div class="card">
-      <h2>Centre de Commande Interactif</h2>
-      <p>Tout ce qu’il faut pour piloter vos actions quotidiennes, en mode fluide et gamifié.</p>
-      <div class="command-grid">
-        <div class="command-card">
-          <h3>Commandes rapides</h3>
-          <p class="helper-text">Tapez une commande et appuyez sur Entrée.</p>
-          <input type="text" id="commandInput" placeholder="reset, next, toggle, aujourdh8onsa1m1">
-          <div class="command-hints">
-            <span class="command-chip">reset</span>
-            <span class="command-chip">next</span>
-            <span class="command-chip">toggle</span>
-            <span class="command-chip">aujourdh8onsa1m1</span>
+          <div style="margin-top:16px;">
+            <button id="resetBtn" class="btn btn--secondary">Réinitialiser</button>
           </div>
-        </div>
-        <div class="command-card">
-          <h3>Calcul express</h3>
-          <p class="helper-text">Gagnez du temps avec un mini-calculateur intégré.</p>
-          <input type="text" id="mathInput" placeholder="Ex: (12 + 6) * 2">
-          <button id="calcBtn" class="file-btn">Calculer</button>
-          <p id="mathResult" class="helper-text">Résultat : —</p>
-        </div>
-        <div class="command-card">
-          <h3>Jeu des pièces</h3>
-          <p class="helper-text">Testez la fusion optimale des pièces.</p>
-          <input type="text" id="coinsInput" placeholder="Ex: 1, 3, 7, 10">
-          <input type="number" id="thresholdInput" min="1" value="15">
-          <button id="startCoinGame" class="file-btn">Lancer</button>
-          <div id="coinDisplay"></div>
-          <div id="coinLog" class="helper-text"></div>
-        </div>
-      </div>
-    </div>
+        </section>
 
-    
-
-    <!-- Contact & Collaboration Card -->
-    <div class="card" id="contactCard">
-      <h2>Contact &amp; Collaboration</h2>
-      <p>Pour toute collaboration ou signalement de bug, contactez-moi via les moyens ci-dessous.</p>
-      <div style="text-align:center;">
-        <button class="file-btn" onclick="toggleContactInfo()">Afficher les informations de contact</button>
-      </div>
-      <div id="contactInfo" style="display:none; text-align:center; margin-top:10px;">
-        <p>
-          <strong>Français:</strong><br>
-          Email : <a href="mailto:kevinmarville@gmail.com">kevinmarville@gmail.com</a><br>
-          Téléphone : +33 XXX XXX XXX
-        </p>
-        <p>
-          <strong>English:</strong><br>
-          Email: <a href="mailto:kevinmarville@gmail.com">kevinmarville@gmail.com</a><br>
-          Phone: +1-XXX-XXX-XXX
-        </p>
-        <p>
-          <strong>中文:</strong><br>
-          邮箱: <a href="mailto:kevinmarville@gmail.com">kevinmarville@gmail.com</a><br>
-          电话: +86 XXX XXX XXX
-        </p>
-        <p>
-          <a href="https://www.linkedin.com/in/marvillekevin" target="_blank" class="file-btn" style="margin:5px;">LinkedIn</a>
-          <a href="https://bsky.app/profile/techandstream.bsky.social" target="_blank" class="file-btn" style="margin:5px;">Bluesky</a>
-        </p>
-      </div>
-      <p style="margin-top:20px; font-size:0.9rem;">
-        Security Note: This site uses measures to safeguard against malicious.
-      </p>
-    </div>
-
-    <!-- Suivez-moi sur Meta (Optional Additional Links) 
-    <div class="card">
-      <h2>Restez Connecté</h2>
-      <p>Découvrez nos plugins VR/AR et suivez mes actualités :</p>
-      <div style="text-align:center;">
-         target="_blank" class="file-btn" style="margin:5px;">CREATIONS</a>
-        <a href="https://kvnbbg.fr" target="_blank" class="file-btn" style="margin:5px;">KVNBBG.FR</a>
-      </div>
-    </div>-->
-
-    <!-- Virtual Desktop -->
-    <div class="card">
-      <h2>Mémo</h2>
-      <div id="desktop">
-        <!-- Notes Window -->
-        <div class="window" id="notesWindow" style="top: 20px; left: 20px;">
-          <div class="window-header">Notes</div>
-          <div class="window-content">
-            <textarea id="notesArea" style="width:100%; height:100px; border:1px solid var(--border-color); border-radius:var(--border-radius);"></textarea>
-            <br>
-            <button class="file-btn" onclick="saveNotes()">Sauvegarder</button>
+        <section id="command" class="panel">
+          <h2>Centre de Commande Interactif</h2>
+          <p>Tout ce qu’il faut pour piloter vos actions quotidiennes, en mode fluide et concentré.</p>
+          <div class="command-grid">
+            <div class="command-card">
+              <h3>Commandes rapides</h3>
+              <p class="helper-text">Tapez une commande et appuyez sur Entrée.</p>
+              <input type="text" id="commandInput" placeholder="reset, next, toggle, aujourdh8onsa1m1">
+              <div class="command-hints">
+                <span class="command-chip">reset</span>
+                <span class="command-chip">next</span>
+                <span class="command-chip">toggle</span>
+                <span class="command-chip">aujourdh8onsa1m1</span>
+              </div>
+            </div>
+            <div class="command-card">
+              <h3>Calcul express</h3>
+              <p class="helper-text">Gagnez du temps avec un mini-calculateur intégré.</p>
+              <input type="text" id="mathInput" placeholder="Ex: (12 + 6) * 2">
+              <button id="calcBtn" class="btn btn--primary">Calculer</button>
+              <p id="mathResult" class="helper-text">Résultat : —</p>
+            </div>
+            <div class="command-card">
+              <h3>Jeu des pièces</h3>
+              <p class="helper-text">Testez la fusion optimale des pièces.</p>
+              <input type="text" id="coinsInput" placeholder="Ex: 1, 3, 7, 10">
+              <input type="number" id="thresholdInput" min="1" value="15">
+              <button id="startCoinGame" class="btn btn--primary">Lancer</button>
+              <div id="coinDisplay"></div>
+              <div id="coinLog" class="helper-text"></div>
+            </div>
           </div>
-          <div class="window-footer">Attrape</div>
-        </div>
-        <!-- Virtual File Viewer Window -->
-        <div class="window" id="fileViewerWindow" style="top: 160px; left: 320px;">
-          <div class="window-header">Zoom</div>
-          <div class="window-content">
-            <p>Ici, vous pouvez visualiser vos données virtuelles.</p>
-            <button class="file-btn" onclick="openVirtualFile()">Ouvrir Fichier</button>
-            <div id="virtualFileContent" style="margin-top:10px; font-size:0.9rem;"></div>
-          </div>
-          <div class="window-footer"><a href="https://ko-fi.com/kevinmarville">💳</a></div>
-        </div>
-      </div>
-    </div>
-  </div>
+        </section>
 
-  <!-- Footer -->
-  <footer>
+        <section class="panel">
+          <h2>Mémo &amp; fenêtres flottantes</h2>
+          <p>Gardez vos notes et vos fichiers rapides à portée de main.</p>
+          <div id="desktop">
+            <div class="window" id="notesWindow" style="top: 20px; left: 20px;">
+              <div class="window-header">Notes</div>
+              <div class="window-content">
+                <textarea id="notesArea" style="width:100%; height:100px;"></textarea>
+                <br>
+                <button class="btn btn--secondary" onclick="saveNotes()">Sauvegarder</button>
+              </div>
+              <div class="window-footer">Attrape</div>
+            </div>
+            <div class="window" id="fileViewerWindow" style="top: 160px; left: 320px;">
+              <div class="window-header">Zoom</div>
+              <div class="window-content">
+                <p>Ici, vous pouvez visualiser vos données virtuelles.</p>
+                <button class="btn btn--secondary" onclick="openVirtualFile()">Ouvrir Fichier</button>
+                <div id="virtualFileContent" style="margin-top:10px; font-size:0.9rem;"></div>
+              </div>
+              <div class="window-footer"><a href="https://ko-fi.com/kevinmarville">💳</a></div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <aside class="stack">
+        <section class="panel panel-meta">
+          <div class="score-card">Score : <span id="scoreDisplay">0</span></div>
+          <div>
+            <h3>Progression globale</h3>
+            <div class="progress-container">
+              <div class="progress-bar" id="progressBar"></div>
+            </div>
+          </div>
+          <div>
+            <h3>Actions rapides</h3>
+            <p class="helper-text">Gérez votre rythme et votre focus instantanément.</p>
+            <button id="focusNextTask" class="btn btn--primary">Valider la prochaine tâche</button>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Pause Whiteout &amp; Focus</h2>
+          <p>Activez un écran blanc pour une vraie pause visuelle et un retour clair.</p>
+          <div class="command-card" style="margin-top: 12px;">
+            <label for="whiteoutMinutes"><strong>Durée (minutes)</strong></label>
+            <input id="whiteoutMinutes" type="number" min="1" max="30" value="5">
+            <p class="helper-text">Recommandé : 5 à 10 minutes pour recharger l’attention.</p>
+            <button id="whiteoutStart" class="btn btn--primary">Démarrer la pause</button>
+            <button id="whiteoutStop" class="btn btn--ghost">Arrêter</button>
+            <button id="focusThemeToggle" class="btn btn--secondary" style="margin-top:10px;">Basculer le thème</button>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Nouvelles Solutions ❤️</h2>
+          <p>Nous proposons des solutions logicielles innovantes, notamment des applications Format Famille.</p>
+        </section>
+
+        <section id="contact" class="panel">
+          <h2>Contact &amp; Collaboration</h2>
+          <p>Pour toute collaboration ou signalement de bug, contactez-moi via les moyens ci-dessous.</p>
+          <button class="btn btn--secondary" onclick="toggleContactInfo()">Afficher les informations de contact</button>
+          <div id="contactInfo" style="display:none; margin-top:14px;">
+            <p>
+              <strong>Français:</strong><br>
+              Email : <a href="mailto:kevinmarville@gmail.com">kevinmarville@gmail.com</a><br>
+              Téléphone : +33 XXX XXX XXX
+            </p>
+            <p>
+              <strong>English:</strong><br>
+              Email: <a href="mailto:kevinmarville@gmail.com">kevinmarville@gmail.com</a><br>
+              Phone: +1-XXX-XXX-XXX
+            </p>
+            <p>
+              <strong>中文:</strong><br>
+              邮箱: <a href="mailto:kevinmarville@gmail.com">kevinmarville@gmail.com</a><br>
+              电话: +86 XXX XXX XXX
+            </p>
+            <p>
+              <a href="https://www.linkedin.com/in/marvillekevin" target="_blank">LinkedIn</a> ·
+              <a href="https://bsky.app/profile/techandstream.bsky.social" target="_blank">Bluesky</a>
+            </p>
+          </div>
+          <p style="margin-top:14px; font-size:0.9rem;">Security Note: This site uses measures to safeguard against malicious.</p>
+        </section>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="container">
     <div class="social-links">
       <a href="https://bsky.app/profile/techandstream.bsky.social" target="_blank">Bluesky</a>
       <a href="https://my.bio/kvnbbg" target="_blank">Threads</a>
@@ -1108,9 +908,6 @@
   </footer>
 
   <script>
-    /* ======================================
-       GLOBAL VARIABLES & SCORE
-       ====================================== */
     const $ = (selector) => document.querySelector(selector);
     const $$ = (selector) => Array.from(document.querySelectorAll(selector));
     const addListener = (el, event, handler) => {
@@ -1138,13 +935,11 @@
     const whiteoutStopOverlay = $('#whiteoutStopOverlay');
     const focusNextTaskBtn = $('#focusNextTask');
     const focusThemeToggle = $('#focusThemeToggle');
-    
+    const themeToggleNav = $('#themeToggleNav');
+
     let score = 0;
     const totalTasks = checkboxes.length;
-    
-    /* ======================================
-       FUNCTIONS: TASK PROGRESS & SCORE
-       ====================================== */
+
     function updateProgress() {
       const completed = $$('.task-checkbox:checked').length;
       const percent = (completed / totalTasks) * 100;
@@ -1152,140 +947,102 @@
         progressBar.style.width = percent + '%';
       }
     }
+
     function updateScore(points) {
       score += points;
-      if(score < 0) score = 0;
+      if (score < 0) score = 0;
       if (scoreDisplay) scoreDisplay.textContent = score;
     }
+
     function handleCheckboxChange() {
       const label = this.parentElement;
-      label.classList.add('pulse');
-      setTimeout(() => {
-        label.classList.remove('pulse');
-        label.classList.add('swap-clean');
-        setTimeout(() => {
-          if(this.checked) {
-            label.classList.add('done');
-            updateScore(10);
-          } else {
-            label.classList.remove('done');
-            updateScore(-10);
-          }
-          label.classList.remove('swap-clean');
-          updateProgress();
-        }, 600);
-      }, 500);
+      if (this.checked) {
+        label.classList.add('done');
+        updateScore(10);
+      } else {
+        label.classList.remove('done');
+        updateScore(-10);
+      }
+      updateProgress();
     }
+
     function resetTasks() {
       checkboxes.forEach(cb => {
-        if(cb.checked) {
+        if (cb.checked) {
           cb.checked = false;
-          const label = cb.parentElement;
-          label.classList.add('swap-clean');
-          setTimeout(() => {
-            label.classList.remove('swap-clean', 'done');
-            updateProgress();
-          }, 600);
+          cb.parentElement.classList.remove('done');
         }
       });
       score = 0;
       if (scoreDisplay) scoreDisplay.textContent = score;
+      updateProgress();
     }
+
     function validateNextTask() {
-      for(let cb of checkboxes) {
-        if(!cb.checked) {
+      for (let cb of checkboxes) {
+        if (!cb.checked) {
           cb.checked = true;
           handleCheckboxChange.call(cb);
           break;
         }
       }
     }
-    
-    /* ======================================
-       MATH CALCULATOR FUNCTION
-       ====================================== */
+
     function calculateMath() {
       if (!mathInput || !mathResult) return;
       let expr = mathInput.value;
       try {
         let result = Function('"use strict"; return (' + expr + ')')();
-        mathResult.textContent = "Résultat : " + result;
-      } catch(error) {
-        mathResult.textContent = "Expression invalide.";
+        mathResult.textContent = 'Résultat : ' + result;
+      } catch (error) {
+        mathResult.textContent = 'Expression invalide.';
       }
     }
-    
-    /* ======================================
-       THEME TOGGLE FUNCTION
-       ====================================== */
+
     function toggleValentineTheme() {
       body.classList.toggle('valentine-theme');
     }
-    
-    /* ======================================
-       EASTER EGG FUNCTION
-       ====================================== */
+
     function triggerEasterEgg() {
       updateScore(50);
       if (easterModal) easterModal.style.display = 'block';
     }
+
     addListener(closeEaster, 'click', () => {
       if (easterModal) easterModal.style.display = 'none';
     });
-    
-    /* ======================================
-       STORY HELPER FUNCTIONS
-       ====================================== */
+
     addListener(closeStory, 'click', () => {
       if (storyModal) storyModal.style.display = 'none';
     });
-    
-    /* ======================================
-       MASTER MODAL FUNCTIONS
-       ====================================== */
+
     function openMasterModal() {
       if (masterModal) masterModal.style.display = 'block';
     }
+
     function closeMasterModal() {
       if (masterModal) masterModal.style.display = 'none';
     }
+
     function focusNotepad() {
       const notesWindow = document.getElementById('notesWindow');
-      if(notesWindow) {
+      if (notesWindow) {
         notesWindow.style.zIndex = 1300;
-        notesWindow.style.border = "2px solid var(--highlight-color)";
+        notesWindow.style.border = '2px solid var(--highlight-color)';
       }
       closeMasterModal();
     }
-    
-    /* ======================================
-       FILE MANAGEMENT FUNCTIONS
-       ====================================== */
-    function fileAction(action) {
-      const logDiv = document.getElementById('fileLog');
-      const timestamp = new Date().toLocaleTimeString();
-      if (logDiv) {
-        logDiv.innerHTML += `<p>[${timestamp}] Action: ${action}</p>`;
-        logDiv.scrollTop = logDiv.scrollHeight;
-      }
+
+    function toggleContactInfo() {
+      const contactInfo = document.getElementById('contactInfo');
+      if (!contactInfo) return;
+      contactInfo.style.display = contactInfo.style.display === 'none' ? 'block' : 'none';
     }
-    
-    /* ======================================
-       COLLAPSIBLE FOLDERS
-       ====================================== */
-    function toggleFolder(id) {
-      const folderContent = document.getElementById(id);
-      if (!folderContent) return;
-      folderContent.style.display = folderContent.style.display === 'block' ? 'none' : 'block';
-    }
-    
-    /* ======================================
-       DRAGGABLE WINDOWS (VIRTUAL DESKTOP)
-       ====================================== */
+
     function makeDraggable(el) {
       let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
       const header = el.querySelector('.window-header');
-      if(header) {
+      if (header) {
         header.onmousedown = dragMouseDown;
       } else {
         el.onmousedown = dragMouseDown;
@@ -1305,70 +1062,66 @@
         pos2 = pos4 - e.clientY;
         pos3 = e.clientX;
         pos4 = e.clientY;
-        el.style.top = (el.offsetTop - pos2) + "px";
-        el.style.left = (el.offsetLeft - pos1) + "px";
+        el.style.top = (el.offsetTop - pos2) + 'px';
+        el.style.left = (el.offsetLeft - pos1) + 'px';
       }
       function closeDragElement() {
         document.onmouseup = null;
         document.onmousemove = null;
       }
     }
+
     const windows = $$('.window');
     windows.forEach(win => makeDraggable(win));
-    
-    /* ======================================
-       VIRTUAL NOTES: SAVE TO LOCAL STORAGE
-       ====================================== */
+
     function saveNotes() {
       const notesArea = document.getElementById('notesArea');
       if (!notesArea) return;
       const notes = notesArea.value;
       localStorage.setItem('virtualNotes', notes);
-      alert("Notes sauvegardées !");
+      alert('Notes sauvegardées !');
     }
+
     window.addEventListener('load', () => {
       const savedNotes = localStorage.getItem('virtualNotes');
       const notesArea = document.getElementById('notesArea');
-      if(savedNotes && notesArea) {
+      if (savedNotes && notesArea) {
         notesArea.value = savedNotes;
       }
     });
-    
-    /* ======================================
-       VIRTUAL FILE VIEWER EXAMPLE
-       ====================================== */
+
     function openVirtualFile() {
       const fileContentDiv = document.getElementById('virtualFileContent');
-      const equation = "E = mc²";
+      const equation = 'E = mc²';
       fileContentDiv.innerHTML = `<p>Contenu du fichier virtuel :</p><p>Une équation célèbre : <strong>${equation}</strong></p>`;
     }
-    
-    /* ======================================
-       COIN GAME: GAMIFICATION DES OPÉRATIONS
-       ====================================== */
+
     const startCoinGameBtn = $('#startCoinGame');
     const coinsInput = $('#coinsInput');
     const thresholdInput = $('#thresholdInput');
     const coinDisplay = $('#coinDisplay');
     const coinLog = $('#coinLog');
+
     function sleep(ms) {
       return new Promise(resolve => setTimeout(resolve, ms));
     }
+
     function renderCoins(coins) {
       if (!coinDisplay) return;
-      coinDisplay.innerHTML = "";
+      coinDisplay.innerHTML = '';
       coins.forEach(val => {
-        const coinEl = document.createElement("div");
-        coinEl.className = "coin";
+        const coinEl = document.createElement('div');
+        coinEl.className = 'coin';
         coinEl.textContent = val;
         coinDisplay.appendChild(coinEl);
       });
     }
+
     async function playCoinGame(coins, threshold) {
       let operations = 0;
       renderCoins(coins);
-      if (coinLog) coinLog.innerHTML = "";
-      while(coins.length > 1 && coins.some(val => val < threshold)) {
+      if (coinLog) coinLog.innerHTML = '';
+      while (coins.length > 1 && coins.some(val => val < threshold)) {
         coins.sort((a, b) => a - b);
         const x = coins.shift();
         const y = coins.shift();
@@ -1386,60 +1139,42 @@
         coinLog.innerHTML += `<p><strong>Nombre minimum d'opérations nécessaires : ${operations}</strong></p>`;
       }
     }
-    if(startCoinGameBtn) {
+
+    if (startCoinGameBtn) {
       startCoinGameBtn.addEventListener('click', () => {
         if (!coinsInput || !thresholdInput) return;
         const coinsStr = coinsInput.value;
         const threshold = parseInt(thresholdInput.value, 10);
-        if(!coinsStr || isNaN(threshold)) {
-          alert("Veuillez entrer des pièces valides et un seuil.");
+        if (!coinsStr || isNaN(threshold)) {
+          alert('Veuillez entrer des pièces valides et un seuil.');
           return;
         }
-        const coins = coinsStr.split(",").map(s => parseInt(s.trim())).filter(n => !isNaN(n));
+        const coins = coinsStr.split(',').map(s => parseInt(s.trim())).filter(n => !isNaN(n));
         playCoinGame(coins, threshold);
       });
     }
-    
-    /* ======================================
-       GLOBAL DYNAMIC ANIMATION (SIMPLE HARMONIC MOTION)
-       ====================================== */
-    function animateCards() {
-      const cards = document.querySelectorAll('.card, .command-card, .score-card');
-      const time = Date.now() / 1000;
-      cards.forEach((card, index) => {
-        const amplitude = 5;
-        const frequency = 0.5;
-        const phaseOffset = index * Math.PI / 6;
-        const deltaY = amplitude * Math.sin(2 * Math.PI * frequency * time + phaseOffset);
-        card.style.setProperty('--float-offset', `${deltaY}px`);
-      });
-      requestAnimationFrame(animateCards);
-    }
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (!prefersReducedMotion.matches) {
-      requestAnimationFrame(animateCards);
-    }
 
-    /* ======================================
-       WHITEOUT BREAK MODE
-       ====================================== */
     let whiteoutInterval = null;
     let remainingSeconds = 0;
+
     function formatTime(seconds) {
       const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
       const secs = Math.floor(seconds % 60).toString().padStart(2, '0');
       return `${mins}:${secs}`;
     }
+
     function setWhiteoutActive(active) {
       if (!whiteoutOverlay) return;
       whiteoutOverlay.classList.toggle('is-active', active);
       whiteoutOverlay.setAttribute('aria-hidden', String(!active));
     }
+
     function updateWhiteoutDisplay() {
       if (whiteoutTimer) {
         whiteoutTimer.textContent = formatTime(remainingSeconds);
       }
     }
+
     function stopWhiteout() {
       if (whiteoutInterval) {
         clearInterval(whiteoutInterval);
@@ -1447,11 +1182,12 @@
       }
       setWhiteoutActive(false);
     }
+
     function startWhiteout() {
       if (!whiteoutMinutes) return;
       const minutes = parseInt(whiteoutMinutes.value, 10);
       if (isNaN(minutes) || minutes <= 0) {
-        alert("Veuillez choisir une durée valide.");
+        alert('Veuillez choisir une durée valide.');
         return;
       }
       remainingSeconds = Math.min(minutes, 30) * 60;
@@ -1466,63 +1202,50 @@
         }
       }, 1000);
     }
-    
-    /* ======================================
-       EVENT LISTENERS FOR COMMANDS & SHORTCUTS
-       ====================================== */
+
     checkboxes.forEach(cb => {
       cb.addEventListener('change', handleCheckboxChange);
     });
     addListener(resetBtn, 'click', resetTasks);
     addListener(calcBtn, 'click', calculateMath);
-    document.addEventListener('keydown', function(e) {
-      if(e.altKey && e.key.toLowerCase() === 'r') {
+
+    document.addEventListener('keydown', function (e) {
+      if (e.altKey && e.key.toLowerCase() === 'r') {
         e.preventDefault();
         resetTasks();
       }
-      if(e.altKey && e.key.toLowerCase() === 'n') {
+      if (e.altKey && e.key.toLowerCase() === 'n') {
         e.preventDefault();
         validateNextTask();
       }
-      if(e.altKey && e.key.toLowerCase() === 't') {
+      if (e.altKey && e.key.toLowerCase() === 't') {
         e.preventDefault();
         toggleValentineTheme();
       }
     });
-    addListener(commandInput, 'keydown', function(e) {
-      if(e.key === 'Enter') {
+
+    addListener(commandInput, 'keydown', function (e) {
+      if (e.key === 'Enter') {
         const command = commandInput.value.trim().toLowerCase();
-        if(command === 'reset') {
+        if (command === 'reset') {
           resetTasks();
-        } else if(command === 'next') {
+        } else if (command === 'next') {
           validateNextTask();
-        } else if(command === 'toggle') {
+        } else if (command === 'toggle') {
           toggleValentineTheme();
-        } else if(command === 'aujourdh8onsa1m1') {
+        } else if (command === 'aujourdh8onsa1m1') {
           triggerEasterEgg();
         }
         commandInput.value = '';
       }
     });
-    
-    /* ======================================
-       TOGGLE CONTACT INFO (for Collaboration Card)
-       ====================================== */
-    function toggleContactInfo() {
-      const contactInfo = document.getElementById("contactInfo");
-      if (!contactInfo) return;
-      if (contactInfo.style.display === "none") {
-        contactInfo.style.display = "block";
-      } else {
-        contactInfo.style.display = "none";
-      }
-    }
 
     addListener(whiteoutStart, 'click', startWhiteout);
     addListener(whiteoutStop, 'click', stopWhiteout);
     addListener(whiteoutStopOverlay, 'click', stopWhiteout);
     addListener(focusNextTaskBtn, 'click', validateNextTask);
     addListener(focusThemeToggle, 'click', toggleValentineTheme);
+    addListener(themeToggleNav, 'click', toggleValentineTheme);
   </script>
 </body>
 </html>
