@@ -7,25 +7,37 @@
   <title>Suivi Table Ronde</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
+
     :root {
       --primary-color: #6f4e37;
       --secondary-color: #8b5e3c;
       --accent-color: #d2a679;
       --highlight-color: #c87533;
       --background-color: #f7f3e8;
-      --text-color: #3f2b1f;
+      --text-color: #4b382a;
       --card-bg: #ffffff;
-      --border-color: rgba(125, 87, 63, 0.2);
-      --shadow: 0 12px 30px rgba(75, 56, 42, 0.12);
-      --shadow-strong: 0 18px 45px rgba(75, 56, 42, 0.2);
-      --radius-sm: 12px;
-      --radius-md: 18px;
-      --radius-lg: 24px;
-      --glass-bg: rgba(255, 255, 255, 0.85);
+      --border-color: rgba(125, 87, 63, 0.25);
+      --transition-speed: 0.2s;
+      --border-radius: 16px;
+      --radius-lg: 20px;
+      --radius-xl: 26px;
+      --surface: rgba(255, 255, 255, 0.9);
+      --surface-strong: rgba(255, 255, 255, 0.98);
       --glass-border: rgba(255, 255, 255, 0.6);
-      --gradient-main: radial-gradient(circle at top, #fdf6ec, #f4e2cb 40%, #e7cfb1 100%);
+      --glass-blur: 14px;
+      --shadow: 0 10px 24px rgba(75, 56, 42, 0.12);
+      --shadow-strong: 0 20px 40px rgba(75, 56, 42, 0.2);
+      --glow: 0 0 0 3px rgba(210, 166, 121, 0.35);
+      --focus-ring: 0 0 0 3px rgba(200, 117, 51, 0.25);
+      --gradient-main: radial-gradient(circle at top, #fdf6ec, #f4e2cb 45%, #e7cfb1 100%);
+      --gradient-soft: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(247, 243, 232, 0.85));
       --gradient-accent: linear-gradient(120deg, #c87533, #d2a679, #f3d5aa);
-      --focus-ring: 0 0 0 3px rgba(200, 117, 51, 0.2);
+      --gradient-hero: conic-gradient(from 210deg at 50% 50%, rgba(200, 117, 51, 0.18), rgba(210, 166, 121, 0.28), rgba(255, 255, 255, 0.8), rgba(200, 117, 51, 0.18));
+      --space-xs: 6px;
+      --space-sm: 12px;
+      --space-md: 18px;
+      --space-lg: 24px;
+      --space-xl: 32px;
     }
 
     .valentine-theme {
@@ -50,6 +62,19 @@
       color: var(--text-color);
       min-height: 100vh;
       line-height: 1.6;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.45), transparent 50%),
+        radial-gradient(circle at 80% 10%, rgba(210, 166, 121, 0.2), transparent 45%),
+        radial-gradient(circle at 50% 90%, rgba(200, 117, 51, 0.2), transparent 55%);
+      opacity: 0.7;
+      pointer-events: none;
+      z-index: -1;
     }
 
     a {
@@ -90,301 +115,424 @@
       color: var(--primary-color);
     }
 
-    .nav-toggle {
-      display: none;
-      border: 1px solid var(--border-color);
-      background: var(--card-bg);
-      border-radius: 10px;
-      width: 40px;
-      height: 40px;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
+    a:hover, a:focus {
+      color: var(--highlight-color);
     }
 
-    .nav-checkbox {
-      display: none;
-    }
-
-    .nav-center {
-      display: flex;
-      gap: 18px;
-      justify-content: center;
-      font-weight: 600;
-    }
-
-    .nav-center a {
-      padding: 6px 8px;
-      border-radius: 8px;
-      color: var(--secondary-color);
-    }
-
-    .nav-center a:hover,
-    .nav-center a:focus-visible {
-      background: rgba(210, 166, 121, 0.2);
-      color: var(--primary-color);
-      outline: none;
-    }
-
-    .nav-right {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 32px 24px 60px;
-    }
-
-    main {
-      display: flex;
-      flex-direction: column;
-      gap: 28px;
-    }
-
-    .page-title {
-      font-size: clamp(2rem, 3vw, 2.6rem);
+    h1 {
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
       font-weight: 700;
-      margin-bottom: 8px;
     }
 
-    .subtitle {
-      color: var(--secondary-color);
-      font-size: 1rem;
-      max-width: 720px;
-    }
-
-    .panel {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-lg);
-      padding: 24px;
-      box-shadow: var(--shadow);
-    }
-
-    .panel h2 {
+    h2 {
       font-size: 1.4rem;
-      margin-bottom: 12px;
+      font-weight: 700;
     }
 
-    .panel h3 {
+    h3 {
       font-size: 1.1rem;
-      margin-bottom: 8px;
+      font-weight: 700;
     }
 
-    .panel p {
+    p {
       font-size: 1rem;
       margin-bottom: 10px;
     }
 
-    .hero-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
-      gap: 24px;
+    .helper-text {
+      font-size: 0.85rem;
+      color: var(--secondary-color);
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .app-header {
+      position: sticky;
+      top: 0;
+      z-index: 2000;
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 8px 18px rgba(75, 56, 42, 0.08);
+    }
+
+    .navbar {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
       align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      padding: 16px 24px;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .brand {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    .tagline {
+      font-size: 0.85rem;
+      color: var(--secondary-color);
+      background: rgba(210, 166, 121, 0.2);
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+
+    .nav-center {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    .nav-center a {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-toggle {
+      display: none;
+      border: 1px solid var(--glass-border);
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .app-main {
+      max-width: 1200px;
+      margin: 24px auto 60px;
+      padding: 0 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .card,
+    .command-card,
+    .score-card {
+      background: var(--surface);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      padding: clamp(18px, 2.8vw, 28px);
+      transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+      transform: translateY(var(--float-offset, 0px));
+      backdrop-filter: blur(var(--glass-blur));
+    }
+
+    .card:hover,
+    .command-card:hover,
+    .score-card:hover {
+      box-shadow: var(--shadow-strong);
+    }
+
+    .hero-card {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: var(--gradient-hero);
+      animation: slowSpin 18s linear infinite;
+      opacity: 0.5;
+      filter: blur(12px);
+      pointer-events: none;
+    }
+
+    .hero-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .eyebrow {
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      color: var(--secondary-color);
+    }
+
+    .hero-subtitle {
+      color: var(--secondary-color);
     }
 
     .hero-actions {
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
-      margin-top: 16px;
+      gap: 10px;
     }
 
-    .stats-grid {
+    .status-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 12px;
     }
 
-    .stat-card {
-      padding: 16px;
-      border-radius: var(--radius-md);
-      background: rgba(247, 243, 232, 0.7);
-      border: 1px solid var(--border-color);
+    .status-card {
+      background: var(--surface-strong);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--border-radius);
+      padding: 14px;
       font-size: 0.95rem;
+      box-shadow: var(--shadow);
     }
 
-    .dashboard-layout {
+    .metrics-grid {
       display: grid;
-      grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
-      gap: 24px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
     }
 
-    .stack {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
-
-    .panel-meta {
+    .metric-card {
       display: flex;
       flex-direction: column;
       gap: 12px;
+    }
+
+    .score-display {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #fff;
     }
 
     .score-card {
       background: var(--gradient-accent);
       color: #fff;
-      border-radius: var(--radius-md);
-      padding: 18px;
-      font-size: 1.4rem;
-      font-weight: 700;
     }
 
     .progress-container {
       width: 100%;
-      background: rgba(210, 166, 121, 0.3);
+      background: rgba(210, 166, 121, 0.35);
       border-radius: 999px;
       overflow: hidden;
       padding: 4px;
     }
 
     .progress-bar {
-      height: 14px;
+      height: 16px;
       width: 0%;
       background: var(--gradient-accent);
+      transition: width 0.5s ease, box-shadow 0.5s ease;
       border-radius: 999px;
-      transition: width 0.5s ease;
+      box-shadow: 0 8px 16px rgba(200, 117, 51, 0.35);
     }
 
-    .task-list {
-      list-style: none;
+    .content-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+      gap: 24px;
+    }
+
+    .column {
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 24px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .section-header .helper-text {
+      margin: 0;
+    }
+
+    .button-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .file-btn,
+    .btn,
+    .modal-content button {
+      min-height: 44px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      background: var(--gradient-accent);
+      color: #fff;
+      transition: transform var(--transition-speed), box-shadow var(--transition-speed), background var(--transition-speed);
+      box-shadow: 0 10px 18px rgba(200, 117, 51, 0.2);
+    }
+
+    .file-btn--ghost,
+    .btn-ghost {
+      min-height: 36px;
+      background: rgba(210, 166, 121, 0.25);
+      color: var(--primary-color);
+      box-shadow: none;
+    }
+
+    .file-btn:hover,
+    .btn:hover,
+    .modal-content button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 24px rgba(200, 117, 51, 0.28);
+    }
+
+    .file-btn--ghost:hover,
+    .btn-ghost:hover {
+      background: rgba(210, 166, 121, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .file-btn:focus-visible,
+    .btn:focus-visible,
+    .modal-content button:focus-visible {
+      outline: none;
+      box-shadow: var(--glow), var(--focus-ring);
+    }
+
+    input[type="number"],
+    input[type="text"],
+    textarea {
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 10px 12px;
+      background: var(--surface-strong);
+      font-size: 0.95rem;
+    }
+
+    input[type="number"]:focus,
+    input[type="text"]:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--accent-color);
+      box-shadow: var(--glow);
     }
 
     .task-item {
-      padding: 16px;
-      border-radius: var(--radius-md);
-      border: 1px solid var(--border-color);
-      background: rgba(255, 255, 255, 0.85);
+      padding: 14px 16px;
+      border-radius: var(--border-radius);
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--shadow);
+      margin-bottom: 14px;
     }
 
-    .task-item strong {
-      display: inline-block;
-      margin-bottom: 6px;
+    .task-item:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-strong);
     }
 
-    .task-item .subtask {
+    .subtask {
+      margin-left: 18px;
       margin-top: 10px;
-      padding-left: 18px;
     }
 
-    .task-item .subtask li {
-      margin-bottom: 8px;
-      list-style: disc;
+    .subtask li {
+      list-style-type: disc;
+      margin-bottom: 10px;
     }
 
     input[type="checkbox"] {
       margin-right: 10px;
       transform: scale(1.1);
+      vertical-align: middle;
       accent-color: var(--highlight-color);
     }
 
-    input[type="number"],
-    input[type="text"],
-    textarea,
-    select {
-      width: 100%;
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 10px 12px;
-      font-size: 1rem;
-      background: #fff;
-    }
-
-    input:focus,
-    textarea:focus,
-    select:focus,
-    button:focus-visible {
-      outline: none;
-      box-shadow: var(--focus-ring);
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      height: 46px;
-      padding: 0 18px;
-      border-radius: 999px;
-      border: none;
-      font-weight: 600;
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .btn--primary {
-      background: var(--gradient-accent);
-      color: #fff;
-      box-shadow: 0 10px 18px rgba(200, 117, 51, 0.2);
-    }
-
-    .btn--ghost {
-      background: rgba(210, 166, 121, 0.18);
-      color: var(--primary-color);
-      height: 36px;
-    }
-
-    .btn--secondary {
-      background: rgba(210, 166, 121, 0.3);
-      color: var(--primary-color);
-      height: 36px;
-    }
-
-    .btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 14px 24px rgba(200, 117, 51, 0.22);
+    .done {
+      text-decoration: line-through;
+      color: var(--secondary-color);
     }
 
     .command-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 16px;
+      margin-top: 10px;
     }
 
-    .command-card {
-      padding: 16px;
-      border-radius: var(--radius-md);
-      border: 1px solid var(--border-color);
-      background: rgba(247, 243, 232, 0.6);
+    .command-card input,
+    .command-card button,
+    .command-card textarea {
+      width: 100%;
     }
 
     .command-card .helper-text {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       color: var(--secondary-color);
     }
 
-    .command-hints {
+    .command-card .command-hints {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
+      gap: 8px;
       margin-top: 8px;
     }
 
-    .command-chip {
-      padding: 4px 10px;
-      border-radius: 999px;
+    .command-card .command-chip {
+      background: var(--background-color);
       border: 1px solid var(--border-color);
-      background: #fff;
+      border-radius: 999px;
+      padding: 4px 10px;
       font-size: 0.8rem;
+    }
+
+    .coin {
+      display: inline-block;
+      margin: 5px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--accent-color);
+      color: var(--card-bg);
+      text-align: center;
+      line-height: 40px;
+      font-weight: bold;
     }
 
     #desktop {
       position: relative;
       width: 100%;
-      min-height: 260px;
-      border: 1px dashed var(--border-color);
-      border-radius: var(--radius-md);
-      padding: 14px;
-      background: rgba(255, 255, 255, 0.6);
+      min-height: 280px;
+      border: 2px dashed var(--glass-border);
+      border-radius: var(--border-radius);
+      background: rgba(255, 255, 255, 0.4);
+      padding: 10px;
+      overflow: hidden;
     }
 
     .window {
@@ -402,7 +550,8 @@
       padding: 8px 10px;
       border-radius: var(--radius-md) var(--radius-md) 0 0;
       cursor: move;
-      font-weight: 600;
+      border-top-left-radius: var(--border-radius);
+      border-top-right-radius: var(--border-radius);
     }
 
     .window-content {
@@ -410,47 +559,44 @@
     }
 
     .window-footer {
-      padding: 6px 10px;
+      text-align: right;
+      padding: 6px 8px;
       font-size: 0.8rem;
       color: var(--secondary-color);
     }
 
-    .coin {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      margin: 4px;
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      background: var(--accent-color);
-      color: #fff;
-      font-weight: 600;
-    }
-
-    .done {
-      text-decoration: line-through;
-      color: var(--secondary-color);
-    }
-
-    .modal {
+    .modal.story-modal,
+    .modal.master-modal,
+    .modal.easter-modal {
       display: none;
       position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.75);
       z-index: 1200;
-      padding: 20px;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.8);
     }
 
     .modal-content {
-      background: var(--card-bg);
+      background-color: var(--surface);
       margin: 10% auto;
       padding: 24px;
-      border-radius: var(--radius-lg);
-      max-width: 520px;
-      border: 1px solid var(--border-color);
-      box-shadow: var(--shadow-strong);
+      border: 1px solid var(--glass-border);
+      width: 90%;
+      max-width: 540px;
+      border-radius: var(--border-radius);
       text-align: center;
+      box-shadow: var(--shadow-strong);
+      backdrop-filter: blur(var(--glass-blur));
+    }
+
+    .modal-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 16px 0;
     }
 
     .whiteout-overlay {
@@ -470,7 +616,7 @@
       display: flex;
     }
 
-    .whiteout-content {
+    .whiteout-overlay .whiteout-content {
       max-width: 420px;
       background: #fff;
       border: 1px solid var(--border-color);
@@ -479,73 +625,113 @@
       box-shadow: var(--shadow-strong);
     }
 
+    .whiteout-overlay strong {
+      display: block;
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+    }
+
     footer {
-      margin-top: 40px;
-      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto 30px;
+      background: linear-gradient(135deg, var(--accent-color), var(--highlight-color));
+      padding: 20px 10px;
       text-align: center;
-      color: #fff;
-      background: var(--gradient-accent);
-      border-radius: var(--radius-lg);
+      color: var(--card-bg);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
     }
 
-    footer .social-links {
-      display: flex;
-      justify-content: center;
-      gap: 16px;
-      margin-bottom: 8px;
+    footer .social-links a {
+      margin: 0 10px;
+      color: var(--card-bg);
     }
 
-    @media (max-width: 980px) {
-      .hero-grid,
-      .dashboard-layout {
+    @keyframes slowSpin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes swapClean {
+      0% { background-color: transparent; }
+      50% { background-color: var(--accent-color); }
+      100% { background-color: transparent; }
+    }
+
+    @keyframes whiteoutPulse {
+      0% { opacity: 0.98; }
+      50% { opacity: 0.9; }
+      100% { opacity: 0.98; }
+    }
+
+    .pulse {
+      animation: pulse 0.5s ease;
+    }
+
+    .swap-clean {
+      animation: swapClean 0.6s ease;
+    }
+
+    @media (max-width: 1024px) {
+      .content-grid {
         grid-template-columns: 1fr;
       }
     }
 
-    @media (max-width: 820px) {
-      .nav-bar {
-        grid-template-columns: 1fr auto;
-        grid-template-areas:
-          "logo toggle"
-          "nav nav"
-          "utilities utilities";
-      }
-
-      .nav-left {
-        grid-area: logo;
+    @media (max-width: 900px) {
+      .navbar {
+        flex-wrap: wrap;
       }
 
       .nav-toggle {
         display: inline-flex;
-        grid-area: toggle;
       }
 
       .nav-center {
-        grid-area: nav;
+        width: 100%;
+        order: 3;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 12px 0 4px;
         display: none;
+      }
+
+      .nav-center.is-open {
+        display: flex;
+      }
+
+      .nav-right {
+        margin-left: auto;
+      }
+
+      .hero-actions {
         flex-direction: column;
         align-items: flex-start;
         gap: 10px;
         padding: 12px 0;
       }
-
-      .nav-right {
-        grid-area: utilities;
-        justify-content: flex-start;
-      }
-
-      .nav-checkbox:checked ~ .nav-center {
-        display: flex;
-      }
     }
 
     @media (max-width: 600px) {
-      .container {
-        padding: 24px 16px 48px;
+      .app-main {
+        padding: 0 16px;
       }
 
-      .panel {
-        padding: 20px;
+      .navbar {
+        padding: 12px 16px;
+      }
+
+      .window {
+        position: static;
+        margin-bottom: var(--space-md);
       }
 
       #desktop {
@@ -559,50 +745,33 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      * {
-        transition: none !important;
+      *, *::before, *::after {
+        animation: none !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      .card,
+      .command-card,
+      .score-card {
+        transform: none !important;
       }
     }
+
   </style>
 </head>
 <body>
-  <header class="app-header">
-    <div class="nav-bar">
-      <div class="nav-left">
-        <span>Suivi Table Ronde</span>
-      </div>
-      <input type="checkbox" id="navToggle" class="nav-checkbox" aria-hidden="true">
-      <label for="navToggle" class="nav-toggle" aria-label="Ouvrir le menu">☰</label>
-      <nav class="nav-center" aria-label="Navigation principale">
-        <a href="#overview">Dashboard</a>
-        <a href="#tasks">Tâches</a>
-        <a href="#command">Centre de commande</a>
-        <a href="#contact">Contact</a>
-      </nav>
-      <div class="nav-right">
-        <button class="btn btn--secondary" id="themeToggleNav">Thème</button>
-        <select aria-label="Langue">
-          <option>FR</option>
-          <option>EN</option>
-          <option>中文</option>
-        </select>
-        <button class="btn btn--ghost" onclick="openMasterModal()">Panel</button>
-        <button class="btn btn--primary">Déconnexion</button>
-      </div>
-    </div>
-  </header>
 
   <!-- Master Control Modal -->
   <div id="masterModal" class="modal">
     <div class="modal-content">
       <h2>Le Panel</h2>
       <p>Bienvenue ! Choisissez ce qui vous inspire aujourd'hui :</p>
-      <div class="stack" style="align-items:center;">
-        <a href="saintvalentin.html" class="btn btn--primary">💖 Jeu de Saint-Valentin</a>
-        <button class="btn btn--secondary" onclick="focusNotepad()">Ouvrir</button>
-        <a href="bubbleRoom.html" class="btn btn--secondary">Suivant</a>
-        <button class="btn btn--ghost" onclick="closeMasterModal()">Fermer</button>
+      <div class="modal-actions">
+        <a href="saintvalentin.html" class="file-btn">💖 Jeu de Saint-Valentin</a>
+        <button class="file-btn" onclick="focusNotepad()">Ouvrir</button>
+        <a href="bubbleRoom.html" class="file-btn">Suivant</a>
       </div>
+      <button class="file-btn file-btn--ghost" onclick="closeMasterModal()">Fermer</button>
     </div>
   </div>
 
@@ -611,9 +780,14 @@
     <div class="modal-content">
       <h2>Bienvenue dans l'univers enchanté de #suivi-table-ronde</h2>
       <p>
-        Cet outil magique vous guide à travers une aventure captivante :
-        <br>
-        <a href="https://www.github.com/kvnbbg/suivi-table-ronde/bubbleRoom.html" target="_blank" rel="noopener noreferrer" title="feedbacks" aria-label="feedbacks">
+        Cet outil magique vous guide à travers une aventure captivante :<br>
+        <a
+          href="https://www.github.com/kvnbbg/suivi-table-ronde/bubbleRoom.html"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="feedbacks"
+          aria-label="feedbacks"
+        >
           • Vérifiez vos emails avec soin<br>
           • Confirmez vos contributions avec fierté<br>
           • Préparez votre réunion comme dans un conte de fées<br>
@@ -622,7 +796,7 @@
         <br>
         Chaque étape est un chapitre d'un merveilleux livre d'aventures interactives.
       </p>
-      <button id="closeStory" class="btn btn--primary">Fermer l'aide</button>
+      <button id="closeStory" class="file-btn">Fermer l'aide</button>
     </div>
   </div>
 
@@ -632,9 +806,9 @@
       <h2>Joyeuse Saint Valentin !</h2>
       <p>Félicitations, vous avez découvert ! Bonus : +50 points</p>
       <p>Voici le lien magique :</p>
-      <a href="sainvalentin.html">Accéder</a>
+      <a href="sainvalentin.html" class="file-btn file-btn--ghost">Accéder</a>
       <br>
-      <button id="closeEaster" class="btn btn--primary">Fermer</button>
+      <button id="closeEaster" class="file-btn">Fermer</button>
     </div>
   </div>
 
@@ -647,17 +821,48 @@
     </div>
   </div>
 
-  <main class="container">
-    <section id="overview" class="panel hero-grid">
-      <div>
-        <h1 class="page-title">Suivi Table Ronde</h1>
-        <p class="subtitle">
-          Un tableau de bord clair et actionnable pour préparer, animer et suivre votre table ronde.
+  <header class="app-header">
+    <div class="navbar">
+      <div class="nav-left">
+        <a class="brand" href="index.html">Suivi Table Ronde</a>
+        <span class="tagline">Dashboard</span>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="primaryNav">☰</button>
+      <nav class="nav-center" id="primaryNav">
+        <a href="#dashboard">Dashboard</a>
+        <a href="#tasks">Tâches</a>
+        <a href="#focus">Focus</a>
+        <a href="#command-center">Commandes</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="nav-right">
+        <button id="themeToggle" class="btn btn-ghost">Mode</button>
+        <button class="btn btn-ghost" type="button">FR</button>
+        <a href="community.html" class="btn btn-ghost">Profil</a>
+        <button class="btn" onclick="openMasterModal()">Panel</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="app-main" id="dashboard">
+    <noscript>
+      <div class="card">
+        <strong>JavaScript est nécessaire.</strong>
+        <p>Activez JavaScript pour profiter des animations et des fonctions interactives.</p>
+      </div>
+    </noscript>
+
+    <section class="card hero-card" aria-labelledby="heroTitle">
+      <div class="hero-content">
+        <p class="eyebrow">Table ronde • Pilotage</p>
+        <h1 id="heroTitle">Suivi Table Ronde</h1>
+        <p class="hero-subtitle">
+          Un poste de pilotage clair et actionnable pour préparer, animer et suivre votre table ronde.
         </p>
         <div class="hero-actions">
-          <button class="btn btn--primary" onclick="openMasterModal()">Ouvrir le panel</button>
-          <a class="btn btn--secondary" href="community.html">Journal communautaire</a>
-          <a class="btn btn--secondary" href="bubbleRoom.html">Salle immersive</a>
+          <button class="file-btn" onclick="openMasterModal()">Ouvrir le panel</button>
+          <a class="file-btn file-btn--ghost" href="community.html">Journal communautaire</a>
+          <a class="file-btn file-btn--ghost" href="bubbleRoom.html">Salle immersive</a>
         </div>
       </div>
       <div class="stats-grid">
@@ -676,12 +881,37 @@
       </div>
     </section>
 
-    <section class="dashboard-layout">
-      <div class="stack">
-        <section id="tasks" class="panel">
-          <h2>Tâches prioritaires</h2>
-          <p>Structurez votre journée avec une liste claire et des sous-étapes guidées.</p>
-          <ul id="taskList" class="task-list">
+    <section class="metrics-grid" aria-label="Indicateurs clés">
+      <div class="card score-card metric-card">
+        <h2>Score</h2>
+        <div class="score-display"><span id="scoreDisplay">0</span> pts</div>
+        <p class="helper-text">Suivez l'impact des actions validées.</p>
+      </div>
+      <div class="card metric-card">
+        <h2>Progression</h2>
+        <div class="progress-container">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <p class="helper-text">Chaque tâche validée met à jour cette barre.</p>
+      </div>
+      <div class="card metric-card">
+        <h2>Accès rapide</h2>
+        <div class="button-stack">
+          <a class="btn btn-ghost" href="#tasks">Voir les tâches</a>
+          <a class="btn btn-ghost" href="#focus">Mode focus</a>
+          <a class="btn btn-ghost" href="#command-center">Commandes</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="content-grid">
+      <div class="column primary">
+        <section class="card" id="tasks">
+          <div class="section-header">
+            <h2>Tâches à accomplir</h2>
+            <button id="resetBtn" class="file-btn file-btn--ghost">Réinitialiser</button>
+          </div>
+          <ul id="taskList">
             <li class="task-item">
               <label>
                 <input type="checkbox" class="task-checkbox">
@@ -769,14 +999,13 @@
               </ul>
             </li>
           </ul>
-          <div style="margin-top:16px;">
-            <button id="resetBtn" class="btn btn--secondary">Réinitialiser</button>
-          </div>
         </section>
 
-        <section id="command" class="panel">
-          <h2>Centre de Commande Interactif</h2>
-          <p>Tout ce qu’il faut pour piloter vos actions quotidiennes, en mode fluide et concentré.</p>
+        <section class="card" id="command-center">
+          <div class="section-header">
+            <h2>Centre de commande interactif</h2>
+            <p class="helper-text">Tout ce qu’il faut pour piloter vos actions quotidiennes.</p>
+          </div>
           <div class="command-grid">
             <div class="command-card">
               <h3>Commandes rapides</h3>
@@ -793,7 +1022,7 @@
               <h3>Calcul express</h3>
               <p class="helper-text">Gagnez du temps avec un mini-calculateur intégré.</p>
               <input type="text" id="mathInput" placeholder="Ex: (12 + 6) * 2">
-              <button id="calcBtn" class="btn btn--primary">Calculer</button>
+              <button id="calcBtn" class="file-btn">Calculer</button>
               <p id="mathResult" class="helper-text">Résultat : —</p>
             </div>
             <div class="command-card">
@@ -801,78 +1030,49 @@
               <p class="helper-text">Testez la fusion optimale des pièces.</p>
               <input type="text" id="coinsInput" placeholder="Ex: 1, 3, 7, 10">
               <input type="number" id="thresholdInput" min="1" value="15">
-              <button id="startCoinGame" class="btn btn--primary">Lancer</button>
+              <button id="startCoinGame" class="file-btn">Lancer</button>
               <div id="coinDisplay"></div>
               <div id="coinLog" class="helper-text"></div>
             </div>
           </div>
         </section>
-
-        <section class="panel">
-          <h2>Mémo &amp; fenêtres flottantes</h2>
-          <p>Gardez vos notes et vos fichiers rapides à portée de main.</p>
-          <div id="desktop">
-            <div class="window" id="notesWindow" style="top: 20px; left: 20px;">
-              <div class="window-header">Notes</div>
-              <div class="window-content">
-                <textarea id="notesArea" style="width:100%; height:100px;"></textarea>
-                <br>
-                <button class="btn btn--secondary" onclick="saveNotes()">Sauvegarder</button>
-              </div>
-              <div class="window-footer">Attrape</div>
-            </div>
-            <div class="window" id="fileViewerWindow" style="top: 160px; left: 320px;">
-              <div class="window-header">Zoom</div>
-              <div class="window-content">
-                <p>Ici, vous pouvez visualiser vos données virtuelles.</p>
-                <button class="btn btn--secondary" onclick="openVirtualFile()">Ouvrir Fichier</button>
-                <div id="virtualFileContent" style="margin-top:10px; font-size:0.9rem;"></div>
-              </div>
-              <div class="window-footer"><a href="https://ko-fi.com/kevinmarville">💳</a></div>
-            </div>
-          </div>
-        </section>
       </div>
 
-      <aside class="stack">
-        <section class="panel panel-meta">
-          <div class="score-card">Score : <span id="scoreDisplay">0</span></div>
-          <div>
-            <h3>Progression globale</h3>
-            <div class="progress-container">
-              <div class="progress-bar" id="progressBar"></div>
+      <div class="column secondary">
+        <section class="card" id="focus">
+          <div class="section-header">
+            <h2>Pause Whiteout &amp; Focus</h2>
+            <p class="helper-text">Une pause visuelle pour revenir avec clarté.</p>
+          </div>
+          <div class="command-grid">
+            <div class="command-card">
+              <label for="whiteoutMinutes"><strong>Durée (minutes)</strong></label>
+              <input id="whiteoutMinutes" type="number" min="1" max="30" value="5">
+              <p class="helper-text">Recommandé : 5 à 10 minutes pour recharger l’attention.</p>
+              <button id="whiteoutStart" class="file-btn">Démarrer la pause</button>
+              <button id="whiteoutStop" class="file-btn file-btn--ghost">Arrêter</button>
+            </div>
+            <div class="command-card">
+              <h3>Focus rapide</h3>
+              <p class="helper-text">Un rappel doux pour reprendre la prochaine tâche essentielle.</p>
+              <button id="focusNextTask" class="file-btn">Valider la prochaine tâche</button>
+              <button id="focusThemeToggle" class="file-btn file-btn--ghost">Basculer le thème</button>
             </div>
           </div>
-          <div>
-            <h3>Actions rapides</h3>
-            <p class="helper-text">Gérez votre rythme et votre focus instantanément.</p>
-            <button id="focusNextTask" class="btn btn--primary">Valider la prochaine tâche</button>
-          </div>
         </section>
 
-        <section class="panel">
-          <h2>Pause Whiteout &amp; Focus</h2>
-          <p>Activez un écran blanc pour une vraie pause visuelle et un retour clair.</p>
-          <div class="command-card" style="margin-top: 12px;">
-            <label for="whiteoutMinutes"><strong>Durée (minutes)</strong></label>
-            <input id="whiteoutMinutes" type="number" min="1" max="30" value="5">
-            <p class="helper-text">Recommandé : 5 à 10 minutes pour recharger l’attention.</p>
-            <button id="whiteoutStart" class="btn btn--primary">Démarrer la pause</button>
-            <button id="whiteoutStop" class="btn btn--ghost">Arrêter</button>
-            <button id="focusThemeToggle" class="btn btn--secondary" style="margin-top:10px;">Basculer le thème</button>
-          </div>
-        </section>
-
-        <section class="panel">
-          <h2>Nouvelles Solutions ❤️</h2>
+        <section class="card" id="solutions">
+          <h2>Nouvelles solutions ❤️</h2>
           <p>Nous proposons des solutions logicielles innovantes, notamment des applications Format Famille.</p>
         </section>
 
-        <section id="contact" class="panel">
+        <section class="card" id="contact">
           <h2>Contact &amp; Collaboration</h2>
           <p>Pour toute collaboration ou signalement de bug, contactez-moi via les moyens ci-dessous.</p>
-          <button class="btn btn--secondary" onclick="toggleContactInfo()">Afficher les informations de contact</button>
-          <div id="contactInfo" style="display:none; margin-top:14px;">
+          <div style="text-align:center;">
+            <button class="file-btn" onclick="toggleContactInfo()">Afficher les informations de contact</button>
+          </div>
+          <div id="contactInfo" style="display:none; text-align:center; margin-top:10px;">
             <p>
               <strong>Français:</strong><br>
               Email : <a href="mailto:kevinmarville@gmail.com">kevinmarville@gmail.com</a><br>
@@ -889,17 +1089,43 @@
               电话: +86 XXX XXX XXX
             </p>
             <p>
-              <a href="https://www.linkedin.com/in/marvillekevin" target="_blank">LinkedIn</a> ·
-              <a href="https://bsky.app/profile/techandstream.bsky.social" target="_blank">Bluesky</a>
+              <a href="https://www.linkedin.com/in/marvillekevin" target="_blank" class="file-btn">LinkedIn</a>
+              <a href="https://bsky.app/profile/techandstream.bsky.social" target="_blank" class="file-btn">Bluesky</a>
             </p>
           </div>
-          <p style="margin-top:14px; font-size:0.9rem;">Security Note: This site uses measures to safeguard against malicious.</p>
+          <p style="margin-top:20px; font-size:0.9rem;">
+            Security Note: This site uses measures to safeguard against malicious.
+          </p>
         </section>
-      </aside>
+      </div>
+    </div>
+
+    <section class="card" id="memo">
+      <h2>Mémo</h2>
+      <div id="desktop">
+        <div class="window" id="notesWindow" style="top: 20px; left: 20px;">
+          <div class="window-header">Notes</div>
+          <div class="window-content">
+            <textarea id="notesArea" style="width:100%; height:100px; border:1px solid var(--border-color); border-radius:var(--border-radius);"></textarea>
+            <br>
+            <button class="file-btn" onclick="saveNotes()">Sauvegarder</button>
+          </div>
+          <div class="window-footer">Attrape</div>
+        </div>
+        <div class="window" id="fileViewerWindow" style="top: 160px; left: 320px;">
+          <div class="window-header">Zoom</div>
+          <div class="window-content">
+            <p>Ici, vous pouvez visualiser vos données virtuelles.</p>
+            <button class="file-btn" onclick="openVirtualFile()">Ouvrir Fichier</button>
+            <div id="virtualFileContent" style="margin-top:10px; font-size:0.9rem;"></div>
+          </div>
+          <div class="window-footer"><a href="https://ko-fi.com/kevinmarville">💳</a></div>
+        </div>
+      </div>
     </section>
   </main>
 
-  <footer class="container">
+  <footer>
     <div class="social-links">
       <a href="https://bsky.app/profile/techandstream.bsky.social" target="_blank">Bluesky</a>
       <a href="https://my.bio/kvnbbg" target="_blank">Threads</a>
@@ -935,8 +1161,10 @@
     const whiteoutStopOverlay = $('#whiteoutStopOverlay');
     const focusNextTaskBtn = $('#focusNextTask');
     const focusThemeToggle = $('#focusThemeToggle');
-    const themeToggleNav = $('#themeToggleNav');
-
+    const themeToggle = $('#themeToggle');
+    const navToggle = $('#navToggle');
+    const primaryNav = $('#primaryNav');
+    
     let score = 0;
     const totalTasks = checkboxes.length;
 
@@ -1245,7 +1473,12 @@
     addListener(whiteoutStopOverlay, 'click', stopWhiteout);
     addListener(focusNextTaskBtn, 'click', validateNextTask);
     addListener(focusThemeToggle, 'click', toggleValentineTheme);
-    addListener(themeToggleNav, 'click', toggleValentineTheme);
+    addListener(themeToggle, 'click', toggleValentineTheme);
+    addListener(navToggle, 'click', () => {
+      if (!primaryNav) return;
+      const isOpen = primaryNav.classList.toggle('is-open');
+      navToggle.setAttribute('aria-expanded', String(isOpen));
+    });
   </script>
 </body>
 </html>
